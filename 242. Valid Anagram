@@ -1,0 +1,67 @@
+Question:
+Given two strings s and t, return true if t is an anagram of s, and false otherwise. An Anagram is a word or phrase formed by rearranging the letters 
+of a different word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+Input: s = "rat", t = "car"
+Output: false
+
+***********************************************************************
+Approach 1: Using in-built sorted function
+Time Complexity: O(nlogn) -- Due to sorting approach
+Space Complexity: O(1) -- Constant space because we have only 26 characters
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return sorted(s) == sorted(t)
+        
+***********************************************************************
+Approach 2: Using in-built Counter function
+Time Complexity: O(n)
+Space Complexity: O(1) -- Constant space because we have only 26 characters
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        return Counter(s) == Counter(s)
+
+****************************************************************************************
+Approach 3 - Without using any of the in-built functions , Using Hashmap/Dictinory
+1. Initialize the result hashmap
+2. For every char in s , if it is not present in hashmap , add that to hashmap 
+3. If it is present in hashmap , increment the count by 1
+4. For every char in t , if it is not present in hashmap , return False
+5. Or else , decrement the hashmap value by 1 
+6. For every letter in result.values , if it is not equal to 0 , return False 
+7. Else return True
+
+Time Complexity: O(n)
+Space Complexity: O(1) -- Constant space because we have only 26 characters
+
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        
+        result = {}
+        
+        for char in s:
+            if char not in result:
+                result[char] = 1
+            else:
+                result[char] += 1
+                
+        for char in t:
+            if char not in result:
+                return False
+            else:
+                result[char] -= 1
+                
+        for letter in result.values():
+            if letter != 0:
+                return False
+            
+        return True
+        
+*********************** END ***************************************
