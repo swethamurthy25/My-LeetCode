@@ -1,0 +1,49 @@
+Question:
+Given an array of integers arr, return true if the number of occurrences of each value in the array is unique, or false otherwise.
+
+Example 1:
+Input: arr = [1,2,2,1,1,3]
+Output: true
+Explanation: The value 1 has 3 occurrences, 2 has 2 and 3 has 1. No two values have the same number of occurrences.
+
+Example 2:
+Input: arr = [1,2]
+Output: false
+
+Example 3:
+Input: arr = [-3,0,1,-3,1,1,1,-3,10,0]
+Output: true
+
+Explanation : We need to find the number of occurrences of each element in the array . If the number of occurances of each number is unique/matches return True
+or else return False.
+*******************************************************************
+
+As we already know , brute force approach will not be the optimized one, so we will directly use hashmap technique.
+
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        
+        # Initialize hash map - to store the index and key values
+        # If the number not present in hashmap , start the counter from 1
+        # If the number already present , increment its count by 1
+        
+        occurances = {}
+        for i in arr:
+            if i not in occurances:
+                occurances[i] = 1
+            else:
+                occurances[i] += 1
+                
+        # Now , check whether the occurances stored are unique
+        # Convert occurances hashmap to list and initialize another dict/hashmap to store count
+        
+        list_hashmap = list(occurances.values())
+        counter_occurances = {}
+        for i in list_hashmap:
+            if i in counter_occurances:
+                return False
+            else:
+                counter_occurances[i] = 1
+        return True
+        
+******************************** END *****************************************
