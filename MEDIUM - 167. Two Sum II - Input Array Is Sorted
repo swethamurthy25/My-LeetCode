@@ -1,0 +1,24 @@
+Given a 1-indexed array of integers numbers that is already sorted in non-decreasing order, find two numbers such that they add up to a specific target number. 
+Let these two numbers be numbers[index1] and numbers[index2] where 1 <= index1 < index2 <= numbers.length. Return the indices of the two numbers, index1 and index2, 
+added by one as an integer array [index1, index2] of length 2. Your solution must use only constant extra space.
+
+Things to note down here:
+1. It should be solved in constant Memory O(1)
+2. It is an one indexed array means indexes will start from 1,2,3,.. not from 0
+3. Non decreasing order - means it is sorted from smallest to biggest
+
+Input: numbers = [2,7,11,15], target = 9
+Output: [1,2]
+Explanation: The sum of 2 and 7 is 9. Therefore, index1 = 1, index2 = 2. We return [1, 2]
+
+Input: numbers = [-1,0], target = -1
+Output: [1,2]
+Explanation: The sum of -1 and 0 is -1. Therefore index1 = 1, index2 = 2. We return [1, 2]
+
+
+Approach 1: Brute Force
+We can apply Two Sum's solutions directly to get O(n^2)time, O(1) space using brute force 
+We can apply hashtable solution to get O(n) time, O(n) space using hash table. 
+However, both existing solutions do not make use of the property that the input array is sorted.
+
+Approach 2: Optimized solution using Two Pointer
