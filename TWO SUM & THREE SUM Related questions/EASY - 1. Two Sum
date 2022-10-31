@@ -1,4 +1,3 @@
-QUESTION:
 Given an array of integer nums and an integer target, return indices of the two numbers such that they add up to target. 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 You can return the answer in any order.
@@ -33,6 +32,9 @@ Approach 2: One-pass Hash Table:
 1. While we are iterating and inserting elements into the hash table, we also look back to check if the current element's complement already exists in the hash table. 
 2. If it exists, we have found a solution and return the indices immediately.
 
+ Time - O(n)
+ Space - O(n)
+ 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         
@@ -49,11 +51,9 @@ class Solution:
             else:
                 result[num] = i 
                 
- Time - O(n)
- Space - O(1)
+***************************************************************************
  
- 
- Another Approach using Pointers: 
+ Another Approach using Pointers: But this will not work for all the interger pairs and we need to sort the array . Sorting will leads to O(n log n) complexity.
  
   #Using Two Pointers - O(n) and O(1)
         n = len(nums)
