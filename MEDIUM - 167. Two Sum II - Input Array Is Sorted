@@ -22,3 +22,31 @@ We can apply hashtable solution to get O(n) time, O(n) space using hash table.
 However, both existing solutions do not make use of the property that the input array is sorted.
 
 Approach 2: Optimized solution using Two Pointer
+1. Initialize two pointers i and j which points first and last element respectively.
+2. Add elements pointed by i and j and then compare with target.
+3. If target is larger, it means you have added a smaller value and we need to pick next big value. So we increment 'i`.
+4. If target is smaller, it means you have added a larger element and it needs to be cut off. So we decrement j.
+5. We repeat step 2 and 3 until i>=j or a match is found.
+
+TC is O(n)- The input array is traversed at most once.
+SC is O(n)- We only use additional space to store two indices and the sum
+
+class Solution:
+    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+        
+        n = len(numbers)
+        i = 0
+        j = n - 1
+        
+        while i<j:
+            if numbers[i]+numbers[j] == target:
+                return [i+1,j+1]
+            elif numbers[i]+numbers[j] < target:
+                i += 1
+            else:
+                j -= 1
+        
+        return []
+        
+        
+        
