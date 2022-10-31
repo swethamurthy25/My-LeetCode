@@ -31,6 +31,7 @@ Approach 2: Optimized solution using Two Pointer
 TC is O(n)- The input array is traversed at most once.
 SC is O(n)- We only use additional space to store two indices and the sum
 
+````
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         
@@ -47,6 +48,7 @@ class Solution:
                 j -= 1
         
         return []
-        
-        
+   
+````
+
         
