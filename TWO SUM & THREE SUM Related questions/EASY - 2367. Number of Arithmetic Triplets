@@ -77,4 +77,9 @@ TC is O(n) and SC is O(n)
         
  ___________________________________________________________
  
+Approach 3 - Using Hashset
 
+# Using hash set
+unique_nums = set(nums)
+return sum(num+diff  in unique_nums and num+2*diff in unique_nums for num in nums)
+    
