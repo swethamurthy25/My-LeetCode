@@ -40,4 +40,39 @@ class Solution:
         return count
 __________________________________________________________________________________________
 
-Approach 2: 
+Approach 2: Using sorting and two pointers
+
+1. Initialize the count and sort the array
+2. We need to iterate the array range(len(nums)-2) times , because we need to compare 3 elements at a time
+3. Initialize left pointer as i+1 and right pointer as len(nums)-1
+4. Use the two pointer approach and return the count
+
+Time complexity: O(n^2)
+twoSumSmaller takes O(n) at most since it touches each element in the array once. It's parent function, threeSumSmaller takes O(nlogn) to sort the array, 
+then runs a loop that touches (n - 2)elements, invoking twoSumSmaller at each iteration. Therefore, the overall time complexity is O(nlogn + n^2), 
+which boils down to O(n^2)
+
+Space complexity: O(1) because no additional data structures are used.
+
+class Solution:
+    def threeSumSmaller(self, nums: List[int], target: int) -> int:
+        
+        # Using two pointer
+        nums.sort()
+        count = 0
+        n = len(nums)
+        
+        for i in range(len(nums)-2):
+            left = i+1
+            right = n-1
+            
+            while left < right:
+                summation = nums[i] + nums[left] + nums[right]
+                if summation < target:
+                    count += (right-left)
+                    left += 1
+                else:
+                    right -= 1
+                    
+        return count
+            
