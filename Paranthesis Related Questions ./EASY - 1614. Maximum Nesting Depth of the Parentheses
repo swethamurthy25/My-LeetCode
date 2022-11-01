@@ -1,0 +1,95 @@
+A string is a valid parentheses string (denoted VPS) if it meets one of the following:
+
+It is an empty string "", or a single character not equal to "(" or ")",
+It can be written as AB (A concatenated with B), where A and B are VPS's, or
+It can be written as (A), where A is a VPS.
+
+We can similarly define the nesting depth depth(S) of any VPS S as follows:
+
+depth("") = 0
+depth(C) = 0, where C is a string with a single character not equal to "(" or ")".
+depth(A + B) = max(depth(A), depth(B)), where A and B are VPS's.
+depth("(" + A + ")") = 1 + depth(A), where A is a VPS.
+
+For example, "", "()()", and "()(()())" are VPS's (with nesting depths 0, 1, and 2), and ")(" and "(()" are not VPS's.
+Given a VPS represented as string s, return the nesting depth of s.
+
+____________________________________________
+
+For Example:
+
+Check the number of balanced parantheses - means should have both opening followed by the closing parantheses
+S = (P((Q)) ((S)T))
+
+P - 2 balanced
+Q - 3
+S - 3 and T - 2
+
+Taking maximum , the output is 3
+
+___________________________________________________________
+
+Approach 1 - Without using any datastructure
+
+1. Initialize two variables to store count and max value
+2. Traverse through the string , if i == "(" open parantheses , increment the count by 1
+3. Check which is the maximum one - depth or the max_count
+4. If i == ")" , decrement the count by 1
+5. Return the max_count as output
+
+class Solution:
+    def maxDepth(self, s: str) -> int:
+        
+        mx_count = 0
+        depth = 0
+        
+        for i in s:
+            if i == "(":
+                depth += 1
+                mx_count = max(depth,mx_count)
+            elif i == ")":
+                depth -= 1
+            
+        return mx_count
+                    
+___________________________________________________________________
+
+Approach 2 - Using Stack
+
+1. Initialize the empty stack and max_depth = 0
+2. for evry character in stack, if it is open parantheses , append that to the stack (push)
+3. Else if it is a closing parantheses , pop out from stack 
+4. When poping out , "()" is considered as one count , so same way calculate the max count
+4. Finally check the max value of (max_value and length of the stack)
+5. Return the max_value
+
+TC is O(n) and SC is o(n)
+
+class Solution:
+    def maxDepth(self, s: str) -> int:
+        
+        # Using stack
+        stack = []
+        max_count = 0
+        
+        for ch in s:
+            if ch == "(":
+                stack.append(ch)
+            elif ch == ")":
+                stack.pop()
+            max_count = max(max_count, len(stack))
+            
+        return max_count
+        
+ ______________________________________________________________________________________
+        
+        
+        
+        
+        
+
+
+
+
+
+ 
