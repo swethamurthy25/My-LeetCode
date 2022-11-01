@@ -37,6 +37,8 @@ Approach 1 - Without using any datastructure
 4. If i == ")" , decrement the count by 1
 5. Return the max_count as output
 
+TC is O(n) and SC is o(1)
+
 class Solution:
     def maxDepth(self, s: str) -> int:
         
