@@ -29,3 +29,52 @@ Explanation:
 _____________________________________________________________________________________
 
 Approach 1: Brute Force
+
+1. Search for all possible combinations within nums. Use a nested for-loops for nums[i] , nums[j] and nums[k]
+2. Make sure the triplet should satisfy all the three conditions, we donot need to worry about i<j<k , as this is an sorted array so obviously this condition will
+be satisfied.
+3. We need to return the number of such triplets means the "count" 
+
+TC is O(n^3) and SC is O(n)
+
+# Brute Force - O(n^3) and O(n)
+        count = 0
+        for i in range(len(nums)):
+            for j in range(i+1,len(nums)):
+                for k in range(j+1,len(nums)):
+                    a,b,c = nums[i],nums[j],nums[k]
+                    if b-a == diff and c-b == diff:
+                        count += 1
+        return count
+________________________________________________________________________________________________
+
+Approach 2 - Using Largest value of triplet to find other two values
+
+1. Initialize the count to store the number of triplets
+2. We are given the conditions - arr[j] - arr[i] = diff  && arr[k] - arr[j] = diff
+   So, from arr[k] - arr[j] = diff, we get:
+   arr[j] = arr[k] - diff  ---> equation 1
+   This can be written as nums[i] + diff = nums[j]
+   
+   Now, if we substitute equation 1 in arr[j] - arr[i] = diff:
+   arr[k] - diff - arr[i] = diff
+   arr[i] = arr[k] - diff - diff
+   arr[i] = arr[k] - 2*diff
+   This can be written as nums[i] + 2*diff = nums[k]
+   
+3. By using these values , we can find the triplets and return the count
+
+TC is O(n) and SC is O(n)
+
+ # Optimized Approach
+        count = 0
+        n = len(nums)
+        for i in range(n):
+            if nums[i] + diff in nums and nums[i] + 2 * diff in nums:
+                count += 1
+        
+        return count
+        
+ ___________________________________________________________
+ 
+
