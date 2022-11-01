@@ -44,11 +44,47 @@ class Solution:
         for i in range(len(nums)):
             for j in range(i+1,len(nums)):
                 for k in range(j+1,len(nums)):
-                    a , b, c = nums[i] , nums[j], nums[k]
+                    a , b, c = nums[i] , nums[j], nums[k]w
                     if a+b+c == 0 and (a,b,c) not in setss:
                         result.append([a,b,c])
                         setss.add((a,b,c))
         return result
         
+_____________________________________________________
 
-Approach 2: 
+Approach 2: Using sorting and two pointer 
+
+1. Initialize the result array that we need to return as output
+2. sort the input array
+3. For every index and value in the input array , we need to check whether the current value and its previous value are same. If its same , its a duplicate value 
+so we can just simply continue with the steps (we donot want to reuse the same element)
+4. Now initialize two pointers - left and right and follow the two pointer approach
+5. If the summation of three numbers are equal to 0 , append the same to the results array and return the result array
+
+TC is O(n log n) + (n^2) which is asymptotically equal to O(n^2) 
+SC IS O(n)
+
+  # Sorting and two pointer approach
+        result = []
+        nums.sort()
+        
+        for i,a in enumerate(nums):
+            if i > 0 and a == nums[i-1]:
+                continue
+                
+            left , right = i+1 , len(nums)-1
+            while left < right:
+                threeSum = a + nums[left] + nums[right]
+                if threeSum > 0:
+                     right -= 1
+                elif threeSum < 0:
+                      left += 1
+                else:
+                    result.append([a,nums[left],nums[right]])
+                    left += 1
+                    while nums[left] == nums[left-1] and left < right:
+                        left += 1
+        return result
+_________________________________________________________________________________
+
+
