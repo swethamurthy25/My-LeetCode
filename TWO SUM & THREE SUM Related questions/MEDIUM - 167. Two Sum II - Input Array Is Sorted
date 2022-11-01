@@ -29,8 +29,7 @@ Approach 2: Optimized solution using Two Pointer
 5. We repeat step 2 and 3 until i>=j or a match is found.
 
 TC is O(n)- The input array is traversed at most once.
-SC is O(n)- We only use additional space to store two indices and the sum
-
+SC is O(1)
 ```
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
