@@ -8,7 +8,7 @@ nums[k] - nums[j] == diff.
 
 Things to note down:
 1. Input array is in strictly increasing order , means its sorted from lowest to highest , so sorting will not be required
-2. The integer difference should only be positive
+2. The integer difference should only be positive (already given in the input as diff)
 3. Output should be int ( number of unique triplets )
 
 Example 1:
