@@ -98,5 +98,88 @@ class Solution:
                     
 ____________________________________________________________________________________________________________
 
+Inputs:
+username = ["joe","joe","joe","james","james","james","james","mary","mary","mary"], 
+timestamp = [1,2,3,4,5,6,7,8,9,10], 
+website = ["home","about","career","home","cart","maps","home","home","about","career"]
+
+Approach 2: Optimized solution using heap and hashmap
+
+1. Zip the three elements - username, website, and timestamp to form the tuple
+2. Sort the zipped list by timestamp , because timestamp and its order is very important here
+
+        tuple = list(zip(timestamp,username,website))
+        sorted_tuple = sorted(tuple)
+        
+        sorted_tuple: [(1, 'joe', 'home'), (2, 'joe', 'about'),(3, 'joe', 'career'), (4, 'james', 'home'), 
+                       (5, 'james', 'cart'), (6, 'james', 'maps'), (7, 'james', 'home'), (8, 'mary', 'home'), 
+                       (9, 'mary', 'about'), (10, 'mary', 'career')]
+
+3. Initialize the hashmap/dictionary to store the user history - {username:[website]}
+
+       user_history = collections.defaultdict(list)
+        for t,u,w in sorted_tuple:
+            user_history[u].append(w)
+            
+       user_history: {'joe': ['home']})
+                     {'joe': ['home', 'about']})
+                     {'joe': ['home', 'about', 'career']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home', 'cart']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home', 'cart', 'maps']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home', 'cart', 'maps', 'home']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home', 'cart', 'maps', 'home'], 'mary': ['home']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home', 'cart', 'maps', 'home'], 'mary': ['home', 'about']})
+                     {'joe': ['home', 'about', 'career'], 'james': ['home', 'cart', 'maps', 'home'], 'mary': ['home', 'about', 'career']})
+
+            
+4. We will get various combinations possible for various users, so we need a patternCount variable to count the number of patterns
+5. Get various combinations possible for various users in the pair of 3 and add them to set so that they are unique.
+
+        patternCount = defaultdict(int)
+        for user,pages in user_history.items():
+            UC = set(combinations(pages,3))
+            
+        UC: {('home', 'about', 'career')}
+            {('home', 'maps', 'home'), ('home', 'cart', 'home'), ('home', 'cart', 'maps'), ('cart', 'maps', 'home')}
+            {('home', 'about', 'career')}
+            
+6. For every pair of userCombination, we will update the count. This count will make sense for second user onwards having the same pattern
+
+              for count in UC:
+                patternCount[count] += 1
+        
+              patternCount : {('home', 'about', 'career'): 1})
+                             {('home', 'about', 'career'): 1, ('home', 'maps', 'home'): 1})
+                             {('home', 'about', 'career'): 1, ('home', 'maps', 'home'): 1, ('cart', 'maps', 'home'): 1})
+                             {('home', 'about', 'career'): 1, ('home', 'maps', 'home'): 1, ('cart', 'maps', 'home'): 1, ('home', 'cart', 'home'): 1})
+                             {('home', 'about', 'career'): 1, ('home', 'maps', 'home'): 1, ('cart', 'maps', 'home'): 1, ('home', 'cart', 'home'): 1, ('home', 'cart', 'maps'): 1})
+                             {('home', 'about', 'career'): 2, ('home', 'maps', 'home'): 1, ('cart', 'maps', 'home'): 1, ('home', 'cart', 'home'): 1, ('home', 'cart', 'maps'): 1})
+
+            
+7. We need to sort both the keys(pattern lexographically) from from min to max and values(score)
+8.  If we inverse the values of keys from val to -val, then we can sort both of them in ascending order, using minheap
+9. here invertedValues represent the values with -ve sign added to it
+
+         invertedValues = [-x for x in patternCount.values()]
+         
+         invertedValues: [-2, -1, -1, -1, -1]
+         
+10. Zip both the keys and values so that we can sort them. 
+11. We are placing invertedValues first as we first need to sort by score and then need to sort lexographically in natural order.
+
+     c = list(zip(invertedValues, patternCount.keys()))
+     
+     c: [(-2, ('home', 'about', 'career')), 
+        (-1, ('home', 'cart', 'maps')), 
+        (-1, ('cart', 'maps', 'home')), 
+        (-1, ('home', 'cart', 'home')), 
+        (-1, ('home', 'maps', 'home'))]
+        
+12. 
+
+
+
+
 
 
