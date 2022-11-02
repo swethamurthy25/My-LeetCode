@@ -56,8 +56,47 @@ Approach 1: Brute Force
 3. Zip the three elements - username, website, and timestamp to form the tuple
 4. For every user, the timestamp, and the website he visited are segregated. Also, increment the count by 1 for every pattern. The dict will have the 
 username and the number of websites he visited.
-5. Initialize a dictionary to count the three seq pattern . Now sort the dictionary items by time.
+5. Initialize a dictionary to count the three seq pattern (TSQ). Now sort the dictionary items by time.
 6. If any 3-sequence appears multiple times for one user, it should be counted as only once to avoid duplicates -- Use hashset
 7. Use three nested for loops to generate the patterns. 
-8. If the patterns already exist in visited set, increment the three seq count by 1 and append that to the visited set.
+8. If the patterns already exist in visited set, continue .. If not in the viisted set , increment the TSQ count by 1 and append that to the visited set.
 9. Sort all 3-sequence count by using lambda function and return the pattern with highest score.
+
+TC is O(n^3) since we using three nested for loops 
+SC is O(n) since we using dictionary objects for storing the data
+
+class Solution:
+    def mostVisitedPattern(self, username: List[str], timestamp: List[int], website: List[str]) -> List[str]:
+        
+        #Brute Force Method
+        dict = collections.defaultdict(list)
+        count = collections.Counter()
+        tuple = list(zip(username,timestamp,website))
+        
+        for username,timestamp,website in tuple:
+            dict[username].append((timestamp,website))
+            count[username] += 1
+        
+        TSQ = collections.defaultdict(int)
+        for username,records in dict.items():
+            records.sort()
+            visited = set()
+        
+        #Use three nested for loops to generate the patterns
+            for i in range(count[username]):
+                for j in range(i+1,count[username]):
+                    for k in range(j+1,count[username]):
+                        patterns = (records[i][1],records[j][1],records[k][1])
+                        
+                        if patterns in visited:
+                            continue
+                        TSQ[patterns] += 1
+                        visited.add(patterns)
+                            
+        result = sorted(TSQ.items(), reverse= True, key=lambda TSQ:(-TSQ[1], TSQ[0]))
+        return result[-1][0]
+                    
+____________________________________________________________________________________________________________
+
+
+
