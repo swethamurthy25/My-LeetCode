@@ -65,15 +65,39 @@ class Solution:
                 }
         
         for ch in s:
-            if ch == '(' or '[' or '{':
+            if ch in dict:
+                if stack and stack[-1] == dict[ch]:
+                    stack.pop()
+                else:
+                    return False
+            else:
                 stack.append(ch)
+        
+        return True if not stack else False
+        
+_________________________________________________________________________________________
+
+Approach 2:
+
+        dict = {")":"(",
+                "]":"[",
+                "}":"{"
+               }
+                
+        opening_brackets = ["(","[","{"]
+        stack = []
+        
+        # If first element is a opening paran ,push into the stack
+        # ELIF check if stack is not empty and lowest element Stack[-1] should match with its respective value
+        for i in s:
+            if i in opening_brackets:
+                stack.append(i)
             elif stack and stack[-1] == dict[i]:
                 stack.pop()
             else:
                 return False
-                
-        if stack: return True
-        else: return False
         
-_________________________________________________________________________________________
-
+        # If stack is empty return True , else False
+        if stack == []: return True
+        else: return False
+______________________________________________________________________________________
