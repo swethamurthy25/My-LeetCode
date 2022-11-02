@@ -49,3 +49,15 @@ smallest such pattern.
 
 __________________________________________________________________________________________________________________________________
 
+Approach 1: Brute Force
+
+1. Initialize the dictionary to get the (time, website) records per user 
+2. Initialize the counter variable to keep track of the count - how many websites have the user visited?
+3. Zip the three elements - username, website, and timestamp to form the tuple
+4. For every user, the timestamp, and the website he visited are segregated. Also, increment the count by 1 for every pattern. The dict will have the 
+username and the number of websites he visited.
+5. Initialize a dictionary to count the three seq pattern . Now sort the dictionary items by time.
+6. If any 3-sequence appears multiple times for one user, it should be counted as only once to avoid duplicates -- Use hashset
+7. Use three nested for loops to generate the patterns. 
+8. If the patterns already exist in visited set, increment the three seq count by 1 and append that to the visited set.
+9. Sort all 3-sequence count by using lambda function and return the pattern with highest score.
