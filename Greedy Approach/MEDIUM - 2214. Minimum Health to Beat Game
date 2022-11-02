@@ -1,0 +1,48 @@
+You are playing a game that has n levels numbered from 0 to n - 1. You are given a 0-indexed integer array damage where damage[i] is the amount of health you 
+will lose to complete the ith level. You are also given an integer armor. You may use your armor ability at most once during the game on any level which will 
+protect you from at most armor damage.
+
+You must complete the levels in order and your health must be greater than 0 at all times to beat the game. Return the minimum health you need to start with to 
+beat the game.
+
+Example 1:
+Input: damage = [2,7,4,3], armor = 4
+Output: 13
+Explanation: One optimal way to beat the game starting at 13 health is:
+On round 1, take 2 damage. You have 13 - 2 = 11 health.
+On round 2, take 7 damage. You have 11 - 7 = 4 health.
+On round 3, use your armor to protect you from 4 damage. You have 4 - 0 = 4 health.
+On round 4, take 3 damage. You have 4 - 3 = 1 health.
+Note that 13 is the minimum health you need to start with to beat the game.
+
+________________________________________________________________________
+
+Understanding the Scenario:
+
+1. damage [] = no of damages at each level/round. 
+2. Armor can be used only once but we have to decide wisely at when we have to use it (decide greedily)
+3. The min health should not go below 0
+4. Return the min health as output
+
+________________________________________________________________________
+
+Lets take the example:
+
+Input: damage = [2,7,4,3], armor = 4
+
+==> Sum(damage) = 16 , we can use armor once so 16-4 is 12 
+==> we need at least 12+1 = 13 minimum health to win the game.
+
+==> If there is no armor (armor = 0), we need atleast sum(damage) + 1 to pass the game without any armor.
+==> Loss will be min(max(damage),armor) , so min(7,4) = 4
+
+_____________________________________________________________________________
+
+class Solution:
+    def minimumHealth(self, damage: List[int], armor: int) -> int:
+        
+        overall_damage = sum(damage)
+        max_damage = max(damage)
+        save_damage_using_armor = min(max_damage,armor)
+       
+        return overall_damage + 1 - (save_damage_using_armor)
