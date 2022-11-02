@@ -176,7 +176,13 @@ Approach 2: Optimized solution using heap and hashmap
         (-1, ('home', 'cart', 'home')), 
         (-1, ('home', 'maps', 'home'))]
         
-12. 
+12. Heapify will sort them in the ascending order as this is min heapify operation and will take nlog(n) time
+13. Top of the heap will represent the sorted value by -ve score, we can return the second element from this popped element 
+
+        heapq.heapify(c)
+        return heapq.heappop(c)[1]
+        
+        Output : ["home","about","career"]
 
 
 
