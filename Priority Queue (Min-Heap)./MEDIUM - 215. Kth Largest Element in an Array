@@ -84,6 +84,16 @@ ________________________________________________________________________________
 
 Approach 3: QUICK SELECT (Similar to Quick Sort)
 
+Quickselect is a selection algorithm to find the k-th smallest element in an unordered list. The algorithm is similar to QuickSort. 
+The difference is, instead of recurring for both sides (after finding pivot), it recurs only for the part that contains the k-th smallest element. 
+
+This reduces the expected complexity from O(n log n) to O(n), with a worst-case of O(n^2).
+
+1. When we have an unsorted array , pick the last element as pivot element
+2. If index is the same as k, we have found the k-th smallest element and we return
+3. If index of the partitioned element is more than k, then we recur for the left part
+4. If index is less than k, then we recur for the right part.
+
 
 
 
