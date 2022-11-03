@@ -19,3 +19,76 @@ Output: 1
 
 _____________________________________________________________________________________________
 
+BRUTE FORCE:
+
+1. The most simplest approach that comes in mind is to try to find the first bad version by going through each version starting from 1 to n.
+2. But when the value of n is very large, then this solution will give TLE because it is not efficient to check each and every version from the beginning 
+to the first bad version.
+3. For example ,  if n is huge and the last version is the only bad version. So we have to check each version from beginning to end.
+
+TC is O(n) where n refers to "n" versions and SC is O(1)
+
+# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        for i in range(n+1):
+            if (isBadVersion(i)):
+                return i
+        return n
+        
+ _____________________________________________________________________________________________
+ 
+ OPTIMIZED APPROACH: Using Binary Search
+ 
+ 1. We know if one version if good, all versions before it are good too . So why go through each and every version from 1 to n?
+ 2. Also 1 to n are in sorted range , so we can make use of binary search
+ 
+ For example:
+ If the mid version is not bad, that means, no version before it is bad hence there is no point of checking any version before mid.
+ 
+ For example:
+ Similarly, if mid version is bad, that means, either this version is the first bad version or any previous version is bad which is making all the versions 
+ after it bad. So there is no point to search on the right of mid if mid itself is bad.As soon as we find that mid is bad version, it may or may not be the 
+ first bad version. So we continue our search and try to find the first bad version on the left of mid.
+ 
+ _____________________________________________________________________________
+ 
+ Pseudocode: TC is O(log n) since we are using binary search algorithm and SC is O(1)
+ 
+ 1. Initialize left as "1" starting of version and right as "n" end of version and result as 0
+ 2. if left is lesser than right value , calculate the mid = (right+left)//2 , if left == right, return 1
+ 3. assign the mid value to isBadVersion() . 
+ 4. So , if badver is True , any element before that can be true or mid can be the first bad version , so we need to check for the elements on left side
+ so , do result = mid and right = mid - 1
+ 5. If badver is False , then no element before mid is bad version , so we need to check on the right side of the array (after mid) .
+ so , do left = mid + 1
+ 6. Then return the results
+ 
+ # The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        
+        left = 1
+        right = n
+        result = 0
+        
+        while left <= right:
+            mid = (left+right)//2
+            badVer = isBadVersion(mid)
+            if badVer == True:
+                result = mid
+                right = mid - 1
+            elif badVer == False:
+                left = mid + 1
+                
+        return result
+                
+        
+ 
+ 
+ 
+ 
