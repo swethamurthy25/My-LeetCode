@@ -33,6 +33,7 @@ class Solution:
         n = len(nums)
         return nums[n-k]
 ________________________________________________________________________________________
+
 Approach 2: HEAP
 
 The idea is to init a heap "the smallest element first", and add all elements from the array into this heap one by one keeping the size of the heap 
@@ -40,27 +41,50 @@ always less or equal to k. That would results in a heap containing k largest ele
 The head of this heap is the result, i.e. the kth largest element of the array.
 
 1. Initialize the minHeap to be empty.
-2. For all elements in i , push the first element to heap
-3. if i > k: pop it out , or else continue adding untill we reach K
+2. For all elements in i , push the elements to heap until we exceed k value
+3. if number of elements in heap > k: pop it out , or else continue adding untill we reach K
 4. Return the top most element (kth largest)
+
+Example: [3,2,1,5,6,4] k = 2
+   1. Now first three element is pushed into heap (3,2,1) . By default heap will sort the values and keep min(1 here) on top.
+   2. Since we exceeded k value , pop 1 out. Now we have 2 and 3 in heap
+   3. Push 5 into heap. By default heap is sorted and min(2) will be on top
+   4. Since we exceeded k value , pop 2 out
+   5. Now we have only (3,5) in heap.
+   6. Push 6 into heap , we exceeded k value so pop the min (3) out now
+   7. We have only (5,6) now
+   8. Push 4 into heap , we exceeded k value pop the min (4) out now.
+   9. We are no more elements now , so top most (5) will be the result
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         
-        # Using Min Heap
+        # Using Heap
         minHeap = []
         for i in range(len(nums)):
-            heappush(minHeap, nums[i])
-            if nums[i] > k:
-                heappop(minHeap)
-        return heappop(minHeap)
+            heapq.heappush(minHeap,nums[i])
+            if len(minHeap) > k:
+                heapq.heappop(minHeap)
+        return heapq.heappop(minHeap)
         
 We are not sorting here, we are converting the array to heap which takes O(n) complexity .
 Poping each element from heap will cost o(log n) complexity , so we have to pop k times O(k log n)
-Total complexity = O(n+ k log n) , which is slightly better than sorting approach if the k value is relatively small
+Total complexity = O(k log n) , which is slightly better than sorting approach if the k value is relatively small
 
-SC is O(n)
-________________________________________________________________________________
+SC is O(n) since heap is sorting the elements by default
+
+In Python there is a method nlargest in heapq library which has the O(k log n) time complexity and reduces the code to one line.
+
+class Solution:
+    def findKthLargest(self, nums, k):
+        return heapq.nlargest(k, nums)[-1]
+
+But we have a condition to solve in O(n), heap is an just another approach but this will not satify the complexity.
+___________________________________________________________________________________________________
+
+Approach 3: QUICK SELECT (Similar to Quick Sort)
+
+
 
 
 
