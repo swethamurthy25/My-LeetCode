@@ -15,3 +15,44 @@ Approach 1: Brute Force
 The straight-forward solution is to compare every two meetings in the array, and see if they conflict with each other (i.e. if they overlap). 
 Two meetings overlap if one of them starts while the other is still taking place.
 
+TC is O(n^2) since we are using two nested for loops - TLE if we run the code
+SC is O(1)
+
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        
+        def overlap(interval1: List[int], interval2: List[int]) -> bool:
+            return (interval1[0] >= interval2[0] and interval1[0] < interval2[1]
+                or interval2[0] >= interval1[0] and interval2[0] < interval1[1])
+
+        for i in range(len(intervals)):
+            for j in range(i + 1, len(intervals)):
+                if overlap(intervals[i], intervals[j]):
+                    return False
+        return True
+_________________________________________________________________________________________
+
+Approach 2: Sorting
+
+1. The idea here is to sort the meetings by starting time. we will get O(n log n) complexity here.
+2. Then compare the "end time" of interval1 with the "start time" of interval2
+   For example - [[0,8],[8,12]] - Here it is not overlapping , become we can end the first meeting at 8 and start the second meeting from 8 until 12
+   
+3. If the [i][1] > [i+1][0] , it means its overlapping , return False. Else return True
+
+TC is O(n log n) and SC is O(1)
+
+class Solution:
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+        
+        intervals.sort()
+        for i in range(len(intervals)-1):
+            if intervals[i][1] > intervals[i+1][0]:
+                return False
+        return True
+
+__________________________________________________________________________________
+        
+        
+
+
