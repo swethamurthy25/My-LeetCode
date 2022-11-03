@@ -1,0 +1,68 @@
+Given an integer array nums and an integer k, return the kth largest element in the array. Note that it is the kth largest element in the sorted order, not the 
+kth distinct element. You must solve it in O(n) time complexity.
+
+Example 1:
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+
+Example 2:
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+
+___________________________________________________________________
+
+Understanding Scenario:
+
+1. We are given a unsorted array and find the kth largest element , K value is given
+2. For this we need to do definetly sort the array , so that it will be in order from smallest to highest then we can find the kth largest among that.
+3. But if we sort , we will get O(n log n) complexity , and there is a condition we should solve this in O(n) complexity , so we cannot use sorting here. Then how do
+we solve this?
+
+_____________________________________________________________________
+
+Approach 1: BRUTE FORCE:
+The naive solution would be to sort an array first and then return kth element from the end, something like sorted(nums)[-k].
+Can we do better than n log n?
+
+TC will be O(n log n) and SC will be O(1)
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        
+        nums.sort()
+        n = len(nums)
+        return nums[n-k]
+________________________________________________________________________________________
+Approach 2: HEAP
+
+The idea is to init a heap "the smallest element first", and add all elements from the array into this heap one by one keeping the size of the heap 
+always less or equal to k. That would results in a heap containing k largest elements of the array.We will stop adding to heap when we reach k value . 
+The head of this heap is the result, i.e. the kth largest element of the array.
+
+1. Initialize the minHeap to be empty.
+2. For all elements in i , push the first element to heap
+3. if i > k: pop it out , or else continue adding untill we reach K
+4. Return the top most element (kth largest)
+
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        
+        # Using Min Heap
+        minHeap = []
+        for i in range(len(nums)):
+            heappush(minHeap, nums[i])
+            if nums[i] > k:
+                heappop(minHeap)
+        return heappop(minHeap)
+        
+We are not sorting here, we are converting the array to heap which takes O(n) complexity .
+Poping each element from heap will cost o(log n) complexity , so we have to pop k times O(k log n)
+Total complexity = O(n+ k log n) , which is slightly better than sorting approach if the k value is relatively small
+
+SC is O(n)
+________________________________________________________________________________
+
+
+
+
+
