@@ -65,14 +65,36 @@ MORRIS:
 Morris traversal algorithm takes use of the leaf's left and right nodes, so that there's no extra space needed for the traversal. The steps are as the following:
 
 Find the right-most leaf of the root's left branch: set leaf's right = root's right;
-
 Set root's right = root's left if root's left exists;
-
 Move to root's left branch, if no left branch exists, then move to root's right branch.
-
 Keep the above steps until no nodes left, as the following: O(1) extra space
 
 
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        #Morris Traversal
+        result = []
+        curr = root
+        
+        while curr:
+            if curr.left:
+                pre = curr.left
+            else:
+                result.append(curr.val)
+                curr = curr.right
+                
+                while pre.right is not None:     
+                    pre = pre.right
+                pre.right = curr
+                temp = curr  # store cur node
+                curr = curr.left  # move cur to the top of the new tree
+                temp.left = None
+                
+        return result
+        
+        
+        
         
         
         
