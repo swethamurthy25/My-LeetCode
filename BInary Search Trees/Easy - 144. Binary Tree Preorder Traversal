@@ -1,0 +1,56 @@
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+Input: root = [1,null,2,3]
+Output: [1,2,3]
+
+Input: root = []
+Output: []
+
+Input: root = [1]
+Output: [1]
+
+Follow up: Recursive solution is trivial, could you do it iteratively?
+____________________________________________________________
+
+Depth First search and Recursive:
+
+# Traversal route --> Root , Left and Right ==> [1,2,4,5,3,6,7]
+
+''' Recursive Method: Space - O(N log N)
+
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        if root is None:
+            return []
+        return [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(root.right)
+
+'''
+_______________________________________________
+
+Iterative Approach:
+
+# Iterative Method - Space O(1) - Use [right,left] method in stack , this will make poping out easier
+            
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        stack = [root]
+        result = []
+        
+        if root is None:
+            return []
+        
+        # While stack is not empty , pop last in , first from the stack and append in result
+        while stack != []:
+            root = stack.pop()
+            result.append(root.val)
+            if root.right is not None:
+                stack.append(root.right)
+            if root.left is not None:
+                stack.append(root.left)
+        return result
+            
+            
+        
+        
+        
