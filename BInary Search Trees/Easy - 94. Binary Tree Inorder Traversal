@@ -1,0 +1,38 @@
+Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+Input: root = [1,null,2,3]
+Output: [1,3,2]
+
+Input: root = []
+Output: []
+
+Input: root = [1]
+Output: [1]
+_____________________________________________________________________________________________
+
+Approach 1: Recursive Approach
+The first method to solve this problem is using recursion. This is the classical method and is straightforward. 
+
+TC is O(n) and SC is O(n) at worst case
+
+Inorder Traversal = [left,root,right]
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        if root is None:
+            return []
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right)
+
+_______________________________________________________________________________________
+
+Approach 2: Iterating method using Stack
+
+TC is O(n) and SC is O(n)
+
+IN-ORDER: [Traverser to Left subtree, Visit Root, Traverse to Right subtree]
+ 	Initialize an empty list to store the result.
+ 	We must start with the left.  For reaching the left, we must go only through the root. First, append the root to the stack.
+ 	Then from the root, go to the left (root = root. left).
+ 	When there is no left, the while loop will end, popping out the numbers from the stack and append to the result list.
+ 	Now, go to the right and check for the node. (root = root. Right)
+
