@@ -1,9 +1,10 @@
 Implement in order traversal without stack and recursion
 
-Solution:
+Default Solution:
 Inorder Traversal = [left,root,right]
-Using Morris Traversal, we can traverse the tree without using stack and recursion. 
-In this traversal, we first create links to Inorder successor and print the data using these links, and finally revert the changes to restore original tree.
+
+If we need to traverse a binary tree in an inorder way, the default solution is depth-first search, which uses a stack.
+The algorithm has O(n) time complexity and O(n) space complexity.
 
 PSEUDOCODE of InOrder Traversal:
 
@@ -13,14 +14,25 @@ inorder(root)
         visit(root)
         inorder(root--> right)
     return
+________________________________________________
 
+Optimized Solution:
 
-inorder(root):
-if root(
-1. Define a function to perform Morris Traversal
-2. Initialize current as root 
-3. While current is not NULL
-   If the current does not have left child
-      a) Print current’s data
-      b) Go to the right, i.e., current = current->right
-4. Else: Find rightmost node in current left subtree OR node whose right child == current.
+Morris Traversal ( Using Threaded Tree for Inorder Traversal):
+
+Using Morris Traversal, we can traverse the tree without using stack and recursion. 
+The Morris algorithm for inorder traversal allows you to traverse a tree with O(n) time and O(1) space complexity. But it requires changing the tree at runtime.
+In this traversal, we first create links to Inorder successor and print the data using these links, and finally revert the changes to restore original tree.
+
+PSEUDO CODE:
+
+1. Initialize current as root 
+2. While current is not NULL
+   If current hs a left child
+      ifa) Make current as right child of the rightmost 
+         node in current's left subtree
+      ifb) Go to this left child, i.e., current = current->left
+   Else
+      ea) Print current’s data
+      eb) Go to the right, i.e., current = current->right
+      
