@@ -28,9 +28,17 @@ class Solution:
 '''
 _______________________________________________
 
-Iterative Approach:
+Iterative Approach: TC is O(n) and SC is O(1)
 
-# Iterative Method - Space O(1) - Use [right,left] method in stack , this will make poping out easier
+Traverse PRE-ORDER, POST ORDER, AND IN-ORDER using Iterative Approach
+PRE-ORDER: [Visit Root, Traverser to Left subtree, Traverse to Right subtree]
+ 	Start with root, so initialize the stack with the root
+ 	Initialize an empty list to store the result
+ 	If the root is null: return an empty list
+ 	When the stack is not empty, pop out the last element from the stack and append it to the result.
+ 	If the right node is not null, append the value to the stack
+ 	If the left node is not null, append the value to the stack
+
             
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
@@ -49,8 +57,10 @@ class Solution:
             if root.left is not None:
                 stack.append(root.left)
         return result
-            
-            
+           
+______________________________________________________________________________
+
+
         
         
         
