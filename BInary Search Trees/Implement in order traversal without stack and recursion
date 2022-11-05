@@ -24,15 +24,29 @@ Using Morris Traversal, we can traverse the tree without using stack and recursi
 The Morris algorithm for inorder traversal allows you to traverse a tree with O(n) time and O(1) space complexity. But it requires changing the tree at runtime.
 In this traversal, we first create links to Inorder successor and print the data using these links, and finally revert the changes to restore original tree.
 
-PSEUDO CODE:
-
-1. Initialize current as root 
-2. While current is not NULL
-   If current hs a left child
-      ifa) Make current as right child of the rightmost 
-         node in current's left subtree
-      ifb) Go to this left child, i.e., current = current->left
-   Else
-      ea) Print current’s data
-      eb) Go to the right, i.e., current = current->right
-      
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        
+        #Morris Traversal
+        result = []
+        curr = root
+        
+        while curr:
+            if curr.left:
+                pre = curr.left
+            else:
+                result.append(curr.val)
+                curr = curr.right
+                
+                while pre.right is not None:     
+                    pre = pre.right
+                pre.right = curr
+                temp = curr  # store cur node
+                curr = curr.left  # move cur to the top of the new tree
+                temp.left = None
+                
+        return result
+        
+        
+        
+        
