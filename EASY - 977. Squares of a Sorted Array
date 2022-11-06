@@ -1,0 +1,58 @@
+Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
+
+Input: nums = [-4,-1,0,3,10]
+Output: [0,1,9,16,100]
+Explanation: After squaring, the array becomes [16,1,0,9,100].
+After sorting, it becomes [0,1,9,16,100].
+
+Input: nums = [-7,-3,2,3,11]
+Output: [4,9,9,49,121]
+
+Follow up: Squaring each element and sorting the new array is very trivial, could you find an O(n) solution using a different approach?
+____________________________________________________________________________________________________________
+
+APPROACH 1: BRUTE FORCE using sorting
+
+When we use the sorting technique , obviously the complexity will become O(n log n). 
+
+TC will be O(n log n) and SC will be O(n) since we are creating a result array.
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        
+        #Brute Force 
+        result = []
+        for i in range(len(nums)):
+            squ = nums[i]**2
+            result.append(squ)
+        
+        return sorted(result)
+___________________________________________________________________________________________________________
+
+Approach 2: Two pointer technique and reversing
+
+TC is O(n) and SC is O(n)
+
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        
+        n = len(nums)
+        i , j = 0 , n-1
+        
+        result =[]
+        
+        while i <= j:
+            if abs(nums[i]) > abs(nums[j]):
+                result.append(nums[i]**2)
+                i += 1
+            else:
+                result.append(nums[j]**2)
+                j -= 1
+            
+        return result[::-1]
+        
+_________________________________________________________________________________________
+
+Approach 3: Using deque()
+
+
