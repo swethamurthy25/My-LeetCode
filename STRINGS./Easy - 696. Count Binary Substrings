@@ -1,0 +1,92 @@
+Given a binary string s, return the number of non-empty substrings that have the same number of 0's and 1's, and all the 0's and all the 1's in these substrings are
+grouped consecutively.Substrings that occur multiple times are counted the number of times they occur.
+
+Input: s = "00110011"
+Output: 6
+Explanation: There are 6 substrings that have equal number of consecutive 1's and 0's: "0011", "01", "1100", "10", "0011", and "01".
+Notice that some of these substrings repeat and are counted the number of times they occur.
+Also, "00110011" is not a valid substring because all the 0's (and 1's) are not grouped together.
+
+Input: s = "10101"
+Output: 4
+Explanation: There are 4 substrings: "10", "01", "10", "01" that have equal number of consecutive 1's and 0's.
+_________________________________________________________________________________________________________
+
+Conditions :
+
+1. The substring shouls have equal number of 0's and 1's
+2. The subrstring is grouped consequetively (should have a pattern of o's and 1's)
+
+ex: 000111 , 0011, 1100, 
+
+____________________________________________________________________________________
+
+Two Pointer approach: TC is O(N) and SC O(1)
+
+1. INitialize two pointers i and j
+2. i is fixed at any digit and i=0 initially 
+3. j is going to move throughout the string and j=1 initially
+3. j will move forward if we identify the same character in the string
+'Example: 001110
+
+INitially both i an j will be at index[0] = 0 , here i = 0 and j = 1
+Then J will move forward to next index[1] = 0 , i = 0 and j will become 2
+Now move forward again to next index[2] = 1 , j encountered a different digit
+
+5. If we found a diff digit , then it is possibly a substring . So, reassign the j's value to i , i will become 2 now
+and J will be resetted to 1 again
+
+i = 2
+j = 1
+
+6. Now check if i >= j , if true increment the result by 1
+
+Now move forward to next index[3] = 1 , it is the same character so increment j by 1
+
+i = 2
+j = 2
+
+Check if i >= j , if true increment by result by 1. Now the result will become 2
+
+Now move forward to next index[4] = 1 , it is the same character so increment j by 1
+
+i = 2
+j = 3
+
+check if i >= j , it is not true so donot increment.
+
+Now move forward to next index[5] = 0, it is the different character so i will become 3 and reset j to 1 again
+
+i = 3
+j = 1
+
+check if i >= j , increment result by 1
+
+so , result = 3
+____________________________________________________________________________
+
+class Solution:
+    def countBinarySubstrings(self, s: str) -> int:
+        
+        n = len(s)
+        result = 0
+        i = 0
+        j = 1
+        
+        for ch in range(n-1):
+            if s[ch] == s[ch+1]:
+                j += 1
+            else:
+                i,j = j,1
+                
+            if i >= j:
+                result += 1
+        return result
+       
+_________________________________________________________________
+
+
+
+
+
+ 
