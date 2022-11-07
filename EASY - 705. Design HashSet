@@ -23,6 +23,10 @@ myHashSet.add(2);      // set = [1, 2]
 myHashSet.contains(2); // return True
 myHashSet.remove(2);   // set = [1]
 myHashSet.contains(2); // return False, (already removed)
+
+Constraints:
+0 <= key <= 106
+At most 104 calls will be made to add, remove, and contains.
 _____________________________________________________________________________________________________
 
 Understanding the Scenario:
@@ -31,6 +35,29 @@ Understanding the Scenario:
 2. The key idea of Hash Table is to use a hash function to map keys to buckets.When we insert a new key, the hash function will decide which bucket the key 
 should be assigned and the key will be stored in that corresponding bucket;
 3. When we want to search for a key, the hash table will use the same hash function to find the corresponding bucket and search only in the specific bucket.
+
+Why hashset?
+When we take any list/array [1,5,65,32,79,16] and when we need to find an element say 79 in array. We need to traverse through all elements,we need to check if that 
+element is 79. So, the lookup time will be O(n)
+
+******************************************************************
+[1,5,65,32,79,16] - If we need to check if 79 exist , go to that specific bucket 9 and search for the value. So,the lookup time will be constant ie O(1)
+
+Number%10    Bucket
+________________________________
+
+0             []
+1             [1]
+2             [32]
+3             []
+4             []
+5             [5,65]
+6             [16]
+7             []
+8             []
+9             [79]
+
+**************************************************************
 
 When we want to implement hashset , we need to take care of two important things:
 1. hash function: The hash function is the most important component of a hash table which is used to map the key to a specific bucket.Ideally, 
@@ -41,7 +68,10 @@ ________________________________________________________________________________
 
 Approach 1: Brute Force
 
-We can design the hashset with the build-in hash libraries
+We can design the hashset with the build-in hash libraries. It has following functionalities:
+add (value)
+remove (value)
+contains (value)
 
 class MyHashSet:
 
@@ -59,4 +89,29 @@ class MyHashSet:
         if key in self.hashSet:
             return True
         return False
+        
+_____________________________________________________________________________
+
+Approach 2: Without using inbuild libraries
+
+TC is O(1) and SC is O(n)
+
+class MyHashSet:
+
+    def __init__(self):
+        self.buckets = [[]] * 10000
+        
+    def add(self, key: int) -> None:
+        bucketIndx = key % 10000
+        if key not in self.buckets[bucketIndx]:
+            self.buckets[bucketIndx].append(key)
+
+    def remove(self, key: int) -> None:
+        bucketIndx = key % 10000
+        if key in self.buckets[bucketIndx]:
+            self.buckets[bucketIndx].remove(key)
+            
+    def contains(self, key: int) -> bool:
+        bucketIndx = key % 10000
+        return key in self.buckets[bucketIndx]
         
