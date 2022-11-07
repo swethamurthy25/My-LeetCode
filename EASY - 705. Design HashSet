@@ -96,6 +96,12 @@ Approach 2: Without using inbuild libraries
 
 TC is O(1) and SC is O(n)
 
+1. Initialize the fixed size of bucket say for example 10,000 in our case. (any range within the constraint limit)
+2. And then perform the hashing function (bucketIndx) for each operation 
+3. Add: if the key or hashing value is not in the bucket , add/insert the key
+4. Remove: if the key or hashing value exist in the bucket , remove the key
+5. Contains: if the key or hashing value exist in the bucket , return the key
+
 class MyHashSet:
 
     def __init__(self):
