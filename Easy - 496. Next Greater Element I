@@ -1,0 +1,105 @@
+The next greater element of some element x in an array is the first greater element that is to the right of x in the same array. You are given two distinct 0-indexed 
+integer arrays nums1 and nums2, where nums1 is a subset of nums2.
+
+For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. 
+If there is no next greater element, then the answer for this query is -1.
+
+Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
+
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+Explanation: The next greater element for each value of nums1 is as follows:
+- 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
+- 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.
+- 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
+
+Input: nums1 = [2,4], nums2 = [1,2,3,4]
+Output: [3,-1]
+Explanation: The next greater element for each value of nums1 is as follows:
+- 2 is underlined in nums2 = [1,2,3,4]. The next greater element is 3.
+- 4 is underlined in nums2 = [1,2,3,4]. There is no next greater element, so the answer is -1.
+_______________________________________________________________________________________________________________
+
+What we understood from the question ?
+
+1. We are provided with two arrays nums1 and nums2 , where nums1 is the subset of nums2.
+2. For every numbers in nums1, we need to check the greatest element in nums2. how do we check that? - Find the nums1 element in nums2 and check for its immediate 
+next value.. If the value is greater, then append that to result array or else append -1
+3. Return the output array
+
+Example : [18,7,6,12,15]
+
+Next greater element of [18] is -1
+Next greater element of [7] is -1
+Next greater element of [6] is 12
+Next greater element of [12] is 15
+Next greater element of [15] is -1
+____________________________________________________________________________________________________
+
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+
+Approach 1: Brute Force
+
+1. Initialize the result array with all elements as [-1] and to the length of nums1
+    result = [-1] * len(nums1)
+
+2. Iterate through nums1 and identify its index value in nums2
+   
+   for i in range(len(nums1)):
+        k = nums2.index(nums1[i])
+        
+    output : 2 0 3   # [2 is the index of 4, 0 is the index of 1 and 3 is the index of 2]
+    
+3. Now iterate through nums2 and check if nums2[j] > nums1[i]. If true , store the nums2[j] in the result and break.
+   
+   for j in range(i+1, range(len(nums2))):
+        if nums2[j] > nums1[j]:
+              result[i] = nums2[j]
+              break
+    return result
+    
+TC is O(n^2) - Since we are using nested for loops and iterating through both nums1 and nums2
+SC is O(n) - since we are using an result array to store the output values
+
+Complete Code:
+# Brute Force Approach- O(n^2) and O(1)
+        result = [-1]* len(nums1)
+        
+        for i in range(len(nums1)):
+            k = nums2.index(nums1[i]) # K gets the index of numbers from nums2
+            for j in range(k+1,len(nums2)):
+                if nums2[j] > nums1[i]:
+                    result[i] = nums2[j]
+                    break
+        return result
+ ___________________________________________________________________________________________________________
+ 
+ Approach 2: Using Hahsmap 
+ 
+ TC will be O(n*m) and SC will be O(n)
+ 
+ hash = {n:i for i,n in enumerate(nums1)}
+        result = [-1]* len(nums1)
+        
+        for i in range(len(nums2)):
+            if nums2[i] not in hash:
+                continue
+            for j in range(i+1,len(nums2)):
+                if nums2[j] > nums2[i]:
+                    index = hash[nums2[i]]
+                    result[index] = nums2[j] 
+                    break
+        return result
+______________________________________________________________________________________
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
