@@ -23,8 +23,8 @@ ________________________________________________________________________________
 What we understood from the question ?
 
 1. We are provided with two arrays nums1 and nums2 , where nums1 is the subset of nums2.
-2. For every numbers in nums1, we need to check the greatest element in nums2. how do we check that? - Find the nums1 element in nums2 and check for its immediate 
-next value.. If the value is greater, then append that to result array or else append -1
+2. For every numbers in nums1, we need to check the greatest element in nums2. how do we check that? - Find the nums1 element in nums2 and check for its next greater
+elemnts.. If the value is greater, then append that to result array or else append -1
 3. Return the output array
 
 Example : [18,7,6,12,15]
@@ -93,8 +93,66 @@ Complete Code:
         return result
 ______________________________________________________________________________________
  
+ Approach 3: Optimized using Stack
  
+Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+Output: [-1,3,-1]
+
+Doing the Dry run:
+1. First initialize empty stack and dictionary. Dictionary is used here to store the element and its next greatest element. Eg { 1:3 }
+2. Now iterate through nums2 and push first element to stack
+   
+   stack = [1]
  
+ 3. Now next element is 3. We are allowed to push only the elements that are smaller than top (1) , or else pop out the element
+    3 is greater than 1. so pop out top element (1) and add that to dictionary.
+    
+    stack = []   , dict = { 1:3 }
+    
+ 4. Now push 3 into stack
+ 
+    stack = [3] , dict = {1:3}
+
+5. Now next element is 4. Here , 4 is greater than 1 ,so pop out 3 and append its greatest value to dictionary
+ 
+    stack = [] , dict = { 1:3 , 3:4 }
+ 
+6. Now push 4 into stack. 
+   
+   stack = [4] , dict = { 1:3 , 3:4 }
+ 
+7. Next element is 2 and 2 is smaller than 4 , so it can pushed into stack and there is no greater element for this. 
+
+   stack = [4,2] , dict = { 1:3 , 3:4 }
+
+8. We have no more element , so pop each item from stack and set the value as -1. 
+   
+   stack = [] , dict = ( 1:3, 3:4, 2:-1, 4:-1 }
+ 
+9. Finally use dict.get () to return the values of nums1 
+
+TC is o(n) - The entire nums2 array (of size n) is scanned only once. Each of the stack's nn elements are pushed and popped exactly once. 
+SC is O(n) - map will store nn key-value pairs while stackstack will contain at most nn elements at any given time.
+
+Complete Code:
+
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        
+        # Using Stack
+        dict = {}
+        stack = []
+        
+        for i in nums2:
+            while stack and stack[-1] < i:
+                k = stack.pop()
+                dict[k] = i
+            stack.append(i)
+            
+        return [dict.get(i,-1) for i in nums1]
+                
+_______________________________________________________________________________________________
+
  
  
  
