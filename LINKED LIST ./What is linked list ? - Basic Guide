@@ -13,14 +13,14 @@ But Array also stores linear data, then what's the difference?
 •	Stack and Queue's can be easily implemented in linked list. 
 
 Disadvantages:
-•	More memory usage due to address pointer.
-•	No reverse traversal in singly linked list
-•	No random access possible. If we want to access any node , we have to start from head and then traverse through all nodes to reach the specific node.
+• More memory usage due to address pointer.
+• No reverse traversal in singly linked list
+• No random access possible. If we want to access any node , we have to start from head and then traverse through all nodes to reach the specific node.
 
 Types of Linked List:
 There are 3 type's of linked list:-
 
-•	Singly-linked list:
+• Singly-linked list:
   linked list in which each node points to the next node and the last node points to null
   
 • Doubly-linked list: 
