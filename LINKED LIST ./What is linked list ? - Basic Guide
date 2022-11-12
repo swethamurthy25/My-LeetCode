@@ -21,7 +21,10 @@ Types of Linked List:
 There are 3 type's of linked list:-
 
 • Singly-linked list:
-  linked list in which each node points to the next node and the last node points to null
+  - linked list in which each node points to the next node and the last node points to null
+  - Each node in a singly-linked list contains not only the value but also a reference field to link to the next node. By this way, 
+    the singly-linked list organizes all the nodes in a sequence.
+  - We will use the head node (the first node) to represent the whole list.
   
 • Doubly-linked list: 
   linked list in which each node has two pointers, p and n, such that p points to the previous node and n points to the next node; 
