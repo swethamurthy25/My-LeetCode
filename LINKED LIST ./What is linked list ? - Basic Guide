@@ -1,16 +1,16 @@
 What is linked list ?
-•	Linked list is an linear data structure, which consists of a group of nodes in a sequence [OR]
-•	Linked list stores data in linear form
+• Linked list is an linear data structure, which consists of a group of nodes in a sequence [OR]
+• Linked list stores data in linear form
 
 But Array also stores linear data, then what's the difference?
-•	In array we have to first define the size of the Array.
-•	And each bit has it's memory address, where 1 bit size = 4, therefore 8 bit = 8 * 4 = 32 bit.
+• In array we have to first define the size of the Array.
+• And each bit has it's memory address, where 1 bit size = 4, therefore 8 bit = 8 * 4 = 32 bit.
   Example: Array size = 8
            Array Elements = [1,2,3,4,5,6,7,8]
            
-•	But linked list is dynamic, we don't have to define it's size.
-•	In linked list we can add element as many as we want. But, in array size is fixed. So, to add new element we have to create a new array!
-•	Stack and Queue's can be easily implemented in linked list. 
+• But linked list is dynamic, we don't have to define it's size.
+• In linked list we can add element as many as we want. But, in array size is fixed. So, to add new element we have to create a new array!
+• Stack and Queue's can be easily implemented in linked list. 
 
 Disadvantages:
 • More memory usage due to address pointer.
