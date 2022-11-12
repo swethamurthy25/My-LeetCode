@@ -1,0 +1,42 @@
+Design your implementation of the linked list. You can choose to use a singly or doubly linked list.
+A node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node.
+If you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list.
+Assume all nodes in the linked list are 0-indexed.
+
+Implement the MyLinkedList class:
+
+MyLinkedList() Initializes the MyLinkedList object.
+- int get(int index) --> Return the node value of the indexth node in the linked list. If the index is invalid, return -1.
+- void addAtHead(int val) --> Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the 
+  linked list.
+- void addAtTail(int val) --> Append a node of value val as the last element of the linked list.
+- void addAtIndex(int index, int val) --> Add a node of value val before the indexth node in the linked list. If index equals the length of the linked list, 
+  the node will be appended to the end of the linked list. If index is greater than the length, the node will not be inserted. [Add value at specific index , if the
+  index is invalid , it will do nothing]
+- void deleteAtIndex(int index) --> Delete the indexth node in the linked list, if the index is valid. [Delete the node at specific index , if index is invalid , it
+  will do nothing]
+_____________________________________________________________________________________________
+
+What we understood from question?
+
+- We have to design a linked list from scratch , it can be either singly linked list or doubly linked list
+- We have to perform 6 operations - Initialize the linked list , get value , addAtHead , addAtTail , addAtIndex , deleteAtIndex
+- In singly linked list , addAtHead operation can be done at constant time O(1) and addAtTail operation can be done at linear time O(N)
+- In doubly linked list , both addAtHead and addAtTail can be done at constant time O(1)
+
+Let us see with an example:
+Linked List = [1,2,3,4,null]
+Index value = [0,1,2,3]
+
+get(0) --> Return value at 0th index , we have node at 0th index , so return 1 as output
+get(4) --> Return value at 4th index , we donot have 4th index , so return -1
+
+addAtHead(5) --> This function will add the value 5 before head and the node will val 5 will become the head
+                  Linkedlist = [5,1,2,3,4,null]
+                  Index = [0,1,2,3,4]
+                  
+addAtTail(6) --> This function will add the value 6 at tail and tail with val 6 will be pointing to null
+                  Linkedlist = [5,1,2,3,4,6,null]
+                  Index = [0,1,2,3,4,5]
+
+
