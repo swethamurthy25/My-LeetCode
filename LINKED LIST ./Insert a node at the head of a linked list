@@ -1,0 +1,24 @@
+Given a pointer to the head of a linked list, insert a new node before the head. The next value in the new node should point to head and the data value should be 
+replaced with a given value. Return a reference to the new head of the list. The head pointer given may be null meaning that the initial list is empty.
+
+Example: 1--> 2 --> 3 --> null
+Suppose if we need to insert value 5 at head
+output: 5 --> 1--> 2 --> 3 --> null
+
+Approach 1:
+
+1. Current node is pointing to head
+2. Initialize the new node and its value
+3. If we add the new node at head , the next reference of new Node should point to existing head
+4. Then change the new node as head.
+5. Return the head
+
+TC is O(n)
+SC is O(1)
+
+def insertNodeAtHead(head, data):
+    newNode = SinglyLinkedListNode(data)
+    newNode.next = head
+    head = newNode    
+    return head
+    
