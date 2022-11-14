@@ -50,5 +50,163 @@ ________________________________________________________________________________
 
 IMPLEMENT SINGLY LINKED LIST:
 
+1. Initialize the sentinal node(dummy node) with some x value, so that the linked list will not be empty.
+2. Its reference (self.next) is not pointing to anything right now.
 
+Class ListNode:
+    def __init__ (self,x):
+        self.val = x
+        self.next = None
+
+3. Create a class for linked list "MyLinkedList" and initialize the size as 0
+4. The head of linked list is pointing to ListNode(0) , which means it is calling the node class which has 0 value and its reference is pointing to None
+
+class MyLinkedList:
+    def __init__ (self):
+        self.size = 0
+        self.head = ListNode(0)
+
+5. Now inside the "MyLinkedList" class, we should define all the operations discussed above.
+6. We have to first deal with addAtHead and addAtTail. By default for addAtHead , we are going to add x value at 0 index. So addToHead function will only take 
+   the value as the parameter . Same way by default for addAtTail , we are going to add x value at the last node (self.size) which is tail. So it only takes
+   val as parameter.
+
+def addAtHead(self, val: int) -> None:
+        self.addAtIndex(0,val)
+def addAtTail(self, val: int) -> None:
+        self.addAtIndex(self.size,val)
+
+7. The function addAtIndex will take both index and value as parameter , because we should the index position and the value.
+   If the index value is greater than the linked list size (self.size), it means the index does not exist so return -1
+   Or Else we need to insert a node at any position , so self.size will be incremented by 1
+ 
+def addAtIndex(self, index: int, val: int) -> None:
+        if index > self.size:
+            return -1
+        self.size += 1
+        
+8. Before inserting a node at any index , we need to find the predecessor of that index. Now we have only the sentinal(dummy) node in the linked list.
+  If we want to add a node at index 0 , dummy will be its predecessor. Then from 0 we can traverse to any node .
+  For adding value at any node other than 0th position, we have to use for loop to iterate.
+  
+  Example: If we want to add value 10 at index 3 , it will start from 0 (ie) pred = self.head and then go until index 2 and make the index 2 as the pred of index 3.
+  
+  pred = self.head
+  for _ in range(index):
+    pred = pred.next
+    
+10. Then initialize the new node.Now the pred.next will be pointing to new node (new) and new node.next will be pointing to pred.next
+    new = ListNode(val)
+    new.next = pred.next
+    pred.next = new
+
+***************************************
+def addAtIndex(self, index: int, val: int) -> None:
+        if index > self.size:
+            return -1
+        self.size += 1
+        
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+    
+        new = ListNode(val)
+        new.next = pred.next
+        pred.next = new
+**************************************
+
+11. Now , deleteAtIndex is same as addAtIndex . When we delete any node , the self.size will be decremented by 1. 
+    When we know the exact index which we need to delete , find its pred node.
+    
+if index < 0 or index >= self.size:
+            return 
+        self.size -= 1
+        
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+          
+12. Now the pred.next will be pointing to the node that we need to delete. If we delete the node, the reference will be pointed to its (next.next) node.
+    pred.next = pred.next.next
+    
+**********************************************
+def deleteAtIndex(self, index: int) -> None:
+        if index < 0 or index >= self.size:
+            return 
+        self.size -= 1
+        
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+            
+        pred.next = pred.next.next
+        
+ ********************************************   
+ 
+13. Now we will define a function with index parameter. Check for the edge cases. Initialize the current node to head.
+    From head, traverse and iterate as (index+1) to reach the required node and return its value.
+    
+    Example: elements = [sentinal,node1,node2,node3,node4,null]
+             index = [0,1,2,3] 
+             If we want to get value from node 3, start from head and go until (index+1) - which means (index2+1). Index 2 is pointing to node 2 and plus one will be
+             node 3.
+     
+def get(self, index: int) -> int:
+         if index < 0 or index >= self.size:
+            return -1
+        curr = self.head
+        for _ in range(index+1):
+            curr = curr.next
+        return curr.val       
+________________________________________________________________________________________
+
+Complete Code :
+
+class ListNode:
+    def __init__ (self,x):
+        self.val = x
+        self.next = None
+
+class MyLinkedList:
+    def __init__ (self):
+        self.size = 0
+        self.head = ListNode(0)
+    
+    def get(self, index: int) -> int:
+        
+        if index < 0 or index >= self.size:
+            return -1
+        
+        curr = self.head
+        for _ in range(index+1):
+            curr = curr.next
+        return curr.val       
+
+    def addAtHead(self, val: int) -> None:
+        self.addAtIndex(0,val)
+
+    def addAtTail(self, val: int) -> None:
+        self.addAtIndex(self.size,val)
+            
+    def addAtIndex(self, index: int, val: int) -> None:
+        if index > self.size:
+            return -1
+        self.size += 1
+        
+        pred = self.head
+        for _ in range(index):
+            pred = pred.next
+ _________________________________________________________
+ 
+ TC:
+ addAtHead - O(1)
+ addAtTail - O(n)
+ get , addAtIndex and deleteAtIndex - O(k) where k is the index of the element.
+ 
+ SC:
+ O(1) for all operations
+ 
+ _______________________________________________________________________
+ 
+             
 
