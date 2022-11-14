@@ -1,0 +1,30 @@
+Given a pointer to the head of a singly-linked list, print each  value from the reversed list. If the given list is empty, do not print anything.
+
+Example
+head = 16--> 12 --> 4 --> 2 --> 5 --> null
+output = 5 2 4 12 16
+
+Approach 1:
+1. Intialize an empty result array 
+2. If llist is true , traverse through the entire linked list using llist = llist.next and append all the data to the result array
+3. Use For loop - for every element in reversed(result) , print the element
+4. Or Else use the inbuild function result[::-1]
+
+
+def reversePrint(llist):
+    result = []
+    while llist:
+        result.append(llist.data)
+        llist = llist.next
+    for i in result[::-1]:
+        print(i)
+        
+def reversePrint(llist):
+    result = []
+    while llist:
+        result.append(llist.data)
+        llist = llist.next
+    for i in reversed(result):
+        print(i)
+        
+__________________________________________________________________________________________________
