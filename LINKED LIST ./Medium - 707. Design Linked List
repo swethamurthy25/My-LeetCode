@@ -31,15 +31,15 @@ Index value = [0,1,2,3]
 get(0) --> Return value at 0th index , we have node at 0th index , so return 1 as output
 get(4) --> Return value at 4th index , we donot have 4th index , so return -1
 
-addAtHead(5) --> This function will add the value 5 before head and the node will val 5 will become the head.
+addAtHead(5) --> This function will add the new node with value 5 before existing head and the new node will become the head.
                   Linkedlist = [5,1,2,3,4,null]
                   Index = [0,1,2,3,4]
                   
-addAtTail(6) --> This function will add the value 6 at tail and tail with val 6 will be pointing to null
+addAtTail(6) --> This function will add the new node with value 6 at tail and this will be pointing to null.
                   Linkedlist = [5,1,2,3,4,6,null]
                   Index = [0,1,2,3,4,5]
 
-addAtIndex(2,7) --> This function will add the value 7 at index 2 and the existing value at index 2 will be shifted to right
+addAtIndex(2,7) --> This function will add the new node at index 2 and it should have a value of 7 . The existing node at index 2 will be shifted to its right
                     Linkedlist = [5,1,7,2,3,4,6,null]
                     Index = [0,1,2,3,4,5,6]
 
