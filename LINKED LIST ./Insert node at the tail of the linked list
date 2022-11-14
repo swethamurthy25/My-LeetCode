@@ -8,5 +8,43 @@ Output: 1 --> 2 --> 3 --> 4 --> 5 --> null
 
 Approach 1:
 
-1. First create the new node and its value that we need to add at tal
-2. 
+1. First create the new node with its value that we need to add.
+2. Check for two conditions: if the head is None (means linked list is empty), the node that we are going to add will become the head
+   
+   if head is None:
+      newNode = head
+      return head
+
+3. Else if head is not None, the current node will be pointing to head. While curr.next is not none , keep iterating to next node, because that is the end(tail).
+   Once we reached the tail position , add the new node and curr.next will be pointing to new Node. Return the head.
+   
+   else:
+      curr = head
+      while curr.next:
+          curr = curr.next
+      curr.next = new node
+      return head
+      
+TC is O(n)
+SC is O(1)
+
+
+def insertNodeAtTail(head, data):
+    newNode = SinglyLinkedListNode(data)
+    
+    if head is None:
+        head = newNode
+        return head
+    
+    currNode = head
+    while currNode.next:
+        currNode = currNode.next
+    currNode.next = newNode
+    return head
+    
+    
+    
+    
+    
+      
+ 
