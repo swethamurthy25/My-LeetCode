@@ -1,0 +1,69 @@
+Given the pointer to the head node of a linked list and an integer to insert at a certain position,create a new node with the given integer as its data attribute
+nsert this node at the desired position and return the head node.
+A position of 0 indicates head, a position of 1 indicates one node away from the head and so on. The head pointer given may be null meaning that the initial list 
+is empty.
+
+Example: head: 1 --> 2 --> 3 --> null
+data = 4
+position = 2
+We need to insert new node at position(index) 2 with value=4 .
+Output: 1 --> 2 --> 4--> 3 --> null
+
+Approach1:
+
+1. Create a new node with the value that has to be inserted
+2. Suppose if we want to add new node at position(index) 0, make the newnode.next to point to existing head. Then make the new node as head
+   
+   if position == 0:
+      newNode.next = head
+      head = newNode
+      return head
+      
+3. If we need to insert node at any other position other than 0 , else condition will be executed.
+4. Initialize a temporary pointer , pointing to the head and counter variable with value 1.
+   
+   tempPointer = head
+   count = 1
+   
+5. We have to traverse from head till pointer.next is true. Check whether the counter is equal to position or not.
+6. If counter is not equal to position , simply move the pointer to next reference.
+7. If counter is equal to position; 
+    point the new.next to the pointer.next
+    point pointer.next to newNode
+    break the while loop
+8. Return the head
+ 
+   while tempPointer.next is not None:
+          if count == position:
+              newNode.next = tempPointer.next
+              tempPointer.next = newNode
+          break
+      count += 1
+      tempPointer = tempPointer.next
+   return head
+   
+ TC is O(n)
+ SC is O(1)
+ 
+ *******************************************************************
+ 
+ def insertNodeAtPosition(llist, data, position):
+    newNode = SinglyLinkedListNode(data)
+   
+    if position == 0:
+        newNode.next = llist
+        llist = newNode
+        return newNode
+    
+    tempPointer = llist
+    count = 1
+    while tempPointer is not None:
+        if count == position:
+            newNode.next = tempPointer.next
+            tempPointer.next = newNode
+            break
+        count += 1
+        tempPointer = tempPointer.next
+    return llist
+
+*********************************************************************
