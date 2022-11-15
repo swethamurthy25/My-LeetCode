@@ -1,0 +1,42 @@
+Write a function that reverses a string. The input string is given as an array of characters s.
+You must do this by modifying the input array in-place with O(1) extra memory.
+
+Input: s = ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
+
+Input: s = ["H","a","n","n","a","h"]
+Output: ["h","a","n","n","a","H"]
+
+________________________________________________________________________________________
+
+Approach 1: Brute force using python inbuild functions
+
+1. Input is given in the form of list array with each characters seperated by comma
+2. So we can use list.reverse() function to get the output
+
+TC is O(n) and SC is O(1)
+
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        return s.reverse()
+
+____________________________________________________________________________________________
+
+Approach 2: Without using inbuild functions , using two pointer approach
+
+1. Initialize two pointers - left ptr at the beginning of array and right ptr at the end of array
+2. While left < right , swap both the left and right elements
+3. For every swap , increment the left pointer by 1 and decrement the right pointer by 1
+
+TC is O(n) and SC is O(1)
+
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        left = 0
+        right = len(s)-1
+        while left < right:
+            s[left],s[right] = s[right],s[left]
+            left += 1
+            right -= 1
+            
+________________________________________________________________________________________
