@@ -1,1 +1,47 @@
 Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+
+Input: s = "Let's take LeetCode contest"
+Output: "s'teL ekat edoCteeL tsetnoc"
+
+Input: s = "God Ding"
+Output: "doG gniD"
+_______________________________________________________________________________________
+
+Approach 1: Brute Force using string buildin functions
+
+1. Input is in the form of sentence/string. We need to split the entire sentence into chunk of words. So use the buildin split() function to split the string.
+    class Solution:
+    def reverseWords(self, s: str) -> str:
+        s = s.split(" ")
+        return s
+   
+   input = "Let's take LeetCode contest"
+   output = ["Let's","take","LeetCode","contest"]
+   
+2. Then reverse each word in the list using for loop.
+   class Solution:
+    def reverseWords(self, s: str) -> str:
+        word = s.split(" ")
+        word = [w[::-1] for w in word]
+        return word
+        
+   input = "Let's take LeetCode contest"
+   output = ["s'teL","ekat","edoCteeL","tsetnoc"]
+   
+ 3. Then join the reversed words with white space .
+    class Solution:
+    def reverseWords(self, s: str) -> str:
+        word = s.split(" ")
+        word = [w[::-1] for w in word]
+        word = " ".join(word)
+        return word
+        
+   input = "Let's take LeetCode contest"
+   output = "s'teL ekat edoCteeL tsetnoc"
+   
+TC is O(n) and SC is O(n)
+__________________________________________________________________________
+
+
+
+    
