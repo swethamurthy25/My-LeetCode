@@ -10,10 +10,12 @@ Output: "leotcede"
 
 _______________________________________________________________________________________
 
+Use TWO POINTER Approach:
+
+TC is O(n) and SC is O(n)
+
 class Solution:
     def reverseVowels(self, s: str) -> str:
-        
-        # TC is O(n) and SC is O(n)
         vowels = 'aeiouAEIOU'
         s = list(s)
         
