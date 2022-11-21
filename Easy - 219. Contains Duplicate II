@@ -45,9 +45,9 @@ class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
         dict = {}
         for key,value in enumerate(nums):
-            if value not in dict:
-                dict[value] = key
-            elif (value in dict and key-dict[value] <= k):
+            if (value in dict and key-dict[value] <= k):
                 return True
+            dict[value] = key
+            
         return False
 _______________________________________________________________________________________________
