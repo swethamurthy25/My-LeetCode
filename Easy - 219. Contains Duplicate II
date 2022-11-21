@@ -1,0 +1,53 @@
+Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+
+Input: nums = [1,2,3,1], k = 3
+Output: true
+
+Input: nums = [1,2,3,1,2,3], k = 2
+Output: false
+______________________________________________________________________________
+
+Approach 1: Brute force (TLE)
+
+1. Simply do the linear search - compare a number with every other element in the array and check for two conditions:
+   - check if the numbers are same 
+   - check if absolute difference of i -j is less than or equal to k
+    
+2. If both condition satisfies , return True else return false
+
+TC will be O(n^2) where n is the length of array
+SC will be O(1)
+
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        
+        n = len(nums)
+        print(n)
+        for i in range(n):
+            for j in range(i+1,n):
+                if (nums[i] == nums[j] and abs(i-j)<=k):
+                    return True
+        return False
+ ______________________________________________________________________________________
+ 
+ Approach 2: Using hashmap/dict
+ 
+ 1. Create a dictionary to store elements. Elements will be stored in format { key(index):value }
+ 2. Using enumerate check every key and its value, if the value is not present in dictionary , add that value along with its key to dict
+ 3. If already present in dict , check for one more condition : current index(key) - index of already existing number in dictionary should be less than or 
+    equal to k value: return True
+ 4. Else return False
+ 
+ TC will be O(n)
+ SC will be O(1)
+ 
+ class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        dict = {}
+        for key,value in enumerate(nums):
+            if value not in dict:
+                dict[value] = key
+            elif (value in dict and key-dict[value] <= k):
+                return True
+        return False
+_______________________________________________________________________________________________
