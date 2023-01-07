@@ -1,0 +1,78 @@
+
+Given an array of integers nums, calculate the pivot index of this array.
+The pivot index is the index where the sum of all the numbers strictly to the left of the index is equal to the sum of all the numbers strictly to the index's right.
+If the index is on the left edge of the array, then the left sum is 0 because there are no elements to the left. This also applies to the right edge of the array.
+Return the leftmost pivot index. If no such index exists, return -1.
+
+Input: nums = [1,7,3,6,5,6]
+Output: 3
+The pivot index is 3.
+Left sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11
+Right sum = nums[4] + nums[5] = 5 + 6 = 11
+
+Input: nums = [1,2,3]
+Output: -1
+There is no index that satisfies the conditions in the problem statement.
+
+Input: nums = [2,1,-1]
+Output: 0
+The pivot index is 0.
+Left sum = 0 (no elements to the left of index 0)
+Right sum = nums[1] + nums[2] = 1 + -1 = 0
+__________________________________________________________________________________________________________________
+
+Brute Force:
+
+We need to quickly compute the sum of values to the left and the right of every index.
+Start from index 0 and iterate through every index to check the balance between left and the right
+If the balance is equal , return that index as a output 
+Else, return -1 as the result.
+
+______________________________________________________________________________________
+
+Using Prefix Sum Concept:
+
+1. Let the left side be 0 and right side will have the total weight (sum)
+
+Example:nums = [1,7,3,6,5,6] 
+        Left = 0
+        Right = 28
+2. For every iteration , take away the value (i) and subtract it from right (total sum)
+3. Check if the balance is met , If No update the left with the value i 
+Example: nums[0] = 1
+         Right = 28 - 1 => Right will become 27 now
+         Check if balance is met , if no then add that value to left
+         Left = 1
+         Now go to next index
+         
+4. This continues until the balance is met and return that index as pivot
+5. If the balance is not met , return -1
+Example: nums[1] = 7
+         Right = 27 - 7 => Right will become 20 now
+         Check if balance is met , if no then add that value to left
+         Left = 1 + 7 = 8
+         
+         nums[2] = 3
+         Right = 20 - 3 => Right will become 17 now
+         Check if balance is met , if no then add that value to left
+         Left = 8 + 3 = 11
+         
+         nums[3] = 6
+         Right = 17 - 6 => Right will become 11 now
+         Check if balance is met , if YES return the index value as pivot
+
+# Time Complexity : O(n)
+# Space Complexity : O(1)
+
+ class Solution(object):
+    def pivotIndex(self, nums):
+        left = 0
+        right = sum(nums)
+        for index,value in enumerate(nums):
+            right -= value
+            if left == right:
+                return index
+            left += value
+        return -1
+        
+_____________________________________________________________________________________________________
