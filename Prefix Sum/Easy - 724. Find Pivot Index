@@ -28,7 +28,12 @@ Start from index 0 and iterate through every index to check the balance between 
 If the balance is equal , return that index as a output 
 Else, return -1 as the result.
 
-So , the time complexity will be O(n^2) times and space complexity will be O(1)
+A worst case scenario is when we have to traverse the entire array atleast once and if the pivot index is the last index (n-1) of the array- TC will be O(N)
+Calculating left and right side sums adds another O(N)
+So, total TC = O(n^2)
+
+SC will be O(1)
+
 ______________________________________________________________________________________
 
 Using Prefix Sum Concept:
@@ -77,3 +82,8 @@ Example: nums[1] = 7
         return -1
         
 _____________________________________________________________________________________________________
+
+Time Complexity: O(N) for calculation sum of nums, O(N) for finding pivot index, so the overall time complexity will be O(N).
+Space Complexity: O(1) since we use constant space to store totalSum and leftSum values.
+
+_________________________________________________________________________________________
