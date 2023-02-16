@@ -28,6 +28,7 @@ Start from index 0 and iterate through every index to check the balance between 
 If the balance is equal , return that index as a output 
 Else, return -1 as the result.
 
+So , the time complexity will be O(n^2) times and space complexity will be O(1)
 ______________________________________________________________________________________
 
 Using Prefix Sum Concept:
