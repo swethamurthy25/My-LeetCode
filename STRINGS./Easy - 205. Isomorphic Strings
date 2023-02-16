@@ -22,6 +22,7 @@ What we understood from question?
 
 We are given two strings s and t , they are of same length (edge case)
 We need to map and compare each character of s to t. One character of t should map with only one char of s.
+The order of mapping should not be changed.
 For example:
 s = foo and t = bar
 f --> b
