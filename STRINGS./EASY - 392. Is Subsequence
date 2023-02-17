@@ -1,0 +1,59 @@
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing 
+the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+Input: s = "abc", t = "ahbgdc"
+Output: true
+
+Input: s = "axc", t = "ahbgdc"
+Output: false
+
+Constraints:
+0 <= s.length <= 100
+0 <= t.length <= 104
+s and t consist only of lowercase English letters.
+__________________________________________________________________________________________________________
+
+What do we understand from the question?
+
+We are given two strings s and t , we need to check whether s is a subsequence of t or not.
+subsequence - a sequence that appears in the same relative order, but not necessarily contiguous.
+SubString: a contiguous sequence of symbols that appears in the same relative order as the original string.
+
+So, we have to make sure that s should follow the order of character sequence.
+__________________________________________________________________________________________________________
+
+Two Pointer Approach:
+
+1. First cover the edge cases:
+   Return False , if len(s) > len(t)
+   Return True , if len(s) == 0
+   
+2. Initiate two pointers p1 and p2 . p1 will be pointed to the first character of string s and p2 will be pointed to the first character of string t
+3. Use for loop to iterate through both the string at the same time.
+4. Check if any characters are same , then increment the p1 
+5. If no characters are same , then increment p2 
+6. Return when p1 == len(s)
+
+class Solution(object):
+    def isSubsequence(self, s, t):
+        
+        #Covering the edge cases 
+        if len(s) > len(t): return False
+        if len(s) == 0: return True
+
+        #Two pointer approach
+        p1=p2=0
+        while p1 < len(s) and p2 < len(t):
+            if s[p1] == t[p2]:
+                p1 += 1
+            p2 += 1
+        return p1 == len(s)
+        
+  Time Complexity : O(n)
+  Space Complexity: O(1)
+  
+  ______________________________________________________________________________________________________
+
+ 
