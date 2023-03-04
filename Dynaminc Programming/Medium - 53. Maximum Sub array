@@ -57,13 +57,21 @@ Optimized Solution using Dynamic Programmin (Kadane's algorithm)
 3. maxSum will be our final return value. Continuously update it whenever we find a bigger subarray.
 4. Iterate through the array, starting with the 2nd element (as we used the first element to initialize our variables). 
 5. For each number, add it to the currentSubarray we are building. If currentSubarray becomes negative, we know it isn't worth keeping, so throw it away.
-6. A clever way to update currSum is using currSum = max(num, currSum + num). 
-   If currSum is negative, then num > currSum + num.
-7. Simultaneously , we need to update the maxSubarray every time we find a new maximum.
-8. Return the maxSum as output.
+6. Simultaneously , we need to update the maxSubarray every time we find a new maximum.
+7. Return the maxSum as output.
 
 TC is O(n) where n is the length of the nums , so we need to iterate only once.
 SC is O(1) as we are not using any additional space.
 
+class Solution(object):
+    def maxSubArray(self, nums):
+        currSum = maxSum = nums[0]
 
+        #for loop is starting from the 2nd element
+        for i in nums[1:]:
+            currSum = currSum + i
+            currSum = max(i, currSum)
+            maxSum = max(maxSum , currSum)
+        return maxSum
+_____________________________________________________________________________________________________
 
