@@ -44,7 +44,7 @@ Brute Force using build-in sorting approach:
 2. Then finally sort the nums1 and return as output
 
 The cost of sorting a list of length n will be x log x . Here we are sorting a list of length (n+m) so , the TC will be O((n+m)log(n+m))
-SC will be O(n) as the sorting approach will take n space.
+SC will be O(log(m+n)) as the sorting approach will take n space.
 
 def merge(self, nums1, m, nums2, n):
         for i in range(n):
