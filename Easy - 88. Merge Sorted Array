@@ -50,6 +50,8 @@ def merge(self, nums1, m, nums2, n):
         for i in range(n):
             nums1[i+m] = nums2[i]
         return nums1.sort()
+        
+ Issue with this solution - Sort function should not be used as it takes long time and zero's has to be eliminated from the result
 ___________________________________________________________________________________________________
 
 Optimized solution using three pointers:
@@ -60,7 +62,7 @@ Optimized solution using three pointers:
 3. If yes , check if the number at p1 is greater than p2 and decrement p1 or else decrement p2
 4. Finally , if we ran out of values in nums1 , add the remaining values of nums2 to the beginning of nums1
 
-TC is O(n) and SC is O(1)
+TC is O(n+m) and SC is O(1)
 
 def merge(self, nums1, m, nums2, n):
         p1 = m-1
