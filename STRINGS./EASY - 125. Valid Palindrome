@@ -48,4 +48,67 @@ Space Complexity is O(n), where n is the length of the modified string after rem
 _________________________________________________________________________________________________________________________________
 
 Optimized Solution: By using two pointer approach
+- Use two pointers, left and right, starting from the beginning and end of the string respectively, and then move them towards each other until they meet in the middle.
+  left = 0 
+  right = len(s)-1
+ 
+- At each step, we check if the character at the left index is alphanumeric. If it's not, we move left one position to the right. Similarly, if the character at the 
+  right index is not alphanumeric, we move right one position to the left.
+  while left < right:
+        if not s[left].isalnum():
+               left += 1
+        elif not s[right].isalnum():
+               right -= 1
+ 
+ - If both the characters at left and right indices are alphanumeric, we check if they are equal or not.
+ - If they are not equal, the string is not a palindrome and we return False. Otherwise, we continue moving the pointers towards each other.
+ - If the pointers meet in the middle of the string and no mismatches have been found, the string is a palindrome and we return True.
+   elif s[left].lower() != s[right].lower():
+          return False
+   else:
+        left += 1
+        right -= 1
+   return True
+   
+   Complete Code:
+   class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        left = 0
+        right = len(s)-1
+
+        while left<right:
+            if not s[left].isalnum():
+                left += 1
+            elif not s[right].isalnum():
+                right -= 1
+            elif s[left].lower() != s[right].lower():
+                return False
+            else:
+                left += 1
+                right -= 1
+        return True
+            
+The time complexity of this code is O(n) because we need to traverse the string once. 
+The space complexity is O(1) because we are not using any extra data structures to store the string.
+___________________________________________________________________________________________________________________________-
+
+
+   
+- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
