@@ -1,0 +1,83 @@
+Given a string s, return true if the s can be palindrome after deleting at most one character from it.
+
+Input: s = "aba"
+Output: true
+
+Input: s = "abca"
+Output: true
+Explanation: You could delete the character 'c'.
+
+Input: s = "abc"
+Output: false
+
+Constraints:
+1 <= s.length <= 105
+s consists of lowercase English letters.
+_________________________________________________________________________________________________________
+
+Understanding:
+- We are allowed to delete any one character from the string s and check if the remaining is a palindrome.
+- But how do we know which character we should delete?
+___________________________________________________________________________
+Brute Force:
+Perform all possible combinations of deletion and check if the remaning is a palindrome.
+In the brute force solution, we iterate through each character of the string and temporarily remove it to create a modified string. We then check if the modified string 
+is a palindrome. But this will cost us the time complexity of O(n^2)
+_________________________________________________________________________________________________________
+Optimized solution using two pointer:
+
+1. Initialize two pointers, i and j, to the start and end of the string, respectively.
+
+i = 0 represents the left pointer starting from the first character of the string.
+j = len(s) - 1 represents the right pointer starting from the last character of the string.
+
+2. Enter a while loop that continues until the i pointer crosses or becomes equal to the j pointer:
+   - If the characters at the i and j pointers are equal (s[i] == s[j]), move both pointers inward by incrementing i and decrementing j. 
+   - This indicates that the characters at these positions match in the string.
+   
+3. If the characters at the i and j pointers are not equal, it means there is a mismatch and one of the characters must be removed for the string to potentially 
+   become a palindrome. Now we should decide which one to remove , right or left character.
+4. Create two substrings, left_remove and right_remove, by excluding one character from either the left or right side of the current comparison.
+   - left_remove = s[i+1:j+1] represents the substring obtained by excluding the character at the i index.
+   - right_remove = s[i:j] represents the substring obtained by excluding the character at the j index.
+5. Check if either the left_remove or right_remove substring is a palindrome by comparing it with its reverse.
+   - If either left_remove or right_remove is a palindrome (left_remove == left_remove[::-1] or right_remove == right_remove[::-1]), it means deleting the 
+     corresponding character would make the remaining string a palindrome.
+   - In this case, return True to indicate that the string can be made into a palindrome by deleting at most one character.
+   - If neither left_remove nor right_remove is a palindrome, return False as the string cannot be made into a palindrome by deleting at most one character.
+   
+   For example: we have a string "abxca" , the i pointer is in b and j pointer is in c
+                left remove = s[i+1:j+1] , which means left_remove = "xc"
+                right_remove = s[i:j] , which means right_remove = "bx"
+                We check if either left_remove or right_remove is a palindrome.
+                left_remove is not a palindrome: "xc" != "cx".
+                right_remove is not a palindrome: "bx" != "xb".
+                Since neither left_remove nor right_remove is a palindrome, we return False.
+                
+ 6. The code terminates at this point, indicating that it is not possible to make the string "abxca" a palindrome by deleting at most one character.         
+   
+ Code:
+ class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        i = 0
+        j = len(s)-1
+
+        while i < j:
+            if s[i] == s[j]:
+                i += 1
+                j -= 1
+            else:
+                left_remove = s[i+1:j+1]
+                right_remove = s[i:j]
+                if left_remove == left_remove[::-1] or right_remove == right_remove[::-1]:
+                    return True
+                else:
+                    return False
+        return True
+    
+ The time complexity is O(n), where n is the length of the string s
+ The space complexity is O(1), constant space.
+ __________________________________________________________________________________________________________________________________
+ 
+ 
+   
