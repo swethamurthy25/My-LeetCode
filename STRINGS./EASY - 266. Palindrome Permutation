@@ -1,0 +1,47 @@
+Given a string s, return true if a permutation of the string could form a palindrome and false otherwise.
+
+Input: s = "code"
+Output: false
+
+Input: s = "aab"
+Output: true
+
+Input: s = "carerac"
+Output: true
+
+Constraints:
+1 <= s.length <= 5000
+s consists of only lowercase English letters.
+______________________________________________________________________________________________________________________
+
+Understanding:
+- permuttaion refers to the re arrangement of characters in a string. so even after rearraging the characters , we need to check whether it forms a palindrome.
+- Palindrome ---> A palindrome is a string that reads the same forward and backward.
+- If a string with an even length is a palindrome, every character in the string must always occur an even number of times.
+- If the string with an odd length is a palindrome, every character except one of the characters must always occur an even number of times. 
+- Thus, in case of a palindrome, the number of characters with odd number of occurrences can't exceed 1
+
+Eg: s = "aab" , here we can re arrange "aab" to "aba" and this forms a palindrome. so we are returning true as output.
+_________________________________________________________________________________________________________________________
+
+Solution 1:
+- One way to approach this problem is to use sets()
+- Iterate through s and if the char is not found in sets , add it to the set
+- Else if the char is already found , remove it 
+- Finally return True if len(sets) is <=1 , else false.
+
+class Solution:
+    def canPermutePalindrome(self, s: str) -> bool:
+        ss = set()
+        for ch in s:
+            if ch not in ss:
+                ss.add(ch)
+            else:
+                ss.remove(ch)
+        return len(ss) <= 1
+
+Time complexity is O(n) bcz we are looping through every character atleast once.
+Space complexity is O(ss.length) -- length of the set function.
+____________________________________________________________________________________________________________________
+
+
