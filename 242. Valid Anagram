@@ -11,6 +11,12 @@ Input: s = "rat", t = "car"
 Output: false
 
 ***********************************************************************
+Understanding:
+- we have to make sure the s and t has the same set of character and same number of char count
+- If we find new character or if the char count is not matching return False , else return True
+- We can try solving the questions either by using python build-in function or by without using it
+
+**********************************************************************************
 Approach 1: Using in-built sorted function
 Time Complexity: O(nlogn) -- Due to sorting approach
 Space Complexity: O(1) -- Constant space because we have only 26 characters
@@ -30,6 +36,41 @@ class Solution:
 
 ****************************************************************************************
 Approach 3 - Without using any of the in-built functions , Using Hashmap/Dictinory
+
+How do we implement this?
+
+Solution 1:
+- Here hashmap will keep track of each character and its respective count. So build two hashmaps to keep track of s and t seperately
+For example: 
+s = "anagram" --> our hashmap will look like this {a:3, n:1, g:1, r:1, m:1}
+t = "nagaram: --> our hashmap will look like this {a:3, n:1, g:1, r:1, m:1}
+
+- Everytime we see a char , we need to increment the count by 1 in both hash maps
+- Use get function to add character to hashmap. If the key is not found in hashmap, the get function will return the default value 0.
+- After building hashmap , we need to compare the keys (characters) and their values (count) from each of the hashmap
+- Return false if the keys or the count is not matching, else return True
+- Cover the edge case also --> means if the len(s) and len(t) are not same , directly we can return False
+
+Solution 1:
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+
+        countS , countT = {}, {}
+        for char in range(len(s)):
+            countS[s[char]] = 1 + countS.get(s[char],0)
+            countT[t[char]] = 1 + countT.get(t[char],0)
+        for c in countS:
+            if countS[c] != countT.get(c,0):
+                return False
+        return True
+        
+Time Complexity will be O(n) -- basically O(s+t), bcz we are iterating through both s and t string.
+Space complexity will be O(n) -- basically O(s+t) , bcz building a hashmap takes some space.
+        
+
+Solution 2:
 1. Initialize the result hashmap
 2. For every char in s , if it is not present in hashmap , add that to hashmap 
 3. If it is present in hashmap , increment the count by 1
