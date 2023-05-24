@@ -1,0 +1,75 @@
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Implement the MinStack class:
+- MinStack() initializes the stack object.
+- void push(int val) pushes the element val onto the stack.
+- void pop() removes the element on the top of the stack.
+- int top() gets the top element of the stack.
+- int getMin() retrieves the minimum element in the stack.
+
+You must implement a solution with O(1) time complexity for each function.
+
+Input
+["MinStack","push","push","push","getMin","pop","top","getMin"]
+[[],[-2],[0],[-3],[],[],[],[]]
+
+Output
+[null,null,null,null,-3,null,0,-2]
+
+Explanation
+MinStack minStack = new MinStack();
+minStack.push(-2);
+minStack.push(0);
+minStack.push(-3);
+minStack.getMin(); // return -3
+minStack.pop();
+minStack.top();    // return 0
+minStack.getMin(); // return -2
+
+Constrains:
+Methods pop, top and getMin operations will always be called on non-empty stacks.
+At most 3 * 104 calls will be made to push, pop, top, and getMin.
+__________________________________________________________________________________________________________________________
+
+Understanding:
+- We need to implement a min stack from scratch that should able to do all the stack operations like push , pop , get top() and get min() value
+- The trickest part here is we need to implement this in constant time O(1)
+- As we already know all the stack operations - push() , pop() and top() already has constant time O(1) so we no need to worry about that
+- The only problem here is to implement get_min() in O(1). So ,generally getting a min element from the entire stack takes O(n) time , we need to optimize this or to find
+  a workaround to implement the same using O(1).
+____________________________________________________________________________________________________________________________
+Solution:
+- Assume we have a stack with values  [0,-2,-1,5] . Here the 5 is the top elements and when we need to find a min element every time we need to iterate through the 
+  stack to find the lowest value this will cost us o(n) times .
+- so When we add 0 to stack , 0 will be the only element and its the min value , when we add -2 , among -2 & 0 , -2 will be the lowest. Now we need to store this info 
+  somewhere .. So in every stage of stack , or during push or pop of stack we need to maintain the lowest element.
+- In order implement this we are going to maintain two stacks namely stack and minstack
+- When we do push operation , we are going to add in both the stacks 
+- When we do pop operation , we are going to remove elements from both the stacks.
+- But we have to be careful when we do get_top()- we need to get the top from the stack and for get_min() get the min value from min_stack , bcz that stores 
+  the min value on top.
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minstack = []
+
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        #now add the min value to the minstack
+        val = min(val,self.minstack[-1] if self.minstack else val)
+        self.minstack.append(val)
+        
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minstack.pop()
+        
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minstack[-1]
+
+TC is O(1) and SC is O(n)
+__________________________________________________________________________________________________
+  
+  
