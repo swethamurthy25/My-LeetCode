@@ -1,0 +1,71 @@
+Design a max stack data structure that supports the stack operations and supports finding the stack's maximum element.
+Implement the MaxStack class:
+
+MaxStack() Initializes the stack object.
+void push(int x) Pushes element x onto the stack.
+int pop() Removes the element on top of the stack and returns it.
+int top() Gets the element on the top of the stack without removing it.
+int peekMax() Retrieves the maximum element in the stack without removing it.
+int popMax() Retrieves the maximum element in the stack and removes it. If there is more than one maximum element, only remove the top-most one.
+
+You must come up with a solution that supports O(1) for each top call and O(logn) for each other call.
+
+Input
+["MaxStack", "push", "push", "push", "top", "popMax", "top", "peekMax", "pop", "top"]
+[[], [5], [1], [5], [], [], [], [], [], []]
+Output
+[null, null, null, null, 5, 5, 1, 5, 1, 5]
+Explanation
+MaxStack stk = new MaxStack();
+stk.push(5);   // [5] the top of the stack and the maximum number is 5.
+stk.push(1);   // [5, 1] the top of the stack is 1, but the maximum is 5.
+stk.push(5);   // [5, 1, 5] the top of the stack is 5, which is also the maximum, because it is the top most one.
+stk.top();     // return 5, [5, 1, 5] the stack did not change.
+stk.popMax();  // return 5, [5, 1] the stack is changed now, and the top is different from the max.
+stk.top();     // return 1, [5, 1] the stack did not change.
+stk.peekMax(); // return 5, [5, 1] the stack did not change.
+stk.pop();     // return 1, [5] the top of the stack and the max element is now 5.
+stk.top();     // return 5, [5] the stack did not change.
+
+Constraints:
+At most 105 calls will be made to push, pop, top, peekMax, and popMax.
+There will be at least one element in the stack when pop, top, peekMax, or popMax is called.
+________________________________________________________________________________________________________________________
+
+*********** This question is same as min stack but additionally we have to implement peekmax and pop max here.
+
+Solution:
+- Define an empty stack
+- The operations - push(), pop() and top() are same as we do everytime.
+- For peekmax , we need to return the max element from the stack , so the max function is used here.
+- For popmax, we need to identify the max element (we can call the peekmax for this) and then delete that element from stack.
+- If there are more than one max , we need to delete the top most element.
+
+class MaxStack:
+
+    def __init__(self):
+        self.stack = []
+        
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        
+    def pop(self) -> int:
+        return self.stack.pop()
+        
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def peekMax(self) -> int:
+        return max(self.stack)
+
+    def popMax(self) -> int:
+        target = self.peekMax()
+        for i in range(-1, -len(self.stack)-1, -1):
+            if target == self.stack[i]:
+                del self.stack[i]
+                break
+        return target
+
+
+
+
