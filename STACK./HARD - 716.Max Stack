@@ -35,7 +35,37 @@ ________________________________________________________________________________
 *********** This question is same as min stack but additionally we have to implement peekmax and pop max here.
 
 Solution:
-- Define an empty stack
+- Define two stacks - stack & max stack.
+
+Push()
+The push method takes an element x as input and adds it to the stack. If the max_stack is empty or the new element x is greater than or equal to the current 
+maximum element (self.max_stack[-1]), it is also added to the max_stack. This ensures that the max_stack always keeps track of the maximum elements in the stack.
+
+Pop() 
+The pop method removes the top element from the stack using the pop function. If the popped element is equal to the current maximum element (self.max_stack[-1]), 
+it is also removed from the max_stack. 
+
+top()
+The top method simply returns the top element of the stack without removing it, which is accessed using self.stack[-1]
+
+peekmax()
+The peekMax method returns the current maximum element of the stack without removing it. This is achieved by accessing the last element of the 
+max_stack using self.max_stack[-1].
+
+popmax()
+- The popMax method retrieves the maximum element from the stack and removes it. 
+- It first retrieves the maximum element from max_stack and stores it in the variable.
+- Then, it creates a temporary stack, temp_stack, to hold the elements that are popped from stack until the maximum element is reached. 
+- The elements are popped from stack and appended to temp_stack until self.stack[-1] is equal to max_element.
+- After finding the maximum element, it is removed from stack using self.stack.pop(). This ensures that only the top-most maximum element is removed, as per the 
+  requirements.
+- Finally, the elements in temp_stack are reinserted back into the stack by iterating through temp_stack and using the push method to push each element back. 
+  This step restores the original order of elements in the stack after removing the maximum element.
+- The method returns the maximum element max_value.
+
+
+
+
 - The operations - push(), pop() and top() are same as we do everytime.
 - For peekmax , we need to return the max element from the stack , so the max function is used here.
 - For popmax, we need to identify the max element (we can call the peekmax for this) and then delete that element from stack.
