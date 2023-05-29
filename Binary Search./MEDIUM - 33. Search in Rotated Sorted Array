@@ -1,0 +1,115 @@
+There is an integer array nums sorted in ascending order (with distinct values).
+Prior to being passed to your function, nums is possibly rotated at an unknown pivot index k (1 <= k < nums.length) such that the resulting array is 
+[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). 
+For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2].
+
+Given the array nums after the possible rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+You must write an algorithm with O(log n) runtime complexity.
+
+Input: nums = [4,5,6,7,0,1,2], target = 0
+Output: 4
+
+Input: nums = [4,5,6,7,0,1,2], target = 3
+Output: -1
+
+Input: nums = [1], target = 0
+Output: -1
+
+Constraint:
+1 <= nums.length <= 5000
+-104 <= nums[i] <= 104
+All values of nums are unique.
+nums is an ascending array that is possibly rotated.
+-104 <= target <= 104
+___________________________________________________________________________________________________________________________________
+
+Understanding:
+- Since we need to solve this with o(log n) , obviously we know we should use binary search algorithm here.
+- But the tricker part here is , the array has been rotated and there are two halves. each halves has been sorted individually.
+- We need to check whether the target exist in the array , if exist return that number as output or else retur -1.
+___________________________________________________________________________________________
+
+How do we approach this using binary search:
+1. This is the given nums array = [4,5,6,7,0,1,2] and target is 6.
+2. First define the left, right index and the mid index.
+3. Check if mid is equal to target , if so return the mid as output, else check for the target in left and right portion.
+
+left = 0
+right = len(nums)-1
+while left<=right:
+     mid=(left+right)//2
+     if nums[mid]==target:
+          return mid
+          
+4. IN the given example , now we know target is not equal to mid, so we need to check either the left or the right portion of array. how do we know which portion we 
+   need to iterate? since the array is rotated , it may be trickier to take the proper side.
+5. Check if nums[mid] greater than or equal to left value , if so check further for two more conditions: if target is greater than mid or target is lesser than left
+   
+#left sorted portion- nums=[4,5,6,7]
+if nums[mid] >= nums[left]:
+   if target > nums[mid] or target < nums[left]:
+       left = mid+1
+   else:
+       right = mid-1
+
+6. For the right sorted portion, we need to check if target is lesser than mid value or target is greater than right value: if any one of these holds true, move the 
+   right pointer to mid-1 , else left = mid +1
+7. FInally return -1 if the target is not found.
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums)-1
+
+        #nums=[4,5,6,7,0,1,2] and mid is 7
+        while left<=right:
+            mid=(left+right)//2
+            if nums[mid]==target:
+                return mid
+
+            #left sorted portion- nums=[4,5,6,7]
+            if nums[mid] >= nums[left]:
+                if target > nums[mid] or target < nums[left]:
+                    left = mid+1
+                else:
+                    right = mid-1
+            #Right sorted portion- nums=[0,1,2]
+            else:
+                if target < nums[mid] or target > nums[right]:
+                    right = mid-1
+                else:
+                    left = mid+1
+        return -1
+_____________________________________________________________________________________________________________________
+
+Dry Run of code with an example:
+1. This is the given nums array = [4,5,6,7,0,1,2] and target is 6.
+
+left = 0
+right = len(nums)-1
+while left<=right:
+     mid=(left+right)//2
+     if nums[mid]==target:
+          return mid
+          
+So in the given array [4,5,6,7,0,1,2] --> left index is at 4 , right index is at 2 and mid index is at 7.
+
+2. IN the given example , now we know target is not equal to mid, so we need to check either the left or the right portion of array. how do we know which portion we 
+   need to iterate? since the array is rotated , it may be trickier to take the proper side.
+   
+#left sorted portion- nums=[4,5,6,7]
+if nums[mid] >= nums[left]:
+   if target > nums[mid] or target < nums[left]:
+         left = mid+1
+   else:
+         right = mid-1
+
+Here mid (7) >= left(4) ---> holds true , we are procedding to check remaining two of the conditions.
+Here target(6) > mid(7) --> false or
+here target(6) < left(4) --> false
+so we are executing the else condition and moving the right pointer to mid-1
+
+So in the given array [4,5,6,7,0,1,2] --> left index is at 4 , right index is at 6 and mid index is at 7. 
+ 
+ ____________________________________________________________________
+      
