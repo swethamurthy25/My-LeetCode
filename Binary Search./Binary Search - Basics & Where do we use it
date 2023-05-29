@@ -1,5 +1,4 @@
 BINARY SEARCH 
-
 Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by using the divide and conquer method by repeatedly dividing in half 
 the portion of the list that could contain the item, until you've narrowed down the possible locations to just one. 
 
@@ -8,7 +7,7 @@ A binary search is only possible with an ordered set of data; if the data is ran
 binary search would probably be stuck in an infinite loop.
 
 
-How to use binary search:
+Most basic and elementary form of Binary Search:
 1. We start from the most basic and elementary template.
 2. First, we define the search space using two boundary indexes, left and right, all possible indexes are within the inclusive range [left, right]. These are nothing but two
    pointers.
