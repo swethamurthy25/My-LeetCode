@@ -40,7 +40,7 @@ Why hashset?
 When we take any list/array [1,5,65,32,79,16] and when we need to find an element say 79 in array. We need to traverse through all elements,we need to check if that 
 element is 79 or not. So, the lookup time will be O(n)
 
-******************************************************************
+But when we use hashset:
 [1,5,65,32,79,16] - If we need to check if 79 exist , go to that specific bucket 9 and search for the value. So,the lookup time will be constant ie O(1)
 
 Number%10    Bucket
@@ -59,7 +59,7 @@ ________________________________
 
 **************************************************************
 
-When we want to implement hashset , we need to take care of two important things:
+When we want to implement hashset , we need to take care of two important things or we need to address two things:
 1. hash function: The hash function is the most important component of a hash table which is used to map the key to a specific bucket.Ideally, 
 each unique value should have a unique hash value.
 2. Collision:  when two pieces of data in a hash table share the same hash value, the collision occurs.
