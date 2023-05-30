@@ -1,3 +1,11 @@
+Why binary search and when it is useful?
+Normally, to find the target in a group, such as an array of numbers, the worst case scenario is we need to go through every single element (O(n)). 
+However, when these elements are sorted, we are able to take the privilege of this extra information to bring down the search time to O(log n), that is if we have 
+100 elements, the worst case scenario would be 10 searches. That is a huge performance improvement.
+
+The reason behind this huge performance increase is because for each search iterations, we are able to cut the elements we will be looking at in half. Fewer elements to 
+look at = faster search time. And this all comes from the simple fact that in a sorted list, everything to the right of n will be greater or equal to it, and vice versa.
+
 BINARY SEARCH 
 Binary search is an efficient algorithm for finding an item from a sorted list of items. It works by using the divide and conquer method by repeatedly dividing in half 
 the portion of the list that could contain the item, until you've narrowed down the possible locations to just one. 
