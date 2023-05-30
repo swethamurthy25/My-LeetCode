@@ -1,0 +1,92 @@
+A peak element is an element that is strictly greater than its neighbors.
+Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
+You may imagine that nums[-1] = nums[n] = -∞. In other words, an element is always considered to be strictly greater than a neighbor that is outside the array.
+You must write an algorithm that runs in O(log n) time.
+
+Input: nums = [1,2,3,1]
+Output: 2
+Explanation: 3 is a peak element and your function should return the index number 2.
+
+Input: nums = [1,2,1,3,5,6,4]
+Output: 5
+Explanation: Your function can return either index number 1 where the peak element is 2, or index number 5 where the peak element is 6.
+
+Constraints:
+1 <= nums.length <= 1000
+-231 <= nums[i] <= 231 - 1
+nums[i] != nums[i + 1] for all valid i.
+_____________________________________________________________________________________________________________________________________________
+
+Basic Understanding:
+- We need to find the peak element in the nums array and return its index as output.
+- If we have multiple peak elements , we can return any of the index as output , no restrictions in that.
+- The nums array will definetly contain the peak element, there will be no case like "return -1 if there is no peak element"
+- In question its given as "You must write an algorithm that runs in O(log n) time." - this is the clue to use the binary search algorithm.
+
+Which are peak elements and how do we find that?
+- Peak element means current_element > next element ie nums[i] > nums[i+1]
+- The peak element can occur anywhere in the array - at the beginning , or middle or may be at the last.
+#nums=[1,2,3,1] --> Here only 3 is the peak elemnt
+#nums=[1,2,1,3,5,6,4] --> Here 2,6 are the peak elements
+____________________________________________________________________________________________________________________________________________
+
+Brute Force:
+- Check and compare all the elements with this next element -- to find the peak value.
+- If peak value is found return its index as output , or else if the peak is not found until the last element of array , return the last element as output.
+
+TC is O(n) and SC is O(1)
+
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        n = len(nums)-1
+        for i in range(0,n):
+            if nums[i] > nums[i+1]:
+                return i
+        return n
+_______________________________________________________________________________________________________________________________________
+
+How to optimize this using binary search?
+
+- We can use the same logic from brute force nums[i] > nums[i+1] - in the binary search as nums[mid] > nums[mid+1]
+- First initialize the left to 0th index and right to (n-1)th index
+- Use while loop and calculate the mid value. 
+- Check if nums[mid] > nums[mid+1]: In that case if its true, the right side of mid will definetly contain the elements less than mid , so ignore that part
+- Move the right pointer to the mid .
+- OR ELSE do vice versa: move the left to mid+1
+- Repeat this for every step and iteration and return the left value as the index of peak element.
+
+TC is O(log n) since we are using binary search and SC is O(1)
+
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        left,right = 0, len(nums)-1
+        while left < right:
+            mid = (left+right)//2
+            if nums[mid] > nums[mid+1]:
+                right = mid
+            else:
+                left = mid+1
+        return left
+____________________________________________________________________________________________________________________________
+
+Dry Run of code with an example:
+
+Input: nums = [1,2,3,1]
+Output: 2
+Explanation: 3 is a peak element and your function should return the index number 2.
+
+1. Left will be 0th index with value 1 , right will be len(nums-1)th index with value 1 and the mid value will be (0+3)//2 = 1st index , mid = 2
+2. Now mid = 2 , we should check if nums[mid] > nums[mid+1] --> 2 > 3 , which is false , now the else part wil be executed.
+3. Left = mid+1 , left wil be moved to 3rd index (value=3)
+4. Now left = 3 , right = 1 , calculate the mid value again. Mid = (2+3)//2 = 2 
+5. new mid == 2nd index (value=3) .
+6. Now check if nums[mid] > nums[mid+1] --> 3 > 1 , hold TRUE , so 3 IS ONE OF THE PEAK ELEMENT FOUND . Now right == mid.
+7. Since the peak element is found , the index value of left is returned as output.
+8. Left is pointing to value 3 with index 2. so 2 is returned as ouput.
+
+_____________________________________________________________________________________________________________________________
+
+
+
+
+        
