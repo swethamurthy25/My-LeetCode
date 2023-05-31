@@ -1,0 +1,89 @@
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+Each letter in magazine can only be used once in ransomNote.
+
+Input: ransomNote = "a", magazine = "b"
+Output: false
+
+Input: ransomNote = "aa", magazine = "ab"
+Output: false
+
+Input: ransomNote = "aa", magazine = "aab"
+Output: true
+
+Constraints:
+1 <= ransomNote.length, magazine.length <= 105
+ransomNote and magazine consist of lowercase English letters.
+_________________________________________________________________________________________________________________________________
+
+Basic Understanding & Questions we have:
+-- We are provided with two strings ransomnote & magazine.. We need to check if the characters of ransomnote are present in magazine.
+-- This means , the character count should exactly match.. the magazine may have extra characters that are not in ransomnote , that is acceptable and fine.
+-- Return True if the characters matches or else return False
+
+Datastructures involved:
+-- String
+-- Hashmap/dict to keep track of the character count
+________________________________________________________________________________________________________________________________
+
+Brute Force:
+-- Using multiple hashmaps to track the count and then compare the count and finalize the results.
+-- Usage of three for loops.
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:       
+        #Two dictionaries/hashmaps
+        ran_count = {}
+        mag_count = {}
+
+        for i in ransomNote:
+            if i not in ran_count:
+                ran_count[i] = 1
+            else:
+                ran_count[i] += 1
+
+        for j in magazine:
+            if j not in mag_count:
+                mag_count[j] = 1
+            else:
+                mag_count[j] += 1
+
+        for ch in ransomNote:
+            if ch not in mag_count or mag_count[ch] < ran_count[ch]:
+                return False
+        return True
+_______________________________________________________________________________________________________________
+
+Optimized Solution:
+-- Create a hashmap to track the count of magazine objects
+-- Look up/iterate through the ransomnote characters and decrease each frequency from magazine_count as we encounter
+-- If the frequency/count becomes 0 or the ch not found in mag_count , return False , or else return True
+
+For example:
+ransomNote = aabb 
+magazine = aaab
+
+mag_count = {a:3,b:1} 
+now we iterate through ransomNote , first we encounter a , so reduce the count of a from 3 to 2  ==> mag count will become {a:2,b:1}
+Again we encounter a , so reduce the count of a from 2 to 1 ==> mag count will become {a:1,b:1}
+We encounter b , so reduce the count of b from 1 to 0 ==> mag count will become {a:1,b:0}
+Finally we encounter b , but b is already 0 so we need to return False.
+
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        mag_count = {}
+        for i in magazine:
+            if i not in mag_count:
+                mag_count[i] = 1
+            else:
+                mag_count[i] += 1
+
+        for ch in ransomNote:
+            if ch not in mag_count or mag_count[ch] == 0:
+                return False
+            else:
+                mag_count[ch] -= 1
+        return True
+        
+TC is O(M+N) -- as we have two strings and iterating through two strings
+SC is O(M) -
+________________________________________________________________________________________________
