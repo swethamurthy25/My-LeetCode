@@ -1,0 +1,38 @@
+You are given an array coordinates, coordinates[i] = [x, y], where [x, y] represents the coordinate of a point. Check if these points make a straight line in the XY plane.
+
+Input: coordinates = [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]]
+Output: true
+
+Input: coordinates = [[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]]
+Output: false
+
+Constraints:
+2 <= coordinates.length <= 1000
+coordinates[i].length == 2
+-10^4 <= coordinates[i][0], coordinates[i][1] <= 10^4
+coordinates contains no duplicate point.
+________________________________________________________________________________________________________________________________
+
+Basic Understanding:
+- We are given with a set of x and y co-ordinates and we need to return TRue if the co-ordinates forms the straight line , or else return False
+- Now before jumping into the solution , we should be aware of the normal math/geometry solution of how the straight line is formed with these points?. Based on that , we 
+  can proceed with the coding part.
+- First , basically we need atleast two co-ordinates and if we are given with only two co-ordinates ofcourse it will form a straight line , so we need to cover 
+  the edge case here if coordinates < 2: return False
+- Then , find the slope of two co ordinates -
+For example: [[1,2],[2,3] ----> The slope formula is rise/run ie y2-y1/x2-x1
+The slope is (3-2)/(2-1) , which is 1 here.
+- If we have more than two co ordinates , then the slope of every two co ordinates should be the same, in order to form a straight line.
+____________________________________________________________________________________________________________________________
+
+YOUTUBE - https://www.youtube.com/watch?v=cY478B89ds4
+
+SOLUTION:
+- First cover the edge cases: if coordinates < 2: return False or if coordinates == 2: return True
+- Compute the slope of first two points.
+- Then compare and check if the next slopes are equal to the first slope.
+- If they are not equal , they are not forming a straight line so return False , else return True
+
+
+
+
