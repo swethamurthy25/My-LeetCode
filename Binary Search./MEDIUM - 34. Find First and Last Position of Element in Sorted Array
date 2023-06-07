@@ -1,0 +1,109 @@
+Given an array of integers nums sorted in non-decreasing order, find the starting and ending position of a given target value.
+If target is not found in the array, return [-1, -1].
+
+You must write an algorithm with O(log n) runtime complexity.
+
+Input: nums = [5,7,7,8,8,10], target = 8
+Output: [3,4]
+
+Input: nums = [5,7,7,8,8,10], target = 6
+Output: [-1,-1]
+
+Input: nums = [], target = 0
+Output: [-1,-1]
+_______________________________________________________________________________________________________________________________
+
+Understanding of the question:
+- When we hear O(logn) or sorted array, our mind should go back to binary search example!
+- In normal binary search we are usually given with a sorted array and we need to find the target element. BUt in this question instead of target element , we need to 
+  return the range of the indices of the target element.
+- The idea is that we have to return two indices, one for start of the target and one for end of the target in an array.
+________________________________________________________________________________________________________________________________
+
+Solution :
+- Since we need to find two indices , start of target and end of target , we need to use two different helper functions, 
+- one would go and try to find the starting index, the other to find the end index.
+
+BinSearch Function:
+1. Define the binSearch helper function that will performs the binary search.
+2. It takes three parameters: nums (the input list), target (the value being searched), and leftBias (a boolean indicating the direction of the search).
+3. In the binSearch method, as usual we will define the left as 0 and right as len(nums)-1, and index to -1, representing the index of the target value if found.
+4. Start the while loop and calculate the mid value. 
+5. If the target value is greater than the value at the middle index (nums[mid]), the left pointer is updated to mid + 1, effectively shifting the search range to the 
+  right half.
+6. If the target value is less than the value at the middle index, the right pointer is updated to mid - 1, effectively shifting the search range to the left half.
+7. If the target value is equal to the value at the middle index, the index variable is updated to mid.
+8. Additionally, if leftBias is True, indicating a leftmost occurrence search, the right pointer is updated to mid - 1, narrowing the search range further to 
+  the left.
+9. If leftBias is False, indicating a rightmost occurrence search, the left pointer is updated to mid + 1, narrowing the search range further to the right.
+10. Once the while loop ends, the method returns the index value, which represents the leftmost or rightmost occurrence of the target value in the input list.
+
+def binSearch(self, nums, target, leftBias):
+        left = 0
+        right = len(nums)-1
+        i = -1
+            
+        while left <= right:
+            mid = (left+right)//2
+            if target > nums[mid]:
+                left = mid+1
+            elif target < nums[mid]:
+                right = mid-1
+            else:
+                i = mid
+                if leftBias:
+                    right = mid-1
+                else:
+                    left = mid+1
+        return i
+        
+SearchRange Function (already given in the question):
+1. Inside the searchRange method, the code calls the binSearch method twice with different parameters. 
+2. The first call passes True as the third argument (leftBias), indicating that it's searching for the leftmost occurrence of the target value.
+3. The second call passes False for leftBias, indicating that it's searching for the rightmost occurrence.
+4. Atlast, the searchRange method returns a list containing the results of the two binary searches performed earlier: the leftmost and rightmost occurrences of 
+   the target value in the input list.
+
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        #Calling the functions
+        left = self.binSearch(nums, target, True)
+        right = self.binSearch(nums, target, False)
+        return [left,right]
+        
+_____________________________________________________________________________________________________________________________________
+
+TC is 2* (o log n) which is equal to o(log n)
+SC is O(1)
+
+Complete Code:
+
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        #Calling the functions
+        left = self.binSearch(nums, target, True)
+        right = self.binSearch(nums, target, False)
+        return [left,right]
+        
+    #Running binary search twice so creating a helper function
+    #leftBias can be [true/false]: if false we have to look in rightbias
+    def binSearch(self, nums, target, leftBias):
+        left = 0
+        right = len(nums)-1
+        index = -1
+            
+        while left <= right:
+            mid = (left+right)//2
+            if target > nums[mid]:
+                left = mid+1
+            elif target < nums[mid]:
+                right = mid-1
+            else:
+                index = mid
+                if leftBias:
+                    right = mid-1
+                else:
+                    left = mid+1
+        return index
+ ___________________________________________________________________________________________________________________________________________________________
+        
