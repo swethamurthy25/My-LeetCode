@@ -107,3 +107,16 @@ class Solution:
         return index
  ___________________________________________________________________________________________________________________________________________________________
         
+Dry Run of code with example:
+
+1. Given array nums = [5,7,7,8,8,8]  target is 8 , we know left = 0 (value=5) and right = len(nums)-1 (value=8) and mid is index 2 (value=7)
+2. Now the binary search begin , target > mid value , so we need to shift our left pointer to mid+1
+3. Now the new left will become index 3 (value=8) , right is value 8 and mid will become index 4 (value=8)
+4. Now mid value == target value , but we donknow whether its the starting or ending range. So move the left pointer to mid+1 to check if its the end of target.
+5. Yes 8 is the last value and we found the end range of target. now in the output range we got [ --- , 5]
+6. Now again start the binary search from beginning , left = 0 (value=5) and right = len(nums)-1 (value=8) and mid is index 2 (value=7)
+7. target > mid value , so we need to shift our left pointer to mid+1
+8. Now the new left will become index 3 (value=8) , so we know now all the value before the mid is less than the target .. so index 3 will be our start of range now.
+9. Return the output range [ 3, 5] as result.
+
+___________________________________________________________________________________________________________________
