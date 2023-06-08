@@ -1,0 +1,35 @@
+Given an array arr of positive integers sorted in a strictly increasing order, and an integer k.
+Return the kth positive integer that is missing from this array.
+
+Input: arr = [2,3,4,7,11], k = 5
+Output: 9
+Explanation: The missing positive integers are [1,5,6,8,9,10,12,13,...]. The 5th missing positive integer is 9.
+
+Input: arr = [1,2,3,4], k = 2
+Output: 6
+Explanation: The missing positive integers are [5,6,7,...]. The 2nd missing positive integer is 6.
+_________________________________________________________________________________________________________________________
+
+Solution using binary search:
+
+1. Initialize the left and right pointer.
+2. Initialize the while loop and find the mid value.
+3. Now we should find the missing values using the mid value. --> missing = mid value - index of mid value - 1
+4. if k is greater than the missing value , then left = mid + 1 , else right = mid - 1
+5. Finally return the right pointer value + k + 1 as output
+
+class Solution:
+    def findKthPositive(self, arr: List[int], k: int) -> int:
+        left = 0
+        right = len(arr)-1
+
+        while left <= right:
+            mid = (left+right)//2
+            missing = arr[mid]-mid-1
+            if k > missing:
+                left = mid+1
+            else:
+                right = mid-1
+
+        return right+k+1
+_________________________________________________________________________________________________________________
