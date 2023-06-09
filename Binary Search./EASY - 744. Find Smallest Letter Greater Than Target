@@ -1,0 +1,74 @@
+You are given an array of characters letters that is sorted in non-decreasing order, and a character target. There are at least two different characters in letters.
+Return the smallest character in letters that is lexicographically greater than target. If such a character does not exist, return the first character in letters
+
+Example 1:
+Input: letters = ["c","f","j"], target = "a"
+Output: "c"
+Explanation: The smallest character that is lexicographically greater than 'a' in letters is 'c'.
+
+Example 2:
+Input: letters = ["c","f","j"], target = "c"
+Output: "f"
+Explanation: The smallest character that is lexicographically greater than 'c' in letters is 'f'.
+
+Example 3:
+Input: letters = ["x","x","y","y"], target = "z"
+Output: "x"
+Explanation: There are no characters in letters that is lexicographically greater than 'z' so we return letters[0].
+
+Constraints:
+2 <= letters.length <= 104
+letters[i] is a lowercase English letter.
+letters is sorted in non-decreasing order.
+letters contains at least two different characters.
+target is a lowercase English letter.
+__________________________________________________________________________________________________________________________________________
+
+Brute Force:
+TC is O(n) and SC is O(1)
+
+-- We can use brute force to go through all of the characters in letters and compare each of them to target
+-- When we come across a letter that is lexicographically greater than target, we return it.
+-- If no letter greater than target is found, we return the first character.
+
+-- Every character has an ASCII value associated with it. For example, the ASCII value of a is 97, b is 98, and so on. 
+-- We can simply use logical operators (>, <, ==) to compare two characters that use these ASCII values for comparison internally.
+
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        for i in letters:
+            if i > target:
+                return i
+        return letters[0]
+________________________________________________________________________________________________________________________________________
+
+Solution using binary search:
+TC is O(log n) and SC is O(1)
+
+-- Create three integers left = 0, right = letters.length - 1 and mid to start the binary search algorithm.
+-- While left <= right: Find the midpoint of the range (left, right) in the variable mid = (left + right) // 2.
+-- Compare the letter at index mid with target
+-- If letters[mid] <= target , move the left pointer to mid+1
+-- Else , move the right pointer to mid-1
+-- At the end of the binary search algorithm, left will store the index of the smallest character that is lexicographically greater than target.
+-- If left == letters.length, it means there is no character in letters that is lexicographically greater than target. We return letters[0].
+-- Otherwise, we return letters[left] as left holds the smallest character greater than target.
+
+class Solution:
+    def nextGreatestLetter(self, letters: List[str], target: str) -> str:
+        left = 0
+        right = len(letters)-1
+
+        while left <= right:
+            mid = (left+right)//2
+            if letters[mid] <= target:
+                left = mid+1
+            else:
+                right = mid-1
+
+        if left == len(letters):
+            return letters[0] 
+        else:
+            return letters[left]
+_______________________________________________________________________________________________________________________________________
+
