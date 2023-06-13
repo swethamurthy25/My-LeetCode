@@ -41,3 +41,16 @@ Insert: O(1)
 Remove: O(1)
   
 ***********************************************************************************************************************
+Singly Linked List:
+
+• Each node in linked list contain two fields - data field and the reference field. Data field stores the data and reference field stores the address of the next node 
+  in the list.
+• HEAD --> The first node of every list is called head which marks the beginning of the list.
+• TAIL --> The last node of the list which marks the end.
+
+
+
+  
+
+
+
