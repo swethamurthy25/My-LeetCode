@@ -35,7 +35,17 @@ ________________________________________________________________________________
 
 Solution:
 
-STEP 1: Define the LinkedList class and its variables
+STEP 1: Define the node class
+-- Now Define the new class namely "listNode" and it should contain the details of each node.
+-- Each node will contain two fields - data and reference , so initialize two variables - val and ref.
+-- INitially the ref (reference node) will be None , because this is the first node and it is not pointing to anything right now.
+
+class ListNode:
+    def __init__(self,x):
+        self.val = x
+        self.ref = None
+
+STEP 2: Define the LinkedList class and its variables
  -- Here we are choosing to create a "SINGLY LINKED LIST" structure.
  -- First we need to define the linked list class , means the initial node and then proceed to add nodes from there.
  -- The size of the linked list is 0 initially
@@ -46,21 +56,27 @@ STEP 1: Define the LinkedList class and its variables
  class MyLinkedList:
     def __init__(self):
         self.size = 0
-        self.head = Node(0)
+        self.head = ListNode(0)
         
-STEP 2: Define the node class
--- Now Define the new class namely "Node" and it should contain the details of each node.
--- Each node will contain two fields - data and reference , so initialize two variables - val and ref.
--- INitially the ref (reference node) will be None , because this is the first node and it is not pointing to anything right now.
+STEP 3: 
+-- Now the initializations are done, we can add the node at head or tail or at any index. 
+-- We can also delete at any index. let us define the code for the other operations now.
 
-class Node:
-    def __init__(self,x):
-        self.val = val
-        self.ref = None
+STEP 4: ADD AT HEAD()
+-- The add at head() method will take the value (integer) as a parameter.
+-- Just call the method to add any value to the head.
+
+ def addAtHead(self, val: int) -> None:
+        self.addAtHead(0,val)
         
-STEP 3: Now we need to insert the first node to the head
--- Add a node of value 'val' before the first element of the LinkedList.
--- After the insertion, the new node will become the first node of the LinkedList
+STEP 5: ADD AT TAIL()
+-- The add at tail() method will take the value (integer) as a parameter.
+-- Just call the method to add any value to the tail. Here self.size is used to identify the last node of the linked list.
+
+def addAtTail(self, val: int) -> None:
+        self.addAtTail(self.size,val)
+        
+STEP 6: ADD AT TAIL()      
 
 
 
