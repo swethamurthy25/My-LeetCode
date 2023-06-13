@@ -1,0 +1,83 @@
+Design your implementation of the linked list. You can choose to use a singly or doubly linked list.
+A node in a singly linked list should have two attributes: val and next. val is the value of the current node, and next is a pointer/reference to the next node.
+If you want to use the doubly linked list, you will need one more attribute prev to indicate the previous node in the linked list. Assume all nodes in the linked list are 0-indexed.
+
+Implement the MyLinkedList class:
+
+MyLinkedList() Initializes the MyLinkedList object.
+int get(int index) Get the value of the indexth node in the linked list. If the index is invalid, return -1.
+void addAtHead(int val) Add a node of value val before the first element of the linked list. After the insertion, the new node will be the first node of the linked list.
+void addAtTail(int val) Append a node of value val as the last element of the linked list.
+void addAtIndex(int index, int val) Add a node of value val before the indexth node in the linked list. If index equals the length of the linked list, the node will be appended to the end of the linked list. If index is greater than the length, the node will not be inserted.
+void deleteAtIndex(int index) Delete the indexth node in the linked list, if the index is valid.
+ 
+Input
+["MyLinkedList", "addAtHead", "addAtTail", "addAtIndex", "get", "deleteAtIndex", "get"]
+[[], [1], [3], [1, 2], [1], [1], [1]]
+Output
+[null, null, null, null, 2, null, 3]
+
+Explanation
+MyLinkedList myLinkedList = new MyLinkedList();
+myLinkedList.addAtHead(1);
+myLinkedList.addAtTail(3);
+myLinkedList.addAtIndex(1, 2);    // linked list becomes 1->2->3
+myLinkedList.get(1);              // return 2
+myLinkedList.deleteAtIndex(1);    // now the linked list is 1->3
+myLinkedList.get(1);              // return 3
+ 
+
+Constraints:
+0 <= index, val <= 1000
+Please do not use the built-in LinkedList library.
+At most 2000 calls will be made to get, addAtHead, addAtTail, addAtIndex and deleteAtIndex.
+________________________________________________________________________________________________________________________________________________
+
+Solution:
+
+STEP 1: Define the LinkedList class and its variables
+ -- Here we are choosing to create a "SINGLY LINKED LIST" structure.
+ -- First we need to define the linked list class , means the initial node and then proceed to add nodes from there.
+ -- The size of the linked list is 0 initially
+ -- Then the head the pointing to the first node which is Node(0) --> This is called "Sentinal Node"
+ -- Sentinel node is used as a pseudo-head and is always present. This way the structure could never be empty, it will contain at least a sentinel head.
+ -- Head of a linkedlist is always 0 or NULL
+ 
+ class MyLinkedList:
+    def __init__(self):
+        self.size = 0
+        self.head = Node(0)
+        
+STEP 2: Define the node class
+-- Now Define the new class namely "Node" and it should contain the details of each node.
+-- Each node will contain two fields - data and reference , so initialize two variables - val and ref.
+-- INitially the ref (reference node) will be None , because this is the first node and it is not pointing to anything right now.
+
+class Node:
+    def __init__(self,x):
+        self.val = val
+        self.ref = None
+        
+STEP 3: Now we need to insert the first node to the head
+-- Add a node of value 'val' before the first element of the LinkedList.
+-- After the insertion, the new node will become the first node of the LinkedList
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
