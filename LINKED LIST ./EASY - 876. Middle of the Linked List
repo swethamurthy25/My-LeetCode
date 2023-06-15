@@ -1,0 +1,81 @@
+Given the head of a singly linked list, return the middle node of the linked list.
+If there are two middle nodes, return the second middle node.
+
+Input: head = [1,2,3,4,5]
+Output: [3,4,5]
+Explanation: The middle node of the list is node 3.
+
+Input: head = [1,2,3,4,5,6]
+Output: [4,5,6]
+Explanation: Since the list has two middle nodes with values 3 and 4, we return the second one.
+
+Constraints:
+The number of nodes in the list is in the range [1, 100].
+1 <= Node.val <= 100
+_____________________________________________________________________________________________________________________________________
+
+BRUTE FORCE:
+-- In general we cannot access the specific node or middle nodes of the linked list directly , we need to traverse from the head to reach the specific node.
+-- So here in this problem , we need to traverse from head to reach the middle node of the linked list.
+
+-- One way of solving this is creating an empty list and copy all the elements of the linked list to empty array.
+-- Then find the middle element of the array and return as output.
+
+-- First create the result array []
+-- Then the current code is pointing to head. while head is true , means if the head exist: start appending all the values to the array.
+-- Then do curr = curr.next to move to the next value.
+-- Finally len(array)//2 is the middle element , return that as output
+
+TC is O(n) -- we are traversing the entire linked list 
+SC is O(n) -- since we are creating the array to store the elements
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        #Brute Force method
+        result = []
+        curr = head
+        while curr:
+            result.append(curr)
+            curr = curr.next
+    
+        return result[len(result)//2]
+____________________________________________________________________________________________________________________________________________________
+
+OPTIMIZED SOLUTION:
+-- Using the slow and fast pointer
+-- The fast pointer will move two steps ahead but the slow pointer will move one step
+
+-- Initialize two pointers and both are pointing to head
+-- While the fast and fast.next exist : both the pointers will move in each iteration
+-- Fast pointer will reach the end first , once it is reached , return the slow as output bcz that is the middle value.
+
+For example: 1 --> 2 --> 3 --> 4 --> 5 --> null
+
+-- INitially slow and fast will be at head ie 1
+-- During first iteration , slow will move one step and will be at 2 ,, and fast will move 2 steps and will be 3..
+-- Now this is not the end , still we have elements left.
+-- During 2nd iteration , slow will be moved to 3 and fast will be moved to 5 
+-- Yes we reached the end , so slow is at 3 which is the middle , return slow as output.
+
+TC is O(n) and SC is O(1)
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+_____________________________________________________________________________________________________________________________________
+
