@@ -13,7 +13,7 @@ Approach 1:
 4. Then change the new node as head.
 5. Return the head
 
-TC is O(n)
+TC is O(1)
 SC is O(1)
 
 def insertNodeAtHead(head, data):
