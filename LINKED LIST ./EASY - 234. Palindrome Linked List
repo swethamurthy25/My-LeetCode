@@ -11,12 +11,103 @@ Output: false
 Constraints:
 The number of nodes in the list is in the range [1, 105].
 0 <= Node.val <= 9
-********************************************************************************************************************************
 
+Follow up: Could you do it in O(n) time and O(1) space?
+
+------------------------------------------------------------------------------------------------------------------
 Understanding:
--- Here we need to traverse the entire linked list and check and confirm each element whether it is a palindrome or not.
+-- Here we need to traverse the entire linked list and check and confirm each element whether is a palindrome or not.
 -- So, the time complexity of traversing an entire linked list once is O(n), where 'n' is the number of nodes in the linked list
 ____________________________________________________________________________________________________________________________
 
 Brute Force Method:
 
+-- Here we are splitting the problem into two parts - copying the elements to array and finding whether it's palindrome or not.
+-- First create the result array []
+-- Then the current code is pointing to the head. while the head is true, if the head exists, start appending all the values to the array.
+-- Then do curr = curr. next to move to the next value.
+- Finally to reverse the array use, result[::-1]
+
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        #Brute Force
+        result = []
+        curr = head
+        while curr:
+            result.append(curr.val)
+            curr = curr.next
+        return result == result[::-1]
+
+Time complexity: O(n), where N is the number of nodes in the Linked List.
+Space complexity: O(n), where N is the number of nodes in the Linked List.
+We are making an Array List and adding all the values to it.
+
+ANOTHER MEDTHOD of brute force uses a two-pointer:
+
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        #Brute Force using two pointer
+        result = []
+        while head:
+            result.append(head.val)
+            head = head.next
+
+        l,r = 0, len(result)-1
+        while l <= r:
+            if result[l] == result[r]:
+                l += 1
+                r -= 1
+            else:
+                return False
+        return True
+____________________________________________________________________________________________________________________________
+
+Optimized Solution:
+
+Follow up: Could you do it in O(n) time and O(1) space?
+-- Most of the interviewer will expect us to solve this question in constant space o(1) andlinear time o(n)
+
+-- The solution is divided into three parts - Finding the middle element, then reverse the second half of the linked list and 
+finally use two pointers to check for the palindrome
+
+-- Use two pointers - (slow and fast) identify the middle element. 
+-- Intialize two pointers to head. The slow will move one step and fast will move two step ahead for each iteration. 
+-- The node to which the slow pointer points will be considered as middle element.
+
+-- Iniialize the prev to None (null-last node)
+-- We need to iterate from last until slow (middle element)
+-- First store the slow.next in a temp variable , then the slow.next will be pointing to prev 
+-- Update the prev node to slow and update slow to temp variable
+
+-- Initialize left to head and right to prev. Iterate until right is true.
+-- if left.val == right.val , we can move to next element.
+-- Return False if there is a mismatch of value , else return True
+
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        #Finding the middle element(slow)
+        slow = fast = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+
+        #Reverse the second half of the list
+        prev = None
+        while slow:
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+
+        #Check for palindrome
+        left, right = head, prev
+        while right:
+            if left.val == right.val:
+                left = left.next
+                right = right.next
+            else:
+                return False
+        return True
+
+TC is O(n) and SC is O(1)
+________________________________________________________________________________________________________________________
