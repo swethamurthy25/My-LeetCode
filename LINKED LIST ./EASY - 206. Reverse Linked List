@@ -1,0 +1,42 @@
+GGiven the head of a singly linked list, reverse the list, and return the reversed list.
+
+Input: head = [1,2,3,4,5]
+Output: [5,4,3,2,1]
+
+Input: head = [1,2]
+Output: [2,1]
+
+Constraints:
+The number of nodes in the list is the range [0, 5000].
+-5000 <= Node.val <= 5000
+_________________________________________________________________________________________________________________
+
+Iterative Approach:
+Assume that we have linked list 1 → 2 → 3 → Ø, we would like to change it to Ø ← 1 ← 2 ← 3.
+
+-- Initialize the new_list pointing to None and the current node is ointing to the head.
+-- Travell until the current node exist.
+-- While traversing the list, we can change the current node's next pointer to point to its previous element
+-- Since a node does not have reference to its previous node, we must store its previous element beforehand.
+-- We also need another pointer to store the next node before changing the reference.
+-- Finally return the new_list as the output
+
+Reference Video: https://www.youtube.com/watch?v=W1BLGgWZhK8
+TC is O(n) and SC is O(1)
+
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        #Iterative Approach - TC is O(N) and SC is O(1)
+        new_list = None
+        current = head
+
+        while current:
+            next_node = current.next
+            current.next = new_list
+            new_list = current
+            current = next_node
+
+        return new_list
+__________________________________________________________________________________________________________________________
+
+Recursive Approach:
