@@ -46,3 +46,11 @@ class Solution:
 __________________________________________________________________________________________________________________________
 
 Recursive Approach:
+The recursive version is slightly trickier and the key is to work backwards.
+In the recursive approach, we are just going to change the reference/direction of the linked list nodes.
+
+-- First, check if the head exists, if the head doesnot exists simply return None (null)
+-- Assign a variable newHead to head
+-- If the head. next exist, reverseList method is called recursively and We want nk+1’s next node to point to nk. (example:n1 → … → nk-1 → nk → nk+1 ← … ← nm)
+-- so, head.next.next = head
+-- In the else part , if head.next is None just return the head Node
