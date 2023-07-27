@@ -49,8 +49,42 @@ Recursive Approach:
 The recursive version is slightly trickier and the key is to work backwards.
 In the recursive approach, we are just going to change the reference/direction of the linked list nodes.
 
--- First, check if the head exists, if the head doesnot exists simply return None (null)
+-- First, check if the head exists, if the head does not exist simply return None (null)
 -- Assign a variable newHead to head
 -- If the head. next exist, reverseList method is called recursively and We want nk+1’s next node to point to nk. (example:n1 → … → nk-1 → nk → nk+1 ← … ← nm)
 -- so, head.next.next = head
--- In the else part , if head.next is None just return the head Node
+-- In the else part, if head.next is None just return the head Node
+
+TC is O(n) and SC is O(n) - The extra space comes from implicit stack space due to recursion. The recursion could go up to n levels deep.
+
+lass Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        #Recursive approach - TC is O(n) and SC is O(n)
+        if not head:
+            return None
+        newHead = head
+        if head.next:
+            newHead = self.reverseList(head.next)
+            head.next.next = head
+        head.next = None
+        return newHead
+
+Dry RUN;
+Example: head = [1] and output = [1]
+-- Here the head exists so the newHead will point to head
+-- But we don't have head.next in the given input or head.next is None, so the else part will be executed and just the newHead which is 1 will be returned as output.
+
+Example: head = [1,2,3] and output = [3,2,1]
+-- Here the head exists so the newHead will point to the head ie is 1
+-- head.next also exist so the first part of the code (if part) will be executed.
+-- head.next is recursively called and it is assigned to newHead (now 2 will be pointing to newHead)
+-- Then head.next.next (ie 3 here) will point to head (ie is 1), now the linked list will become 3-->1->2
+
+In the second iteration, the steps continues, 
+-- 3 will become head , head.next is recursively called and it is assigned to newHead (now 1 will be pointing to newHead)
+-- Then head.next.next (ie 2 here) will point to head (ie is 3), now the linked list will become 3-->2-->1
+-- Now return the newHead as output
+_______________________________________________________________________________________________________________________________________________
+
+
+
