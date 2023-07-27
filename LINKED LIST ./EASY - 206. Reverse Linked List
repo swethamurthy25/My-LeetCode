@@ -1,4 +1,4 @@
-GGiven the head of a singly linked list, reverse the list, and return the reversed list.
+Given the head of a singly linked list, reverse the list, and return the reversed list.
 
 Input: head = [1,2,3,4,5]
 Output: [5,4,3,2,1]
@@ -7,36 +7,42 @@ Input: head = [1,2]
 Output: [2,1]
 
 Constraints:
-The number of nodes in the list is the range [0, 5000].
+The number of nodes in the list is in the range [0, 5000].
 -5000 <= Node.val <= 5000
+
+Follow-up: A linked list can be reversed either iteratively or recursively. Could you implement both?
 _________________________________________________________________________________________________________________
 
 Iterative Approach:
 Assume that we have linked list 1 → 2 → 3 → Ø, we would like to change it to Ø ← 1 ← 2 ← 3.
 
--- Initialize the new_list pointing to None and the current node is ointing to the head.
--- Travell until the current node exist.
--- While traversing the list, we can change the current node's next pointer to point to its previous element
--- Since a node does not have reference to its previous node, we must store its previous element beforehand.
--- We also need another pointer to store the next node before changing the reference.
--- Finally return the new_list as the output
+-- First, initialize the curr node to the head and the prev node to None (null).
+-- Use a while loop and travel until the current node exists.
+-- In order to reverse the linked list, the first node (1 here) should point to null (prev). Before breaking the reference between 1 and 2,
+   we need to store curr.next(2 here) in some temp variable.  So, first initialize temp = curr. next 
+-- Now point curr. next to null (prev) ==> curr.next = prev
+-- Now 1 will become prev, so prev = curr
+-- Finally, curr node should be pointing to temp, ==> curr = temp
+-- This iteration continues until the curr reaches the last node.
+-- Then return the prev
 
-Reference Video: https://www.youtube.com/watch?v=W1BLGgWZhK8
+Reference Video: 
+https://www.youtube.com/watch?v=W1BLGgWZhK8
+https://www.youtube.com/watch?v=G0_I-ZF0S38
+
 TC is O(n) and SC is O(1)
 
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         #Iterative Approach - TC is O(N) and SC is O(1)
-        new_list = None
-        current = head
-
-        while current:
-            next_node = current.next
-            current.next = new_list
-            new_list = current
-            current = next_node
-
-        return new_list
+        curr = head
+        prev = None
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
 __________________________________________________________________________________________________________________________
 
 Recursive Approach:
