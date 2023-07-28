@@ -1,0 +1,99 @@
+Given head, the head of a linked list, determine if the linked list has a cycle in it.
+There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. 
+Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
+Return true if there is a cycle in the linked list. Otherwise, return false.
+
+Input: head = [3,2,0,-4], pos = 1
+Output: true
+Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+
+Input: head = [1,2], pos = 0
+Output: true
+Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
+
+Input: head = [1], pos = -1
+Output: false
+Explanation: There is no cycle in the linked list.
+
+Constraints:
+The number of the nodes in the list is in the range [0, 104].
+-105 <= Node.val <= 105
+pos is -1 or a valid index in the linked-list.
+ 
+Follow up: Can you solve it using O(1) (i.e. constant) memory?
+__________________________________________________________________________________________________________
+
+Brute Force:
+-- We are given with a linked list and we needto return true if it forms a cycle , else return False
+
+How do we check if the linked list forms a cycle or what comes to our mind when we think about the word "cycle"?
+-- Something repetatitive or some kind of repeated patterns.
+-- So , if the values in the nodes are repeated we can confirm that it forms the cycle.
+
+How do we track the repetition of objects/values? --> We can use the hashmap or hashset to do it 
+TC will be O(n) - We visit each of the n elements in the list at most once. Adding a node to the hash table costs only O(1) time.
+So, O(n) + O(1) = O(n)
+
+SC will be O(n)- The space depends on the number of elements added to the hashset, which contains at most n elements.
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        visited = set()
+        while head:
+            if head not in visited:
+                visited.add(head)
+                head = head.next
+            else:
+                return True
+        return False
+------------------------------------------------------------------------------------------------------------------
+
+Optimized Solution:
+-- We are already given with a follow up: Can you solve it using O(1) (i.e. constant) memory? 
+-- In the previous solution , the usage of hashset takes O(n) of memory so we need to find a way to optimize the memory.
+-- We can use "Floyd's cycle-finding algorithm" (Slow and fast pointer technique) to get the optimized solution.
+
+-- Initialize both the slow and fast pointer to the head.
+-- Iterate until fast and fast.next exist
+-- During every iteration, the slow will move node ahead and fast will move two nodes ahead.
+-- This continues and if the slow and fast pointer meet together at any given node , it confirms the formation of cycle and we can return True as output
+-- Or else return False
+
+TC is O(n) - n as the total number of nodes in the linked list.
+SC is O(1) - We only use two nodes (slow and fast) so the space complexity is O(1)O(1)O(1).
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        #Floyd's cycle-finding algorithm" (Slow and fast pointer technique)
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+_________________________________________________________________________________________________________________________
+
+Dry Run:
+
+Example: 
+head = [1], pos = -1
+Output: false
+Explanation: There is no cycle in the linked list.
+
+-- Here the slow and fast pointers are pointed to head which is 1
+-- Now the fast and fast.next doesnot exist , so we can directly return False indication no cycle.
+
+Example:
+head = [3,2,0,-4], pos = 1
+Output: true
+Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+Here pos = 1 indicates that -4 is linked to 1st node (2).
+
+-- Here the slow and fast pointers are pointed to head which is 3
+-- Iteration 1 - fast and fast.next exist so slow will be moved to 2 and fast will be moved to 0
+-- Iteration 2 - slow will be moved to 0 and fast will be moved to 2 [ since -4 is connected to 2]
+-- Iteration 3 - slow will be moved to -4 and fast will be moved to -4 
+-- Now both the pointers met at -4 , so it indicates it forms a cycle , return True
+__________________________________________________________________________________________________________________________
+
