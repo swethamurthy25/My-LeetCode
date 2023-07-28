@@ -24,3 +24,71 @@ pos is -1 or a valid index in the linked list.
 
 Follow up: Can you solve it using O(1) (i.e. constant) memory?
 _________________________________________________________________________________________________________________________________________________
+
+This Problem is a continuation of 141. Linked List Cycle.
+In 142, we need to return True if the cycle exists but here in 143. Linked List Cycle II, we need to return the node
+where exactly the cycle starts.
+
+Brute Force:
+-- We are given a linked list, First, we need to check whether the cycle exists or not.
+-- If the cycle exists, return the node where exactly the cycle starts.
+-- If the cycle does not exist, just return None as output.
+
+Same as 142, We can use the hashmap or HashSet to solve it in the brute force method.
+TC will be O(n) - We visit each of the n elements in the list at most once. Adding a node to the hash table costs only O(1) time.
+So, O(n) + O(1) = O(n)
+
+SC will be O(n)- The space depends on the number of elements added to the HashSet, which contains at most n elements.
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        #Brute Force
+        visited = set()
+        while head:
+            if head in visited:
+                return head
+            else:
+                visited.add(head)
+                head = head.next
+        return None
+________________________________________________________________________________________________________________________________________________
+
+Optimized Solution:
+-- We are already given a follow-up: Can you solve it using O(1) (i.e. constant) memory? 
+-- In the previous solution, the usage of HashSet takes O(n) of memory so we need to find a way to optimize the memory.
+-- We can use "Floyd's cycle-finding algorithm" (Slow and fast pointer technique) to get the optimized solution.
+
+Here the solution is divided into two parts:
+Part 1- First check whether the cycle exists or not
+-- Initialize both the slow and fast pointer to the head.
+-- Iterate until fast and fast.next exist
+-- During every iteration, the slow will move one node ahead, and the fast will move two nodes ahead.
+-- This continues and if the slow and fast pointers meet together at any given node, it confirms the formation of the cycle 
+-- If the pointer does not meet at a common point, then the cycle does not exist and we can return None
+
+Part 2: Once the cycle exists, find the starting node of the cycle
+-- When the two pointers meet, we know that there is a cycle in the linked list.
+-- We then reset the slow pointer to the head of the linked list and move both pointers at the same pace, 
+    one step at a time, until they meet again.
+-- We iterate until slow!= fast and if they are equal it is the starting point of the cycle, returning that node as output.
+-- If there is no cycle in the linked list, the algorithm will return null.
+
+TC is O(n) - n as the total number of nodes in the linked list.
+SC is O(1) - We only use two nodes (slow and fast) so the space complexity is O(1).
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        #Floyd's cycle-finding algorithm" (Slow and fast pointer technique)
+        #also called the Hare-Tortoise algorithm
+        slow = fast = head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                slow = head
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+        return None
+_______________________________________________________________________________________________________________________________
