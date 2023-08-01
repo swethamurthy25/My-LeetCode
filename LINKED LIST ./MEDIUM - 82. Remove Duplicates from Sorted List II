@@ -1,0 +1,51 @@
+Given the head of a sorted linked list, delete all nodes that have duplicate numbers, 
+leaving only distinct numbers from the original list. Return the linked list sorted as well.
+
+Input: head = [1,2,3,3,4,4,5]
+Output: [1,2,5]
+
+Input: head = [1,1,1,2,3]
+Output: [2,3]
+
+Constraints:
+The number of nodes in the list is in the range [0, 300].
+-100 <= Node.val <= 100
+The list is guaranteed to be sorted in ascending order.
+________________________________________________________________________________________
+
+Understanding:
+-- The list is already sorted so we just need to compare, remove and return the result
+-- We should remove/delete all the repeated elements
+-- The result should contain only he unique elements
+
+Solution:
+-- Create a dummy node, sentinal node and make it as curr
+-- The dummy.next should point to the head
+-- While curr exist: if curr and curr.next exist and if the values are same
+-- Assign the temp to curr.next.next 
+-- Now again while temp and temp.next exist and if the values are same
+-- Point temp to temp.next
+-- Or else just point the curr.next to temp.next
+
+-- If none of these conditions works say curr.next and curr.next.next are not same
+-- Just move the curr node to next (This will be your else part of the code)
+-- Finally return dummy.next as output
+
+TC is O(n) and SC is O(1)
+
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        curr = dummy
+
+        dummy.next = head
+        while curr:
+            if curr.next and curr.next.next and curr.next.val == curr.next.next.val:
+                temp = curr.next.next
+                while temp and temp.next and temp.val == temp.next.val:
+                    temp = temp.next
+                curr.next = temp.next
+            else:
+                curr = curr.next
+        return dummy.next
+______________________________________________________________________________________________
