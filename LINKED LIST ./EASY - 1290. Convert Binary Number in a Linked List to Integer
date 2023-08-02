@@ -45,7 +45,7 @@ ________________________________________________________________________________
 Approach 2: 
 TC is O(n) and SC is O(1)
 
---  Initialize a variable called result to 0. This variable will be used to store the decimal representation of the linked list.
+-- Initialize a variable called result to 0. This variable will be used to store the decimal representation of the linked list.
 -- Iterate through the while loop until the head is true.
 -- During every iteration , do result = result * 2 + head.val. The result variable is updated at each iteration
 -- Then do head.next to move to the next node
