@@ -1,0 +1,65 @@
+Given the heads of two singly linked lists headA and headB, return the node at which the two lists intersect. 
+If the two linked lists have no intersection at all, return null.
+
+Input: intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+Output: Intersected at '8'
+
+Input: intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
+Output: No intersection
+
+Constraints:
+The number of nodes of list A is in the m.
+The number of nodes of the list B is in the n.
+1 <= m, n <= 3 * 104
+1 <= Node.val <= 105
+0 <= skipA < m
+0 <= skipB < n
+intersectVal is 0 if listA and listB do not intersect.
+intersectVal == listA[skipA] == listB[skipB] if listA and listB intersect.
+
+Follow up: Could you write a solution that runs in O(m + n) time and use only O(1) memory?
+________________________________________________________________________________________________________
+
+Approach 1 - Using two pointer
+-- First, we need to traverse through each list and find the common node whether they intersect
+-- Initiate two pointers l1 starting from headA and l2 starting from headB
+-- While both the nodes are not same (l1 != l2), we will keep traversing the list
+-- So, l1 will be l1.next if any node exists in l1 or else the pointer should point to headB
+-- l2 will be l2.next is any node exist in l2 or else the pointer should point to headA
+-- Finally return any pointer l1 or l2 as a result
+
+TC is O(n+m) and SC is O(1)
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        l1,l2 = headA,headB
+        while l1 != l2:
+            l1 = l1.next if l1 else headB
+            l2 = l2.next if l2 else headA
+        return l1
+  __________________________________________________________________________________________________
+
+Approach 2 - Using a hash set
+
+-- Initiate a HashSet and append all the elements from headB
+-- Then while headA is not None: check if nodes from headA are in headB
+-- If exist return headA as output
+-- Else headA = headA.next and keep traversing
+-- If none of them match, return None as output
+
+TC is O(n+m) and SC is O(1)
+
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        #Approach 2 - Using HashSet
+        visited = set()
+        while headB is not None:
+            visited.add(headB)
+            headB = headB.next
+
+        while headA is not None:
+            if headA in visited:
+                return headA
+            headA = headA.next
+        return None
+___________________________________________________________________________________
