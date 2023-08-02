@@ -1,0 +1,80 @@
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, 
+and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 = 807.
+
+Input: l1 = [0], l2 = [0]
+Output: [0]
+
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
+
+Constraints:
+The number of nodes in each linked list is in the range [1, 100].
+0 <= Node.val <= 9
+It is guaranteed that the list represents a number that does not have leading zeros.
+_______________________________________________________________________________________________________________________________
+
+Basic Understanding
+-- We are given with two list l1 & l2 , add the nodes of l1 & l2 and append the result to new linked list
+-- Basic logic is a normal primary school addition that we learned already
+-- Here comes the trickier part, when we add two elements sometimes we will get 2 digits as a result
+   For example - 4 + 5 = 9, single digit and no carry
+   For example - 6 + 4 = 10, double-digit and 1 is a carry here
+-- In this case, we can append only the first digit (0) to the new linked list, and the carry has to be moved to the next node.
+-- Also we need to take care of the edge cases: For example if l1 = [1,2] and l2 = [3], here the length are not the same.
+-- In this case , if l1.val or l2.val is None, we need to add 0 in such places while doing the addition.
+
+Solution:
+-- Create a dummy node and point it to the new Linked List
+-- The curr points to the dummy node
+-- So, we are returning the dummy.next as output
+
+-- Declare a variable called carry as 0
+-- While l1 or l2 or carry exist: keep the l1.val in v1 and l2.val in v2
+-- v1 = l1.val only if l1 exist or else 0
+-- v2 = l2.val only if l2 exist or else 0
+
+#Computing the sum & taking care of the carry-on
+-- Assign a variable called "Val" which stores the sum of v1 + v2 + carry
+-- In order to check for the carryon, do carry = val // 10
+-- Then get the value that has to be added to the new linked list, val = val % 10
+-- Now append this value to the curr.next of the new Linked List.
+
+#Updating the pointers
+-- During every iteration, curr should be moved to curr.next
+-- During every iteration, l1 to be moved to l1.next if l1 exist or else None
+-- During every iteration, l2 to be moved to l2.next if l2 exist or else None
+
+Time complexity: O(max⁡(m,n)). Assume that m and n represent the length of l1 and l1 respectively, 
+the algorithm above iterates at most max⁡(m,n) times.
+
+Space complexity: O(1). The length of the new list is at most max⁡(m,n)+1 
+However, we don't count the answer as part of the space complexity.
+
+lass Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        curr = dummy
+
+        carry = 0
+        while l1 or l2 or carry:
+            v1 = l1.val if l1 else 0
+            v2 = l2.val if l2 else 0
+
+            #Computing the sum
+            val = v1 + v2 + carry
+            carry = val // 10
+            val = val % 10
+            curr.next = ListNode(val)
+
+            #Updating the pointers
+            curr = curr.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+
+        return dummy.next
+___________________________________________________________________________________________________________________
