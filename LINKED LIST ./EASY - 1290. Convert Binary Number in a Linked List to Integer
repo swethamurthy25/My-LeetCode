@@ -1,0 +1,75 @@
+Given head which is a reference node to a singly-linked list. The value of each node in the linked list is either 0 or 1. 
+The linked list holds the binary representation of a number.
+
+Return the decimal value of the number in the linked list.
+The most significant bit is at the head of the linked list.
+
+Input: head = [1,0,1]
+Output: 5
+Explanation: (101) in base 2 = (5) in base 10
+
+Input: head = [0]
+Output: 0
+
+Constraints:
+The Linked List is not empty.
+The number of nodes will not exceed 30.
+Each node's value is either 0 or 1.
+_________________________________________________________________________________________________________________________________________________
+
+Basic Understanding:
+-- Each node will contain either 0 or 1 which is binary and we need to convert that to a decimal integer
+-- Conversion from base 2 to base 10
+
+Approach 1: Using the Python built-in method
+TC is O(n) and SC is O(1)
+
+-- Initialize an empty string called binary. This string will be used to store the binary representation of the linked list.
+-- Iterate through the while loop until the head is true.
+-- During each iteration, the binary value of each node will be appended to the 'binary' string.
+-- Do head. next to move to the next node.
+-- Once all the binary values are added to the binary string, convert the binary representation stored in the binary string to 
+   its decimal equivalent using the int() function with a base of 2 (int(binary, 2).
+-- The int() function interprets the binary string as a base-2 number and returns its decimal representation as an integer.
+
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        #Approach 1 - Using int(binary,2)
+        binary = ""
+        while head:
+            binary += str(head.val)
+            head = head.next
+        return int(binary,2)
+_____________________________________________________________________________________________________________________________
+
+Approach 2: 
+TC is O(n) and SC is O(1)
+
+--  Initialize a variable called result to 0. This variable will be used to store the decimal representation of the linked list.
+-- Iterate through the while loop until the head is true.
+-- During every iteration , do result = result * 2 + head.val. The result variable is updated at each iteration
+-- Then do head.next to move to the next node
+-- After the loop has processed all nodes in the linked list, the method returns the final value of the result, 
+   which is the decimal representation of the linked list.
+
+For example: head = [1,0,1] 
+res = 0
+during 1st iteration, res will become 0*2 + 1 (here res is 0, and the head.val is 1) 
+res = 1
+
+During 2nd iteration, res will become 1*2 + 0 (here res is 1 from the previous iteration, and the head.val is 0)
+res = 2
+
+During 3rd iteration, res will become 2*2  + 1 (here res is already 2 from the previous iteration, and head.val is 1)
+res = 5 
+
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        result = 0
+        while head:
+            result = result*2 + head.val
+            print(result)
+            head = head.next
+        return result
+______________________________________________________________________________________________________________
+
