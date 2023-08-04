@@ -1,0 +1,58 @@
+Given an integer n, return true if it is a power of two. Otherwise, return false.
+An integer n is a power of two, if there exists an integer x such that n == 2x.
+
+Input: n = 1
+Output: true
+Explanation: 2^0 = 1
+
+Input: n = 16
+Output: true
+Explanation: 2^4 = 16
+
+Input: n = 3
+Output: false
+
+Constraints:
+-231 <= n <= 231 - 1
+
+Follow up: Could you solve it without loops/recursion?
+___________________________________________________________________________________________
+
+Understanding:
+-- We are given with n and we need to check whether it is a power of 2 or not.
+
+Brute Force using Recursion or normal math:
+-- Check for the edge cases, if n = 0, 2 power 0 is 1, so return False
+-- For the given n, we need to keep dividing it by 2 until we get the output 1
+-- If we get output as 1 at the end, it is a power of 2 and returns True
+-- Else return False
+
+TC will be O(log n) because we are diving the n every time until we reach the minimum of 1
+SC will be O(1)
+
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        #Brute Force - TC is O(log n) bcz we are diving the n every time
+        #SC is O(1)
+        if n == 0: return False
+        while n%2 == 0:
+            n = n/2
+        return n == 1
+________________________________________________________________________________________
+
+Optimal Solution using Bit Manipulation:
+-- For any given n, take the 2's complement of n 
+Example: n = 1, binary form of 1 is 0001
+         Now take 2's complement (~n) --> Invert the binary form of n and add 1 to it
+         Inverting --> 1110 + 1 => 1111
+-- Now checks if the bitwise AND operation between n and its two's complement (-n) is equal to n.
+-- If yes, return True or else False
+
+TC is O(1) and SC is O(1)
+
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        #Optimal - TC is O(1) and SC is O(1)
+        if n == 0: return False
+        return n & (-n) == n
+_________________________________________________________________________________________
