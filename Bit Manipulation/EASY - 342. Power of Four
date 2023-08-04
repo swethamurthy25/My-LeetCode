@@ -1,0 +1,90 @@
+Given an integer n, return true if it is a power of four. Otherwise, return false.
+An integer n is a power of four, if there exists an integer x such that n == 4x.
+
+Input: n = 16
+Output: true
+
+Input: n = 5
+Output: false
+
+Input: n = 1
+Output: true
+ 
+Constraints:
+-231 <= n <= 231 - 1
+ 
+Follow up: Could you solve it without loops/recursion?
+___________________________________________________________________________________________________
+Brute Force using Recursion or normal math:
+-- Check for the edge cases, if n = 0, 4 power 0 is 1, so return False
+-- For the given n, we need to keep dividing it by 4 until we get the output 1
+-- If we get output as 1 at the end, it is a power of 4 and returns True
+-- Else return False
+
+TC will be O(log n) because we are diving the n every time until we reach the minimum of 1
+SC will be O(1)
+
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        #Brute Force
+        if n <= 0: return False
+        while n % 4 == 0:
+            n = n/4
+        return n == 1
+________________________________________________________________________________________________________
+Optimized solution using math - Logarthamic approach:
+
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        #Using Math
+        return n > 0 and log(n,4).is_integer()
+
+-- This code ensures n > 0, which means it should be a positive integer
+-- log(n, 4) computes the logarithm of n to the base 4.
+-- is_integer() checks if the result of the logarithm is an integer. If it is an integer, 
+   then n is a power of four.
+
+TC is O(1) and SC is O(1)
+____________________________________________________________________________________
+Optimized solution using BIT WISE Operators:
+-- We know all the numbers that are the power of 2 is also a power of 4
+-- So while computing the power of 2, we used the bitwise logic --> (n & -n) == 0
+-- We can use the same thing here also as one of the condition
+
+-- Apart from this, Consider all the valid numbers within 32-bit, and turn them into binary form.
+1
+100
+10000
+1000000
+100000000
+10000000000
+1000000000000
+100000000000000
+10000000000000000
+1000000000000000000
+100000000000000000000
+10000000000000000000000
+1000000000000000000000000
+100000000000000000000000000
+10000000000000000000000000000
+1000000000000000000000000000000
+
+So if you XOR them all together, you will get a mask value, which is:
+1010101010101010101010101010101 (1431655765)
+
+-- So use this as one of the conditions n & 1431655765 == n
+
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        #Bit Manipulation
+        if n <= 0: return False
+        return n > 0 and (n & -n == n) and (n & 1431655765 == n)
+
+TC is O(1) and SC is O(1)
+__________________________________________________________________________________
+
+
+
+
+
+ 
