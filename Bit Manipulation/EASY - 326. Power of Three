@@ -20,7 +20,37 @@ Follow up: Could you solve it without loops/recursion?
 _____________________________________________________________________________________
 
 Brute Force:
--- This problem is follows the same logic as power of two.
--- 
+-- This problem follows the same logic as the power of two.
+-- Check for the edge cases, if n = 0, 3 power 0 is 1, so return False
+-- For the given n, we need to keep dividing it by 3 until we get the output 1
+-- If we get output as 1 at the end, it is a power of 3 and returns True
+-- Else return False
+
+TC will be O(log n) because we are diving the n every time until we reach the minimum of 1
+SC will be O(1)
+
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        if n <= 0: return False
+        while n % 3 == 0:
+            n = n/3
+        return n == 1
+_____________________________________________________________________________________
+
+Optimized Solution (Integer Limitation):
+-- We are going to use the integer limitation method here, which means we need to find the largest power of 3 that 
+   can be represented as a 32-bit signed integer.
+-- So assign a max value with 3 ** 19 = 1162261467 
+-- Now return True if n > 0 and modulo of max % n == 0 
+
+TC is O(1) and SC is O(1)
+
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        if n <= 0: return False
+        mx = 3 ** 19
+        return n > 0 and mx % n == 0
+____________________________________________________________________________________________________
+
 
  
