@@ -1,0 +1,105 @@
+You have observations of n + m 6-sided dice rolls with each face numbered from 1 to 6. n of the observations went missing, and you only have the observations of m rolls. 
+Fortunately, you have also calculated the average value of the n + m rolls.
+
+You are given an integer array of rolls of length m where rolls[i] is the value of the ith observation. 
+You are also given the two integers mean and n.
+
+Return an array of length n containing the missing observations such that the average value of the n + m rolls is exactly the mean. 
+If there are multiple valid answers, return any of them. If no such array exists, return an empty array.
+
+The average value of a set of k numbers is the sum of the numbers divided by k.
+Note that mean is an integer, so the sum of the n + m rolls should be divisible by n + m.
+
+Input: rolls = [3,2,4,3], mean = 4, n = 2
+Output: [6,6]
+Explanation: The mean of all n + m rolls is (3 + 2 + 4 + 3 + 6 + 6) / 6 = 4.
+
+Input: rolls = [1,5,6], mean = 3, n = 4
+Output: [2,3,2,2]
+Explanation: The mean of all n + m rolls is (1 + 5 + 6 + 2 + 3 + 2 + 2) / 7 = 3.
+
+Input: rolls = [1,2,3,4], mean = 6, n = 4
+Output: []
+Explanation: It is impossible for the mean to be 6 no matter what the 4 missing rolls are.
+
+Constraints:
+m == rolls.length
+1 <= n, m <= 105
+1 <= rolls[i], mean <= 6
+___________________________________________________________________________________________________________________
+Basic Understanding of the Question:
+-- We are given rolls, which are called m. For example, rolls = [1,2,3,4] mean the first dice is rolled 4 times, and each time we got 
+   these values in dice [1,2,3,4]
+-- We are given with n value, which means n number of events are missing. For example, if n = 4, the 4 values are missing and we need to identify that. 
+-- We are also given with mean value.
+-- So by having all these we know that the sum of m + sum of n values divide by (n+m) is equal to mean
+
+Mean = sum of m rolls + sum of n rolls / (n+m)
+the sum of m rolls is called as mTotal
+the sum of n rolls is called as nTotal
+
+--By using this formula we can find the nTotal (n rolls that are missing)
+
+Solution:
+-- Initialize a variable m to calculate the length of m
+-- Initialize mTotal to calculate the sum of m rolls
+-- Now calculate nTotal = (mean * (m+n)) - mTotal
+
+-- Now before calculating the resultant array first we need to check whether nTotal is valid or not
+-- if nTotal value < n or nTtotal value is > n*6 , the resultant array could not be formed so return []
+
+For example : Consider rolls = [1,2,3,4] mean = 6 and n = 4
+              m = len(rolls) = 4
+              mTotal = sum(rolls) = 10
+              nTotal = (6 * (4+4)) - 10
+                     = (6*8) - 10 = 38
+
+-- Now 48 < n value (4) and 48 is also greater than n*6 (24), so the array could not be formed.
+-- Also if we think logically, we need to find the values of n = 4 elements and their sum should be 38
+-- If we think greedily and assign  the max value for each event - 6 for 1st dice , 6 for 2nd dice , 6 for 3rd dice and 6 for 4th dice.
+-- Still it counts only to 24 but we cannot get the sum of 38 so we are returning []
+
+-- Now if the nTotal is valid, the code still continues.
+-- Initialize the result array which has to be returned as output.
+-- While nTotal exists, the dice value should be found by using min(nTotal - n + 1, 6) 
+-- The dice value has to be appended to the result array every time
+-- Now the dice value has to be reduced from nTotal so that we know how much is remaining
+-- For every dice value , the n value should also be decremented.
+-- Now return the result array as output.
+
+TC is O(m+n) 
+SC is O(1)
+
+class Solution:
+    def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
+        m = len(rolls) 
+        mTotal = sum(rolls)
+        nTotal = (mean * (n+m)) - mTotal
+
+        #Check if nTotal is valid
+        if nTotal < n or nTotal > n*6:
+            return []
+
+        result = []
+        while nTotal:
+            dice = min(nTotal - n + 1, 6)
+            result.append(dice)
+            nTotal -= dice
+            n -= 1
+        return result
+_________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
