@@ -46,7 +46,7 @@ Solution:
 -- Now calculate nTotal = (mean * (m+n)) - mTotal
 
 -- Now before calculating the resultant array first we need to check whether nTotal is valid or not
--- if nTotal value < n or nTtotal value is > n*6 , the resultant array could not be formed so return []
+-- if nTotal value < n or nTtotal value is > n*6, the resultant array could not be formed so return []
 
 For example : Consider rolls = [1,2,3,4] mean = 6 and n = 4
               m = len(rolls) = 4
@@ -56,8 +56,8 @@ For example : Consider rolls = [1,2,3,4] mean = 6 and n = 4
 
 -- Now 48 < n value (4) and 48 is also greater than n*6 (24), so the array could not be formed.
 -- Also if we think logically, we need to find the values of n = 4 elements and their sum should be 38
--- If we think greedily and assign  the max value for each event - 6 for 1st dice , 6 for 2nd dice , 6 for 3rd dice and 6 for 4th dice.
--- Still it counts only to 24 but we cannot get the sum of 38 so we are returning []
+-- If we think greedily and assign  the max value for each event - 6 for 1st dice, 6 for 2nd dice, 6 for 3rd dice, and 6 for 4th dice.
+-- Still, it counts only to 24 but we cannot get the sum of 38 so we are returning []
 
 -- Now if the nTotal is valid, the code still continues.
 -- Initialize the result array which has to be returned as output.
@@ -68,7 +68,7 @@ For example : Consider rolls = [1,2,3,4] mean = 6 and n = 4
 -- Now return the result array as output.
 
 TC is O(m+n) 
-SC is O(1)
+SC is O(n)
 
 class Solution:
     def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
