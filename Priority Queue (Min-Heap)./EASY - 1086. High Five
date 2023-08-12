@@ -1,0 +1,98 @@
+Given a list of the scores of different students, items, where items[i] = [IDi, scorei] represents one score from a student with IDi, 
+calculate each student's top five average.
+
+Return the answer as an array of pairs result, where result[j] = [IDj, topFiveAveragej] represents the student with IDj and their 
+top five average. Sort the result by IDj in increasing order.
+A student's top five average is calculated by taking the sum of their top five scores and dividing it by 5 using integer division.
+
+Example 1:
+Input: items = [[1,91],[1,92],[2,93],[2,97],[1,60],[2,77],[1,65],[1,87],[1,100],[2,100],[2,76]]
+Output: [[1,87],[2,88]]
+Explanation: 
+The student with ID = 1 got scores 91, 92, 60, 65, 87, and 100. Their top five average is (100 + 92 + 91 + 87 + 65) / 5 = 87.
+The student with ID = 2 got scores 93, 97, 77, 100, and 76. Their top five average is (100 + 97 + 93 + 77 + 76) / 5 = 88.6, 
+but with integer division their average converts to 88.
+
+Example 2:
+Input: items = [[1,100],[7,100],[1,100],[7,100],[1,100],[7,100],[1,100],[7,100],[1,100],[7,100]]
+Output: [[1,100],[7,100]]
+
+Constraints:
+1 <= items.length <= 1000
+items[i].length == 2
+1 <= IDi <= 1000
+0 <= scorei <= 100
+For each IDi, there will be at least five scores.
+_________________________________________________________________________________________________________
+
+Basic Understanding of the Question:
+-- We are given a list of student id and marks (in the form of a nested list)
+-- First, we need to read each score and segregate the score id wise. For this, we can use a dictionary/hashmap
+-- Then we need to find the average of only "top 5" scores.
+-- One way is to sort the items in the dictionary and get the first 5 elements or else we need to find some optimal way to do this.
+-- Then find the average of the top 5 scores and return the result
+-- The result should also be sorted id-wise.
+
+Brute Force Method:
+-- Use the dictionary to add the items to it
+-- Then initialize the result array to store the result
+-- Then iterate through the dictionary items and sort them to get the top 5 items
+-- Then find the average of it
+-- Sort the result array while returning the output.
+
+#First sorting of the score with k students - K*N log N
+#Second sorting of the final result - N log N
+#Total TC is O(K * N log N + N log N).
+#SC is O(n) since we are using dict to store objects
+
+class Solution:
+    def highFive(self, items: List[List[int]]) -> List[List[int]]:
+        score_dict = {}
+        for i in items:
+            if i[0] not in score_dict:
+                score_dict[i[0]] = [i[1]]
+            else:
+                score_dict[i[0]].append(i[1])
+
+        result = []
+        for id,score in score_dict.items():
+            top_five = sorted(score,reverse=True)[:5]
+            avg_score = sum(top_five) // len(top_five)
+            result.append([id,avg_score])
+
+        result.sort()
+        return result
+_____________________________________________________________________________________________
+
+Optimized solution using Minheap:
+-- We are using sorting at two places and we need to optimize that to reduce the time complexity
+-- Usage of min-heap  to retrieve the top five scores for each student.
+
+-- The score_dict is a dictionary that will store the scores for each student ID. It's initialized as a collections.defaultdict(list), 
+   which allows us to append scores to each student's list without checking if the key exists. 
+-- Each student's list will store all their scores.
+-- The loop for id_, score in items: iterates through each item in the items list. It extracts the student ID and score from 
+   each item and appends the score to the corresponding list in the score_dict dictionary.
+-- Initialize the result array to store the output.
+-- The code iterates through the sorted keys of score_dict (student IDs). For each student, it calculates the top five average 
+    scores using heapq.nlargest(), which effectively retrieves the top scores using a min-heap of negative values.
+-- The sum of the top scores is divided by 5 to calculate the average, and the result [id, avg_score] is added to the result list.
+-- The code returns the result list containing the student IDs and their respective top five average scores.
+
+TC is O(K* N log N) and SC is O(n)
+
+import heapq
+import collections
+class Solution:
+    def highFive(self, items: List[List[int]]) -> List[List[int]]:
+        #Optimized solution using MinHeap
+        score_dict = collections.defaultdict(list)
+        for id_,score in items:
+            score_dict[id_].append(score)
+
+        result = []
+        for i in sorted(score_dict.keys()):
+            avg_score = sum(heapq.nlargest(5,score_dict[i]))//5
+            result.append([i,avg_score])
+        return result
+___________________________________________________________________________________________
