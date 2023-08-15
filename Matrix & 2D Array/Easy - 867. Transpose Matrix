@@ -1,0 +1,62 @@
+Given a 2D integer array matrix, return the transpose of a matrix.
+The transpose of a matrix is the matrix flipped over its main diagonal, switching the matrix's row and column indices.
+
+Example 1:
+Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+Output: [[1,4,7],[2,5,8],[3,6,9]]
+
+Example 2:
+Input: matrix = [[1,2,3],[4,5,6]]
+Output: [[1,4],[2,5],[3,6]]
+
+Constraints:
+m == matrix.length
+n == matrix[i].length
+1 <= m, n <= 1000
+1 <= m * n <= 105
+-109 <= matrix[i][j] <= 109
+_____________________________________________________________________________________________________
+
+Youtube - https://www.youtube.com/watch?v=eAaR7hOwhn0
+
+Understanding:
+-- The transpose of a matrix is simply called as switching the matrix's row and column indices.
+-- For example: 
+matrix = [[1,2,3],
+          [4,5,6]]
+The transpose of this will be [[1,4],
+                               [2,5],
+                               [3,6]]
+-- So we should also make note of the length of rows and cols so based on that it changes its position.
+
+Solution:
+-- Initialize rows and cols to calculate the number of rows (rows) and the number of columns (cols) in the input matrix.
+-- Initialize an empty output matrix with dimensions swapped (rows and columns are exchanged) compared to the input matrix. 
+-- It's initialized with zeros. This matrix will store the transposed matrix.
+-- Then the nested loops iterate through each element of the input matrix. The outer loop (r) iterates through the rows of 
+    the input matrix, and the inner loop (c) iterates through the columns.
+-- the value at position (r, c) in the input matrix is assigned to position (c, r) in the output matrix.
+-- Return the output matrix
+
+TC is O(rows*cols) -- where rows and cols are the numbers of rows and columns in the given input matrix.
+SC is O(rows*cols) -- space used by the output matrix to store the elements
+
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        rows = len(matrix)
+        cols = len(matrix[0])
+        output = [[0]*rows for i in range(cols)]
+        for r in range(rows):
+            for c in range(cols):
+                output[c][r] = matrix[r][c]
+        return output
+______________________________________________________________________________________
+
+
+
+
+
+
+
+
+
