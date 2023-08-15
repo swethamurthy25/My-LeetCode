@@ -3,4 +3,56 @@ Only include the sum of all the elements on the primary diagonal and all the ele
 not part of the primary diagonal.
 
 Example 1:
+Input: mat = [[1,2,3],
+              [4,5,6],
+              [7,8,9]]
+Output: 25
+Explanation: Diagonals sum: 1 + 5 + 9 + 3 + 7 = 25
+Notice that element mat[1][1] = 5 is counted only once.
+Here 1,5,9 is the primary diagonal and 7,5,3 is the secondary diagonal.
+
+Input: mat = [[1,1,1,1],
+              [1,1,1,1],
+              [1,1,1,1],
+              [1,1,1,1]]
+Output: 8
+
+Input: mat = [[5]]
+Output: 5
+________________________________________________________________________________________
+
+Understanding:
+-- We need to calculate the sum of the two diagonals of any given matrix and return that as output
+-- In example 1, the sum of 1+5+9 and 7+5+3 is 30, but the expected output is 25, which means 5 is already included
+   so it should not be repeated again.
+-- How do we ignore the repeated elements? and will it be the case with every matrix
+-- So when we consider an odd matrix (in example 1 which has an odd number of rows & cols), the elements may be repeated 
+   because we may need to access the middle element again.
+-- But in the even-sized matrix( 4*4 matrix) the diagonals will not meet, so the numbers will not be repeated.
+
+Solution:
+-- n indicates the length of the matrix
+-- Initialize result to store the final sum
+-- Iterate through n, compute the sum of the primary diagonal, and increment the sum to the result --> mat[i][i]
+-- Now use this approach to access the remaining diagonal/secondary diagonal --> mat[n-1-i][i]
+-- Add those values to the result.
+-- Finally check if the matrix is odd or even, in case of odd we need to decrement the middle value
+-- If odd: mat[n//2][n//2] and decrement this value from the final result.
+
+TC is O(n) and SC is O(1)
+
+class Solution:
+    def diagonalSum(self, mat: List[List[int]]) -> int:
+        n = len(mat)
+        result = 0
+        for i in range(n):
+            #primary diagonal
+            result += mat[i][i]
+            #secondary diagonal
+            result += mat[n-1-i][i]
+        #Decrement the common element
+        if n%2 != 0:
+            result -= mat[n//2][n//2]
+        return result
+________________________________________________________________________________________________________
 
