@@ -45,23 +45,7 @@ Space Complexity (SC): The space complexity is also O(n) because of the rep stri
                        It's a form of pattern matching where the code attempts to find a valid repeating pattern within the string.
 
 
-```python
-class Solution:
-    def repeatedSubstringPattern(self, s: str) -> bool:
-        # TC is O(n) and SC is O(n)
-        rep = ''
-        n = len(s)
-        for i in range(n // 2):
-            rep += s[i]
-            if n % len(rep) == 0:
-                if rep * (n // len(rep)) == s:
-                    return True
-        return False
-```
-</pre>
-When you write the above code in Markdown, it will render as a nicely formatted code block like this:
-
-```python
+```python      
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
         # TC is O(n) and SC is O(n)
