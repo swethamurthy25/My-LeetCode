@@ -18,21 +18,51 @@ t.length == s.length
 s and t consist of any valid ascii character.
 _____________________________________________________________________________________________
 
-What we understood from question?
+What did we understand from question?
 
-We are given two strings s and t , they are of same length (edge case)
+We are given two strings s and t, they are of the same length (edge case)
+
 We need to map and compare each character of s to t. One character of t should map with only one char of s.
+
 The order of mapping should not be changed.
+
 For example:
+
 s = foo and t = bar
+
 f --> b
+
 o --> a
-o --> r (here o is already mapped to a , it cannot be remapped to r again)
+
+o --> r (here o is already mapped to a, it cannot be remapped to r again)
+
 So return False
 _________________________________________________________________________________________
 
 Using Hashmap/Dictionary:
 
+Edge case: if len(s) != len(t):: 
+This condition checks if the lengths of strings s and t are not equal. If they have different lengths, they cannot be isomorphic, so the method immediately returns False
+
+s_map, t_map = {}, {}: Two dictionaries (s_map and t_map) are used to map characters from one string to the other.
+
+for i in range(len(s)):
+This loop iterates through each index i from 0 to len(s) - 1.
+
+s_ch = s[i] and t_ch = t[i] assign the characters at index I of strings s and t to variables s_ch and t_ch, respectively.
+
+The following three conditions are used to check if the mapping between characters is consistent:
+
+ -- if s_ch is not in s_map:: If the character from string s is not in the s_map dictionary, it's added as a key with a value of the corresponding character from string t.
+ 
+ -- if t_ch is not in t_map:: If the character from string t is not in the t_map dictionary, it's added as a key with a value of the corresponding character from string s.
+ 
+-- if t_map[t_ch] != s_ch or s_map[s_ch] != t_ch:: This condition checks if the mapping between characters is consistent in both directions. If there's any inconsistency, 
+    the method returns False.
+
+If all characters are successfully mapped in a consistent manner, the method returns True, indicating that the strings are isomorphic.
+
+```python
 class Solution(object):
     def isIsomorphic(self, s, t):
         
@@ -58,7 +88,8 @@ class Solution(object):
             if t_map[t_ch] != s_ch or s_map[s_ch] != t_ch:
                 return False
         return True
-___________________________________________________________________________________
+```
+_______________________________________________________________________________
 
 Complexity
 Time complexity: O(n)
