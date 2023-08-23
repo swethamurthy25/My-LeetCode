@@ -25,10 +25,9 @@ Constraints:
 nums is sorted in non-decreasing order.
 ____________________________________________________________________________________________________
 
-Understanding from the question:
+Understanding of the question:
 1. We need to remove the duplicate elements from the nums array
-2. The resultant nums array should contain only the unique elements, but this removing the duplicate operation should be done in place without creating any additional 
-   arrays.
+2. The resultant nums array should contain only the unique elements, but removing the duplicate operation should be done in place without creating any additional arrays. [Essence of the que -- unique elements]
 3. Return the length of nums as output
 __________________________________________________________________________________________
 Brute force:
