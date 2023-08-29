@@ -59,35 +59,51 @@ _____________________________________________________
 
 1. Initialize the result array that we need to return as output
 2. Sort the input array
-3. For every index and value in the input array, we need to check whether the current value and its previous value are the same. If it's the same, it is
-   a duplicate value, so we can just simply continue with the steps (we do not want to reuse the same element)
-5. Now initialize two pointers - left should point to index +1 and right to len(nums)-1 and follow the two-pointer approach
-6. If the summation of three numbers is equal to 0 , append the same to the results array and return the result array
+3. For every index and value in the input array, we need to check whether the current value and its previous value are the same.
+4. If i > 0 and a == nums[i-1]: continue: This condition checks if the current element a is a duplicate (same value as the previous element), and
+   if the current index i is greater than 0. If these conditions are met, it means that we've already considered this value and its triplets in a previous
+   iteration, so we skip this iteration.
+5. Two pointers (left and right) are initialized to point to the elements right after the current element a (index+1) and at the end of the array, respectively
+7. threeSum = a + nums[left] + nums[right]: The sum of the current element a and the elements pointed to by left and right pointers is calculated.
+
+Depending on the value of threeSum, the pointers are adjusted:
+8. If threeSum is greater than 0, it means the sum is too large. Thus, the right pointer is moved one step to the left: right -= 1.
+9. If threeSum is less than 0, it means the sum is too small. Thus, the left pointer is moved one step to the right: left += 1.
+10. If threeSum is equal to 0, it means a valid triplet has been found. The triplet [a, nums [left], nums[right]] is appended to the result list.
+11. After appending, the left pointer is incremented and any duplicate elements are skipped using an inner while loop that checks nums[left] == nums[left-1]
+
+12. After the inner while loop completes, the outer while loop continues searching for more valid triplets with the current element a.
+13. The final result list contains all the unique triplets that sum up to zero.
 
 TC is O(n log n) + (n^2) which is asymptotically equal to O(n^2) 
 SC IS O(n)
 
-  # Sorting and two pointer approach
-        result = []
+```python
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        #Optimized sol using Sorting + Two pointer approach
+        #TC is O(n^2) and SC is O(1)
         nums.sort()
-        
-        for i,a in enumerate(nums):
-            if i > 0 and a == nums[i-1]:
+        result = []
+        for index,a in enumerate(nums):
+            if index>0 and a == nums[index-1]:
                 continue
-                
-            left , right = i+1 , len(nums)-1
+
+            left , right = index+1, len(nums)-1
             while left < right:
-                threeSum = a + nums[left] + nums[right]
+                threeSum = a + nums[left]+ nums[right]
                 if threeSum > 0:
-                     right -= 1
+                    right -= 1
                 elif threeSum < 0:
-                      left += 1
+                    left += 1
                 else:
                     result.append([a,nums[left],nums[right]])
                     left += 1
                     while nums[left] == nums[left-1] and left < right:
                         left += 1
         return result
+```
+
 _________________________________________________________________________________
 
 
