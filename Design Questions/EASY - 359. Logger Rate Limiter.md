@@ -74,6 +74,7 @@ class Logger:
 
 
 Time Complexity: O(1). The lookup and update of the hashtable takes a constant time.
+
 Space Complexity: O(M) where M is the size of all incoming messages. Over time, the hashtable would have an entry for each unique message that has appeared.
 
 
