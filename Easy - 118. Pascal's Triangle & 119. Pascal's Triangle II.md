@@ -31,7 +31,7 @@ ________________________________________________________________________________
 
 3. The result list is initialized with [[1]], representing the first row.
 4. The for loop iterates from 0 to numRows - 2 to construct the remaining numRows - 1 rows of Pascal's triangle.
-5. temp is created by adding 0 to the beginning and end of the previous row, effectively creating a row with two additional
+5. Temp is created by adding 0 to the beginning and end of the previous row, effectively creating a row with two additional
    0s on each side.
 6. An empty list row is initialized to store the elements of the current row.
 7. Another nested loop iterates over the elements in temp, and each element in the current row is calculated as the sum of two 
@@ -84,7 +84,13 @@ class Solution:
             result.append(row)
         return result[rowIndex]
 ```
+_________________________________________________________________________________
 
+The time complexity of both the questions is O(n^2) as we are dealing with two for-loops
+
+Space complexity is O(n)
+
+_____________________________________________________________________________________________
 
 
 
