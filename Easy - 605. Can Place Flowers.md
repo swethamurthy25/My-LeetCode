@@ -48,6 +48,41 @@ class Solution:
                     if n == 0: return True
         return False
 ```
+________________________________________________________________________________________________________________
+
+#### Approach 2:
+
+1. It starts by creating a new list f. This list is constructed by adding a 0 at the beginning and end of the flowerbed list.
+2. This is done to simplify the boundary conditions when checking adjacent plots. So, f contains the original flowerbed with additional 0s at both ends.
+3. The loop then iterates through the f list from index 1 to the length of the original flowerbed plus 1.
+4. This loop allows us to consider each plot in the flowerbed, including the additional 0s at the boundaries.
+5. Inside the loop, it checks if the current plot and its adjacent plots (previous and next) are all empty.
+6. In other words, it checks if f[i-1], f[i], and f[i+1] are all equal to 0.
+7. If all three conditions are met, it means that the current plot can be used to plant a new flower without violating the adjacent plot constraints.
+8. So, it sets f[i] to 1 (indicating a planted flower) and decrements n by 1 (since one flower has been planted).
+9. After planting a flower, it checks if n has become less than or equal to 0.
+10. If n is less than or equal to 0, it returns True because it means that all required flowers have been planted.
+11. If the loop completes without planting all the required flowers (i.e., n is still greater than 0), the method returns False because it's not possible to plant all n flowers without violating the adjacent plot constraints.
+
+```python
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        #Approach 2 
+        f = [0] + flowerbed + [0]
+        #Skipping the first & last element of the array since we added it
+        for i in range(1,len(flowerbed)+1):
+            if f[i-1] == 0 and f[i] == 0 and f[i+1]==0:
+                f[i] = 1
+                n -= 1
+            if n <= 0: return True
+        return False
+```
+
+_____________________________________________________________________________________________________________________________________________
+
+
+
+
 
 
 
