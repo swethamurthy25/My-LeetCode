@@ -21,6 +21,14 @@ ________________________________________________________________________________
 5. Decrement the n count as we do the planting and if n reaches 0 we are end of the process and return True
 6. Else return False
 
+##### Left Plot:
+* The current plot is the first plot in the flowerbed (i.e., i == 0), indicating that there is no plot to the left.
+* The plot to the left of the current plot is empty (i.e., flowerbed[i-1] == 0).
+
+##### Right Plot:
+* The current plot is the last plot in the flowerbed (i.e., i == len(flowerbed) - 1), indicating that there is no plot to the right.
+* The plot to the right of the current plot is empty (i.e., flowerbed[i+1] == 0).
+  
 TC is O(n) as we are iterating through all the elements
 
 SC is O(1) as we are not using any extra space or memory.
