@@ -10,13 +10,13 @@ Output: true
 Input: flowerbed = [1,0,0,0,1], n = 2
 
 Output: false
-_____________________________________________________________________________________________________________________________________________________
+_______________________________________________________________________________________________________________________________________
 
 #### Approach 1:
 
 1. We can traverse over all the elements of the flowerbed and find out those elements which are 0(implying an empty position).
 2. For every such element, we check if both adjacent positions are also empty.
-3. If so, we can plant a flower at the current position without violating the no-adjacent-flowers rule.
+3. If so, we can plant a flower at its current position without violating the no-adjacent-flowers rule.
 4. Edge case - For the first and last elements, we need not check the previous and the next adjacent positions respectively.
 5. Decrement the n count as we do the planting and if n reaches 0 we are end of the process and return True
 6. Else return False
@@ -25,7 +25,7 @@ TC is O(n) as we are iterating through all the elements
 
 SC is O(1) as we are not using any extra space or memory.
 
-```
+```python
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         #Approach 1 - TC is O(n) and SC is O(1)
