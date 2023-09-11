@@ -1,3 +1,5 @@
+## 151. Reverse words in a string:
+
 Given an input string s, reverse the order of the words.
 
 A word is defined as a sequence of non-space characters. The words in s will be separated by at least one space. Return a string of the words in reverse order concatenated 
@@ -80,3 +82,46 @@ class Solution:
 ___________________________________________________________________________________________________________________________________________________
 
 
+## 186. Reverse words in a string II:
+
+Given a character array s, reverse the order of the words.
+
+A word is defined as a sequence of non-space characters. The words in s will be separated by a single space. Your code must solve the problem in place, i.e. without allocating extra space.
+
+Input: s = ["t","h","e"," ","s","k","y"," ","i","s"," ","b","l","u","e"]
+
+Output: ["b","l","u","e"," ","i","s"," ","s","k","y"," ","t","h","e"]
+
+All the words in s are guaranteed to be separated by a single space.
+______________________________________________________________________________________________________________________________________________________
+
+### Now what is the diff between the two problems - Reverse the words in strings 1 & 2:
+
+* In prob 1, the input is given in the form of string " ", but here in prob 2, the input is given as an array of characters.
+* In both the prob, we need to reverse the words and return as output but in prob 2 we need to do it in place
+
+__________________________________________________________________________________________________________________________________________________________
+
+### Optimized approach using two pointers:
+
+Use a two-pointer approach to swap the characters.
+
+```python
+class Solution:
+    def reverseWords(self, s: List[str]) -> None:
+        i = 0
+        j = len(s)-1
+        while i <= j:
+            s[i],s[j] = s[j],s[i]
+            i += 1
+            j -= 1
+        return s
+```
+
+But we did not get the desired output here :
+
+INput: s = [t","h","e"," ","s","k","y"," ","i","s"," ","b","l","u","e
+
+The output we got: ["e","u","l","b"," ","s","i"," ","y","k","s"," ","e","h","t"]
+
+Expected: ["b","l","u","e"," ","i","s"," ","s","k","y"," ","t","h","e"]
