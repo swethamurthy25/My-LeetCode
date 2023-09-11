@@ -56,3 +56,27 @@ class Solution:
         s = reversed(s)        
         return " ".join(s)
 ```
+____________________________________________________________________________________________________________________________________________
+
+### Optimized solution using two two-pointer approach:
+
+If we are implementing the code in Java or Python, it has a property of immutable strings. In the case of immutable strings, we first need to convert the string into
+the mutable data structure, and hence it makes sense to trim all spaces during that conversion.
+
+```python
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        #Using two pointer approach
+        s = s.split()
+        print(s)
+        i = 0
+        j = len(s)-1
+        while i <= j:
+            s[i],s[j] = s[j],s[i]
+            i += 1
+            j -= 1
+        return " ".join(s)
+```
+___________________________________________________________________________________________________________________________________________________
+
+
