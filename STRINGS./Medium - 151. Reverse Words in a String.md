@@ -58,7 +58,7 @@ class Solution:
 ```
 ____________________________________________________________________________________________________________________________________________
 
-### Optimized solution using two two-pointer approach:
+### Optimized solution using two-pointer approach:
 
 If we are implementing the code in Java or Python, it has a property of immutable strings. In the case of immutable strings, we first need to convert the string into
 the mutable data structure, and hence it makes sense to trim all spaces during that conversion.
