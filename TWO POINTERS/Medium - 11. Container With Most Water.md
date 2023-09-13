@@ -75,9 +75,14 @@ TC is O(N) as we are iterating only once by using two pointers and SC is O(1)
 7. `curr_area = width * hght`: Calculate the current area of the container by multiplying the width and height.
 8. `maxArea = max(maxArea, curr_area)`: Update the `maxArea` with the maximum of its current value and the `curr_area`. This step ensures that `maxArea` always stores the 
     the maximum area found so far.
+9. `if height[left] < height[right]:`: Check if the height of the `left` bar is less than the height of the `right` bar. If so, it means that moving the `left` pointer          towards the right might result in a larger container because it would increase the width while maintaining the height. Therefore, increment the `left` pointer (`left       += 1`).
+10. `else:`: If the height of the `right` bar is less than or equal to the height of the `left` bar, it means that moving the `right` pointer towards the left might result      in a larger container. Therefore, decrement the `right` pointer (`right -= 1`).
+11. Repeat steps 4 to 9 in the `while` loop until the `left` pointer is no longer less than the `right` pointer.
+12. After the `while` loop has finished, the method returns `maxArea`, which represents the maximum area of a container that can be formed by the given set of bars.
+
 
 ```python
-lass Solution:
+class Solution:
     def maxArea(self, height: List[int]) -> int:
         #Two Pointer approach
         maxArea = 0
@@ -95,16 +100,6 @@ lass Solution:
                 right -= 1
         return maxArea
 ```
-______________________________________________________________________________________________________________________________________________
-
-9. `if height[left] < height[right]:`: Check if the height of the `left` bar is less than the height of the `right` bar. If so, it means that moving the `left` pointer towards the right might result in a larger container because it would increase the width while maintaining the height. Therefore, increment the `left` pointer (`left += 1`).
-
-10. `else:`: If the height of the `right` bar is less than or equal to the height of the `left` bar, it means that moving the `right` pointer towards the left might result in a larger container. Therefore, decrement the `right` pointer (`right -= 1`).
-
-11. Repeat steps 4 to 9 in the `while` loop until the `left` pointer is no longer less than the `right` pointer.
-
-12. After the `while` loop has finished, the method returns `maxArea`, which represents the maximum area of a container that can be formed by the given set of bars.
-
-This code efficiently solves the problem of finding the maximum area of a container formed by the bars using a two-pointer approach with a time complexity of O(n), where n is the number of bars.
+___________________________________________________________________________________________________________________________________________________________
 
 
