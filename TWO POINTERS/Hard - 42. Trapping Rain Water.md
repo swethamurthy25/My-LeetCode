@@ -99,3 +99,49 @@ class Solution:
 <img width="482" alt="image" src="https://github.com/swethamurthy25/My-LeetCode/assets/112581595/9e8d69b1-5bbf-40ee-b97c-469daf90cc49">
 
 _____________________________________________________________________________________________________________________________________
+
+### Optimized approach using Two pointers:
+
+TC is O(n) and SC is O(n)
+
+1. `result = 0`: Initialize a variable `result` to store the total trapped water, initially set to 0.
+2. `left, right = 0, len(height) - 1`: Initialize two pointers, `left` and `right`, to the first and last bars in the `height` list. These pointers will be used to
+    form a container and calculate the trapped water. `leftMax` and `rightMax` are initialized with the heights of these bars.
+4. Enter a `while` loop that continues as long as `left` is less than `right`. This loop iteratively adjusts the pointers to calculate trapped water efficiently.
+5. Inside the loop, there's a conditional statement that compares `leftMax` and `rightMax`:
+   - If `leftMax` is less than `rightMax`, it means the height of the left wall (at the `left` pointer) is smaller than the right wall (at the `right` pointer). In this case:
+     - Increment `left` by 1 to move the left pointer to the right.
+     - Update `leftMax` to the maximum of its current value and the height of the new bar at the `left` pointer.
+     - Calculate the difference between `leftMax` and the height of the current bar at the `left` pointer, and add it to `result`. This represents the trapped water at    
+       this point.
+   - If `rightMax` is greater than or equal to `leftMax`, it means the height of the right wall (at the `right` pointer) is smaller than or equal to the left wall. In this
+case:
+     - Decrement `right` by 1 to move the right pointer to the left.
+     - Update `rightMax` to the maximum of its current value and the height of the new bar at the `right` pointer.
+     - Calculate the difference between `rightMax` and the height of the current bar at the `right` pointer, and add it to `result`. This represents the trapped water at 
+       this point.
+6. The loop continues to adjust the pointers and calculate trapped water until `left` is no longer less than `right`.
+7. Finally, the method returns `result`, which represents the total amount of trapped rainwater between the bars.
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        #Optimized approach using Two Pointer
+        result = 0
+        left, right = 0, len(height)-1
+        leftMax , rightMax = height[left], height[right]
+        
+        while left < right:
+            if leftMax < rightMax:
+                left += 1
+                leftMax = max(leftMax,height[left])
+                result += leftMax - height[left]
+                print(result)
+            else:
+                right -= 1
+                rightMax = max(rightMax,height[right])
+                result += rightMax - height[right]
+                print(result)
+
+        return result
+```
