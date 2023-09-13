@@ -64,16 +64,16 @@ the lower-valued pointer inward. Once the two pointers meet, we know that we mus
 TC is O(N) as we are iterating only once by using two pointers and SC is O(1)
 
 1. `maxArea = 0`: Initialize a variable `maxArea` to store the maximum area of the container. This is initially set to 0.
-2. `left, right = 0, len(height)-1`: Initialize two pointers, `left` and `right`, to the first and last bars in the `height` list. These pointers will be used to form     
-    containers by considering bars between them.
-3. `while left < right:`: Enter a `while` loop that continues as long as the `left` pointer is less than the `right` pointer. This loop will iterate through the bars from 
+2. `left, right = 0, len(height)-1`: Initialize two pointers, `left` and `right`, to the first and last bars in the `height` list. These pointers will be used to
+   form containers by considering bars between them.
+4. `while left < right:`: Enter a `while` loop that continues as long as the `left` pointer is less than the `right` pointer. This loop will iterate through the bars from 
     both ends towards the center.
-4. `width = (right-left)`: Calculate the width of the container by subtracting the index of the `left` bar from the index of the `right` bar. This width represents the 
+5. `width = (right-left)`: Calculate the width of the container by subtracting the index of the `left` bar from the index of the `right` bar. This width represents the 
     distance between the two pointers.
-5. `hght = min(height[left], height[right])`: Calculate the height of the container by taking the minimum of the heights of the `left` and `right` bars. The minimum height 
+6. `hght = min(height[left], height[right])`: Calculate the height of the container by taking the minimum of the heights of the `left` and `right` bars. The minimum height 
     determines how tall the container can be.
-6. `curr_area = width * hght`: Calculate the current area of the container by multiplying the width and height.
-7. `maxArea = max(maxArea, curr_area)`: Update the `maxArea` with the maximum of its current value and the `curr_area`. This step ensures that `maxArea` always stores the 
+7. `curr_area = width * hght`: Calculate the current area of the container by multiplying the width and height.
+8. `maxArea = max(maxArea, curr_area)`: Update the `maxArea` with the maximum of its current value and the `curr_area`. This step ensures that `maxArea` always stores the 
     the maximum area found so far.
 
 ```python
