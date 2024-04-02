@@ -20,9 +20,9 @@ ________________________________________________________________________________
 
 What did we understand from the question?
 
-* We are given two strings s and t, which are the same length [Edge case]
-* We need to map and compare each character of s to t. One character of t should map with only one character of s.
-* The order of mapping should not be changed.
+1. We are given two strings s and t, which are the same length [Edge case]
+2. We need to map and compare each character of s to t. One character of t should map with only one character of s.
+3. The order of mapping should not be changed.
 
 For example:
 
