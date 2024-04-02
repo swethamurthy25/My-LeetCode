@@ -15,16 +15,14 @@ Output: true
 Constraints:
 1 <= s.length <= 5 * 104
 t.length == s.length
-s and t consist of any valid ascii character.
+s and t consist of any valid ASCII character.
 _____________________________________________________________________________________________
 
-What did we understand from question?
+What did we understand from the question?
 
-We are given two strings s and t, they are of the same length (edge case)
-
-We need to map and compare each character of s to t. One character of t should map with only one char of s.
-
-The order of mapping should not be changed.
+* We are given two strings s and t, which are the same length [Edge case]
+* We need to map and compare each character of s to t. One character of t should map with only one character of s.
+* The order of mapping should not be changed.
 
 For example:
 
@@ -36,7 +34,7 @@ o --> a
 
 o --> r (here o is already mapped to a, it cannot be remapped to r again)
 
-So return False
+So return False.
 _________________________________________________________________________________________
 
 Using Hashmap/Dictionary:
