@@ -39,26 +39,25 @@ ________________________________________________________________________________
 
 Using Hashmap/Dictionary:
 
-Edge case: if len(s) != len(t):: 
-This condition checks if the lengths of strings s and t are not equal. If they have different lengths, they cannot be isomorphic, so the method immediately returns False
+1. Edge case: if len(s) != len(t):: 
+2. This condition checks if strings s and t lengths are unequal. If they have different lengths, they cannot be isomorphic, so the method immediately returns False
 
-s_map, t_map = {}, {}: Two dictionaries (s_map and t_map) are used to map characters from one string to the other.
+3. s_map, t_map = {}, {}: Two dictionaries (s_map and t_map) are used to map characters from one string to the other.
 
-for i in range(len(s)):
+4. for i in range(len(s)):
 This loop iterates through each index i from 0 to len(s) - 1.
 
-s_ch = s[i] and t_ch = t[i] assign the characters at index I of strings s and t to variables s_ch and t_ch, respectively.
+5. s_ch = s[i] and t_ch = t[i] assign the characters at index I of strings s and t to variables s_ch and t_ch, respectively.
 
-The following three conditions are used to check if the mapping between characters is consistent:
+6. The following three conditions are used to check if the mapping between characters is consistent:
 
- -- if s_ch is not in s_map:: If the character from string s is not in the s_map dictionary, it's added as a key with a value of the corresponding character from string t.
+7. if s_ch is not in s_map:: If the character from string s is not in the s_map dictionary, it's added as a key with a value of the corresponding character from string t.
  
- -- if t_ch is not in t_map:: If the character from string t is not in the t_map dictionary, it's added as a key with a value of the corresponding character from string s.
+8. if t_ch is not in t_map:: If the character from string t is not in the t_map dictionary, it's added as a key with a value of the corresponding character from string s.
  
--- if t_map[t_ch] != s_ch or s_map[s_ch] != t_ch:: This condition checks if the mapping between characters is consistent in both directions. If there's any inconsistency, 
-    the method returns False.
+9. if t_map[t_ch] != s_ch or s_map[s_ch] != t_ch:: This condition checks if the mapping between characters is consistent in both directions. If there's any inconsistency, the method returns False.
 
-If all characters are successfully mapped in a consistent manner, the method returns True, indicating that the strings are isomorphic.
+10. If all characters are successfully mapped consistently, the method returns True, indicating that the strings are isomorphic.
 
 ```python
 class Solution(object):
@@ -77,8 +76,8 @@ class Solution(object):
             s_ch = s[i]
             t_ch = t[i]
 
-        #If the char not in dict , add it to the dict 
-        #If the char already exist, check whether the mapping holds true
+        #If the char is not in dict, add it to the dict 
+        #If the char already exists, check whether the mapping holds true
             if s_ch not in s_map:
                 s_map[s_ch] = t_ch
             if t_ch not in t_map:
@@ -97,7 +96,7 @@ checking if the current character already exists as a key in a dictionary and ad
 key-value pair to the appropriate dictionary.
 
 Space complexity: O(n)
-We use two dictionaries, s_map and t_map, to store the mappings of the characters in s and t. 
+We use two dictionaries, s_map, and t_map, to store the mappings of the characters in s and t. 
 Each dictionary can store at most n key-value pairs, where n is the length of the input strings. 
 Since we are using two dictionaries, the space complexity is O(2n) = O(n)
 
