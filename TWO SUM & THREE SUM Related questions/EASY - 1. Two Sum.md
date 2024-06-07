@@ -19,9 +19,9 @@ Output: target = 9
 
 1. Run two loops and check for every combination in the given array.
 2. Fix the outer loop at a specific index and move the inner loop to get all the possible pairs.
-3. If nums[outerLoopIndex] + nums[innerLoopIndex] is equal to target, return {outerLoopIndex, innerLoopIndex}  as result.
+3. If nums[i] + nums[j] == target, then return those indices [i,j] as the result.
 4. Else continue iteration to check for the next pair.
-5. Repeat the above steps until you find a combination that adds up to the given target.
+5. Repeat the above steps until you find a combination matching the target.
 
 ```python
 Class Solution:
@@ -29,7 +29,7 @@ Class Solution:
         # Brute Force Method
         for i in range(len(nums)):
             for j in range(i+1 , len(nums)):
-                if nums[j] == target – nums[i]:
+                if nums[i] + nums[j] == target:
                     return [i, j]
 ```
 
@@ -45,7 +45,7 @@ DATA STRUCTURE USED: HASHTABLE
 
 #### Approach 2: One-pass Hash Table: 
 
-1. While we are iterating and inserting elements into the hash table, we also look back to check if the current element's complement already exists in the hash table. 
+1. While iterating and inserting elements into the hash table, we also look back to check if the current element's complement already exists in the hash table. 
 2. If it exists, we have found a solution and return the indices immediately.
 
  Time - O(n) and 
@@ -92,14 +92,13 @@ to reach the target sum that is already in the hashmap, it returns the indices o
 ```python
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        #Using a two-pass hash table
-        hashmap = {}
+        dict = {}
         for i in range(len(nums)):
             result = target - nums[i]
-            if result not in hashmap:
-                hashmap[nums[i]] = i
+            if result not in dict:
+                dict[nums[i]] = i
             else:
-                return [i, hashmap[result]]
+                return [i, dict[result]]
 ```
             
 ***************************************************************************
